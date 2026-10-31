@@ -1,0 +1,90 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/marketing-para-pequenas-empresas/?",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/services/?",
+      "destination": "/#servicios",
+      "permanent": true
+    },
+    {
+      "source": "/servicios/?",
+      "destination": "/#servicios",
+      "permanent": true
+    },
+    {
+      "source": "/marketing-digital/?",
+      "destination": "/#servicios",
+      "permanent": true
+    },
+    {
+      "source": "/marketing-como-servicio/?",
+      "destination": "/#servicios",
+      "permanent": true
+    },
+    {
+      "source": "/portafolio/?",
+      "destination": "/#portafolio",
+      "permanent": true
+    },
+    {
+      "source": "/portafolio-2/?",
+      "destination": "/#portafolio",
+      "permanent": true
+    },
+    {
+      "source": "/about/?",
+      "destination": "/#sobre-mi",
+      "permanent": true
+    },
+    {
+      "source": "/profile/?",
+      "destination": "/#sobre-mi",
+      "permanent": true
+    },
+    {
+      "source": "/consultor-ti-2/?",
+      "destination": "/#sobre-mi",
+      "permanent": true
+    },
+    {
+      "source": "/contacto/?",
+      "destination": "/#contacto",
+      "permanent": true
+    },
+    {
+      "source": "/noticias-ti-ciberseguridad-marketing-ventas-servicios/?",
+      "destination": "/",
+      "permanent": true
+    }
+  ]
+}
+
