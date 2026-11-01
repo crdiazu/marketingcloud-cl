@@ -32,52 +32,57 @@
     },
     {
       "source": "/services/?",
-      "destination": "/#servicios",
+      "destination": "/servicios",
       "permanent": true
     },
     {
       "source": "/servicios/?",
-      "destination": "/#servicios",
+      "destination": "/servicios",
       "permanent": true
     },
     {
       "source": "/marketing-digital/?",
-      "destination": "/#servicios",
+      "destination": "/servicios",
       "permanent": true
     },
     {
       "source": "/marketing-como-servicio/?",
-      "destination": "/#servicios",
+      "destination": "/servicios",
       "permanent": true
     },
     {
       "source": "/portafolio/?",
-      "destination": "/#portafolio",
+      "destination": "/portafolio",
       "permanent": true
     },
     {
       "source": "/portafolio-2/?",
-      "destination": "/#portafolio",
+      "destination": "/portafolio",
       "permanent": true
     },
     {
       "source": "/about/?",
-      "destination": "/#sobre-mi",
+      "destination": "/sobre-mi",
       "permanent": true
     },
     {
       "source": "/profile/?",
-      "destination": "/#sobre-mi",
+      "destination": "/sobre-mi",
       "permanent": true
     },
     {
       "source": "/consultor-ti-2/?",
-      "destination": "/#sobre-mi",
+      "destination": "/tecnovoa",
+      "permanent": true
+    },
+    {
+      "source": "/facts/?",
+      "destination": "/tecnovoa",
       "permanent": true
     },
     {
       "source": "/contacto/?",
-      "destination": "/#contacto",
+      "destination": "/contacto",
       "permanent": true
     },
     {
@@ -87,4 +92,3 @@
     }
   ]
 }
-
