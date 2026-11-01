@@ -1153,4 +1153,20 @@
     }
   }, { passive: true });
 
+
+  // ==========================================================================
+  // 12. CABECERA STICKY AL BAJAR (SE MANTIENE CON TODOS LOS MENÚS)
+  // ==========================================================================
+  var mainNav = document.querySelector('nav.main-nav');
+  window.addEventListener('scroll', function() {
+    var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    if (mainNav) {
+      if (scrollY > 30) {
+        mainNav.classList.add('is-scrolled');
+      } else {
+        mainNav.classList.remove('is-scrolled');
+      }
+    }
+  }, { passive: true });
+
 })();
