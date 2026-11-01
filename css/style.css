@@ -199,7 +199,7 @@ img {
 /* ==========================================================================
    NAVIGATION
    ========================================================================== */
-nav {
+nav.main-nav {
   position: fixed;
   top: 35px;
   left: 0;
@@ -1022,6 +1022,13 @@ footer {
   display: flex;
   align-items: center;
   pointer-events: auto;
+  background: transparent !important;
+  border: none !important;
+  width: auto !important;
+  right: auto !important;
+  padding: 0 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .scroll-rail-line {

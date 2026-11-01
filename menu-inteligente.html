@@ -222,7 +222,7 @@ img {
 /* ==========================================================================
    NAVIGATION
    ========================================================================== */
-nav {
+nav.main-nav {
   position: fixed;
   top: 35px;
   left: 0;
@@ -1045,6 +1045,13 @@ footer {
   display: flex;
   align-items: center;
   pointer-events: auto;
+  background: transparent !important;
+  border: none !important;
+  width: auto !important;
+  right: auto !important;
+  padding: 0 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .scroll-rail-line {
@@ -1149,7 +1156,7 @@ footer {
   <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
 
   <!-- MENÚ LATERAL IZQUIERDO QUE SE ARMA AL BAJAR (SCROLL-SPY RAIL) -->
-  <nav class="scroll-rail" id="scroll-rail" aria-label="Navegación de progreso en la página">
+  <aside class="scroll-rail" id="scroll-rail" aria-label="Navegación de progreso en la página">
     <div class="scroll-rail-line">
       <div class="scroll-rail-fill" id="scroll-rail-fill"></div>
     </div>
@@ -1185,7 +1192,7 @@ footer {
         </a>
       </li>
     </ul>
-  </nav>
+  </aside>
 
   <!-- BARRA DE ESTUDIO CON RELOJ, DÓLAR, UF Y SELECTOR DE GRAVEDAD/LÍQUIDOS -->
   <aside class="studio-bar" aria-label="Información de mercado y controles de física">
@@ -1227,7 +1234,7 @@ footer {
   </aside>
 
   <!-- NAVEGACIÓN PRINCIPAL -->
-  <nav>
+  <nav class="main-nav">
     <div class="logo">
       <a href="index.html">Marketing<span>Cloud</span></a>
     </div>
