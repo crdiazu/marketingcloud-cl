@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Sobre Cristian Díaz | Consultor Senior MarketingCloud</title>
+  <title>Sobre Cristian Díaz | Consultor Senior MarketingCloud Chile</title>
   <meta name="description" content="Perfil profesional de Cristian Díaz: Consultor Senior con más de 12 años en Marketing Digital, BDM, KAM, Consultoría TI y Ciberseguridad en Chile.">
   <link rel="canonical" href="https://marketingcloud.cl/sobre-mi">
   <meta name="robots" content="index, follow">
@@ -20,1138 +20,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="css/style.css">
-  <style>
-/* ==========================================================================
-   MARKETINGCLOUD CHILE · DESIGN SYSTEM (Layers of Time + Impeccable)
-   Direction: The Cosmic Show Board & High-Contrast Chroma
-   ========================================================================== */
-
-:root {
-  /* Colors */
-  --bg: #07080A;
-  --bg-alt: #0D0E12;
-  --surface: #12141A;
-  --surface-hover: #181B24;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-focus: rgba(255, 255, 255, 0.22);
-  
-  --text: #F3F4F6;
-  --text-muted: #9496A1;
-  --text-dim: #5C6070;
-  
-  --accent: #F59E0B;
-  --accent-hover: #D97706;
-  --accent-subtle: rgba(245, 158, 11, 0.12);
-  
-  --cyan: #38BDF8;
-  --cyan-subtle: rgba(56, 189, 248, 0.12);
-  
-  --emerald: #10B981;
-  --emerald-subtle: rgba(16, 185, 129, 0.12);
-  
-  --purple: #A78BFA;
-  --purple-subtle: rgba(167, 139, 250, 0.12);
-
-  /* Typography */
-  --font-display: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-body: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
-
-  --step-small: clamp(0.8125rem, 0.8rem + 0.1vw, 0.875rem);
-  --step-body: clamp(0.95rem, 0.92rem + 0.2vw, 1.05rem);
-  --step-lead: clamp(1.15rem, 1.05rem + 0.5vw, 1.35rem);
-  --step-title: clamp(1.5rem, 1.3rem + 1.2vw, 2.2rem);
-  --step-head: clamp(2.4rem, 2rem + 3.2vw, 4.4rem);
-  --step-giant: clamp(2.8rem, 2.2rem + 5vw, 6.2rem);
-
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-full: 9999px;
-  
-  --gap: 16px;
-}
-
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  color-scheme: dark;
-}
-
-body {
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  font-size: var(--step-body);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  position: relative;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-.wrap {
-  max-width: 1260px;
-  margin: 0 auto;
-  padding: 0 24px;
-  position: relative;
-  z-index: 2;
-}
-
-/* ==========================================================================
-   COSMIC CLOUD CANVAS & RETICLE CURSOR (Layers of Time Effect)
-   ========================================================================== */
-#nebula-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 1;
-  
-}
-
-.grid-bg {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 56px 56px;
-}
-
-/* Cursor Core & Reticle (High Contrast, ZERO Text Blur) */
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 7px;
-  height: 7px;
-  background-color: var(--accent);
-  box-shadow: 0 0 10px var(--accent), 0 0 20px rgba(245, 158, 11, 0.6);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 10000;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
-}
-
-.cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 36px;
-  height: 36px;
-  border: 1.5px solid rgba(245, 158, 11, 0.55);
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  /* NO blur filter on cursor so text is ALWAYS sharp */
-  transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.2s ease,
-              background-color 0.2s ease,
-              transform 0.1s ease;
-}
-
-/* High contrast active state when hovering links or text */
-.cursor-ring.active {
-  width: 58px;
-  height: 58px;
-  border-color: #FFFFFF;
-  border-width: 2px;
-  box-shadow: 0 0 18px rgba(255, 255, 255, 0.4), 0 0 30px rgba(56, 189, 248, 0.3);
-  background: rgba(255, 255, 255, 0.06);
-}
-
-/* ==========================================================================
-   STUDIO TOP BAR
-   ========================================================================== */
-.studio-bar {
-  background: rgba(7, 8, 10, 0.95);
-  border-bottom: 1px solid var(--border);
-  padding: 8px 24px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-dim);
-  letter-spacing: 0.06em;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 101;
-}
-
-.studio-bar-inner {
-  max-width: 1260px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.timecode-live {
-  color: #FFFFFF;
-  font-variant-numeric: tabular-nums;
-  font-weight: 600;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 2px 8px;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* ==========================================================================
-   NAVIGATION
-   ========================================================================== */
-nav.main-nav {
-  position: fixed;
-  top: 35px;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 28px;
-  background: rgba(7, 8, 10, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-}
-
-.logo {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.25rem;
-  letter-spacing: -0.02em;
-}
-
-.logo a {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-}
-
-.logo span {
-  color: var(--accent);
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--text-muted);
-}
-
-.nav-links a {
-  transition: color 0.2s ease;
-  padding: 4px 0;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  color: #FFFFFF;
-}
-
-.nav-cta {
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  font-weight: 500;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 8px 16px;
-  border-radius: var(--radius-full);
-  color: var(--text);
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.nav-cta .pulse-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: var(--emerald);
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
-}
-
-.nav-cta:hover {
-  background: var(--surface-hover);
-  border-color: var(--border-focus);
-  color: #FFFFFF;
-}
-
-@media (max-width: 960px) {
-  .nav-links {
-    display: none;
-  }
-}
-
-/* ==========================================================================
-   BUTTONS
-   ========================================================================== */
-.btn-primary {
-  background: #FFFFFF;
-  color: #07080A;
-  font-family: var(--font-display);
-  font-size: 0.92rem;
-  font-weight: 700;
-  padding: 14px 26px;
-  border-radius: var(--radius-sm);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all 0.2s ease;
-  border: none;
-}
-
-.btn-primary:hover {
-  background: var(--accent);
-  color: #07080A;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
-}
-
-.btn-secondary {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  font-family: var(--font-display);
-  font-size: 0.92rem;
-  font-weight: 600;
-  padding: 14px 26px;
-  border-radius: var(--radius-sm);
-  color: var(--text);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all 0.2s ease;
-}
-
-.btn-secondary:hover {
-  background: var(--surface-hover);
-  border-color: var(--border-focus);
-  color: #FFFFFF;
-  transform: translateY(-2px);
-}
-
-.btn-accent {
-  background: var(--accent);
-  color: #07080A;
-  font-family: var(--font-display);
-  font-size: 0.92rem;
-  font-weight: 700;
-  padding: 14px 26px;
-  border-radius: var(--radius-sm);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all 0.2s ease;
-}
-
-.btn-accent:hover {
-  background: #FFFFFF;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
-}
-
-/* ==========================================================================
-   ANIMATIONS & KEYFRAMES (Layers of Time Studio)
-   ========================================================================== */
-@keyframes chromaticShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes pulseNeon {
-  0%, 100% { opacity: 0.8; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.08); filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.8)); }
-}
-
-/* ==========================================================================
-   CHROMATIC GRADIENT HEADLINES (Layers of Time Giant Typography)
-   ========================================================================== */
-.chroma-title {
-  font-family: var(--font-display);
-  font-size: var(--step-giant);
-  font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
-  background: linear-gradient(90deg, #FFFFFF 0%, #F59E0B 25%, #38BDF8 55%, #A78BFA 80%, #FFFFFF 100%);
-  background-size: 250% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: chromaticShift 7s linear infinite;
-  display: inline-block;
-  margin-bottom: 24px;
-}
-
-.hero-statement {
-  font-family: var(--font-display);
-  font-size: var(--step-head);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: #FFFFFF;
-  margin-bottom: 20px;
-}
-
-.hero-statement .gradient-text {
-  background: linear-gradient(90deg, #F59E0B 0%, #38BDF8 35%, #A78BFA 70%, #F59E0B 100%);
-  background-size: 250% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: chromaticShift 6s linear infinite;
-}
-
-/* ==========================================================================
-   THE BOARD & 4 SERVICES CARDS
-   ========================================================================== */
-.board {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: var(--gap);
-  margin: var(--gap) 0;
-}
-
-.col-12 { grid-column: span 12; }
-.col-8  { grid-column: span 8; }
-.col-6  { grid-column: span 6; }
-.col-4  { grid-column: span 4; }
-.col-3  { grid-column: span 3; }
-
-@media (max-width: 980px) {
-  .col-8, .col-6, .col-4, .col-3 {
-    grid-column: span 12;
-  }
-}
-
-.tile {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.25s ease,
-              background-color 0.25s ease,
-              box-shadow 0.25s ease;
-  overflow: hidden;
-}
-
-.tile:hover {
-  border-color: var(--border-focus);
-  background: var(--surface-hover);
-  transform: translateY(-3px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
-}
-
-/* 4 Main Services Card Styling - Texto 100% Nítido y de Alto Contraste */
-.service-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.25s ease,
-              box-shadow 0.25s ease,
-              background-color 0.25s ease;
-  position: relative;
-}
-
-.service-card:hover {
-  border-color: rgba(255, 255, 255, 0.35);
-  background: #151821;
-  transform: translateY(-4px);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 255, 255, 0.05);
-}
-
-.service-card::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-.service-card-1:hover::after { background: var(--accent); opacity: 1; }
-.service-card-2:hover::after { background: var(--cyan); opacity: 1; }
-.service-card-3:hover::after { background: var(--purple); opacity: 1; }
-.service-card-4:hover::after { background: var(--emerald); opacity: 1; }
-
-.service-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  margin-bottom: 20px;
-  border: 1px solid var(--border);
-}
-
-.chip {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
-  padding: 4px 10px;
-  border-radius: var(--radius-sm);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  width: fit-content;
-  margin-bottom: 16px;
-}
-
-.chip-neutral {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-muted);
-  border: 1px solid var(--border);
-}
-
-.chip-accent {
-  background: var(--accent-subtle);
-  color: var(--accent);
-  border: 1px solid rgba(245, 158, 11, 0.3);
-}
-
-.chip-cyan {
-  background: var(--cyan-subtle);
-  color: var(--cyan);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-}
-
-.chip-purple {
-  background: var(--purple-subtle);
-  color: var(--purple);
-  border: 1px solid rgba(167, 139, 250, 0.3);
-}
-
-.chip-emerald {
-  background: var(--emerald-subtle);
-  color: var(--emerald);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-}
-
-.service-title {
-  font-family: var(--font-display);
-  font-size: 1.45rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: #FFFFFF;
-  margin-bottom: 12px;
-}
-
-.service-desc {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-  margin-bottom: 22px;
-}
-
-.service-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 24px;
-  border-top: 1px solid var(--border);
-  padding-top: 16px;
-}
-
-.service-list li {
-  font-size: 0.88rem;
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.service-list li span.dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-/* ==========================================================================
-   GIANT CHROMATIC PROJECT SHOWCASE (Layers of Time Style)
-   ========================================================================== */
-.projects-section {
-  margin-top: 80px;
-  padding-top: 60px;
-  border-top: 1px solid var(--border);
-}
-
-.project-giant-item {
-  border-bottom: 1px solid var(--border);
-  padding: 36px 0;
-  display: grid;
-  grid-template-columns: 220px 1fr 240px;
-  gap: 28px;
-  align-items: center;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 0.3s ease,
-              padding 0.3s ease;
-  position: relative;
-}
-
-.project-giant-item:hover {
-  background: rgba(255, 255, 255, 0.015);
-  padding-left: 16px;
-}
-
-.project-number {
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  color: var(--accent);
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
-  display: block;
-}
-
-.project-giant-name {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 5vw, 4.4rem);
-  font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.035em;
-  background: linear-gradient(90deg, #FFFFFF 0%, #E2E8F0 40%, #94A3B8 70%, #FFFFFF 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  display: inline-block;
-}
-
-.project-giant-item:hover .project-giant-name {
-  background: linear-gradient(90deg, #FFFFFF 0%, #F59E0B 25%, #38BDF8 55%, #A78BFA 80%, #F59E0B 100%);
-  background-size: 250% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: chromaticShift 3.5s linear infinite;
-  transform: translateX(12px) scale(1.02);
-  filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.35));
-}
-
-.project-desc {
-  font-size: 1rem;
-  color: var(--text-muted);
-  line-height: 1.55;
-  margin-top: 10px;
-  max-width: 650px;
-}
-
-.project-meta-box {
-  background: var(--bg-alt);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.project-stat-num {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 800;
-  color: #FFFFFF;
-  line-height: 1;
-}
-
-.project-link-btn {
-  font-family: var(--font-display);
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--accent);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: transform 0.2s ease;
-}
-
-.project-link-btn:hover {
-  transform: translateX(4px);
-  color: #FFFFFF;
-}
-
-@media (max-width: 860px) {
-  .project-giant-item {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-}
-
-/* ==========================================================================
-   FOOTER
-   ========================================================================== */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 60px 24px 36px;
-  background: #050608;
-  margin-top: 80px;
-  position: relative;
-  z-index: 2;
-}
-
-.footer-inner {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr 1fr;
-  gap: 40px;
-  max-width: 1260px;
-  margin: 0 auto;
-}
-
-.footer-col h5 {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 14px;
-  color: #FFFFFF;
-}
-
-.footer-col p,
-.footer-col a {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  line-height: 1.8;
-  display: block;
-}
-
-.footer-col a:hover {
-  color: #FFFFFF;
-}
-
-.foot-bottom {
-  max-width: 1260px;
-  margin: 40px auto 0;
-  padding-top: 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--text-dim);
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-@media (max-width: 768px) {
-  .footer-inner {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-}
-
-
-/* Project Stock Photography Thumbnail */
-.project-thumb {
-  width: 100%;
-  height: 145px;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  border: 1px solid var(--border);
-  position: relative;
-  background: var(--surface);
-}
-
-.project-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease, filter 0.4s ease;
-  filter: brightness(0.9) contrast(1.05);
-}
-
-.project-giant-item:hover .project-thumb img {
-  transform: scale(1.06);
-  filter: brightness(1.05) contrast(1.1);
-}
-
-@media (max-width: 980px) {
-  .project-giant-item {
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
-  }
-  .project-thumb {
-    height: 200px;
-  }
-}
-
-
-/* ==========================================================================
-   TOP BAR FINANCIAL INDICATORS & PARTICLE CONTROLS
-   ========================================================================== */
-.studio-bar-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.studio-bar-right {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-.finance-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
-  padding: 2px 7px;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: #E2E8F0;
-  letter-spacing: 0.04em;
-}
-
-.finance-badge strong {
-  color: #FFFFFF;
-}
-
-.physics-controls {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 2px 4px;
-}
-
-.physics-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  padding: 3px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.physics-btn:hover {
-  color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.physics-btn.active {
-  background: var(--accent-subtle);
-  color: var(--accent);
-  border: 1px solid rgba(245, 158, 11, 0.35);
-  font-weight: 600;
-}
-
-/* ==========================================================================
-   AMBIENT BLURRED BACKGROUND PHOTOGRAPHY (Imágenes Difuminadas en Tarjetas)
-   ========================================================================== */
-.card-ambient-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: blur(14px) brightness(0.24);
-  opacity: 0.35;
-  border-radius: inherit;
-  pointer-events: none;
-  z-index: 0;
-  transition: opacity 0.4s ease, filter 0.4s ease, transform 0.5s ease;
-}
-
-.service-card:hover .card-ambient-bg,
-.tile:hover .card-ambient-bg {
-  opacity: 0.55;
-  filter: blur(10px) brightness(0.32);
-  transform: scale(1.05);
-}
-
-.card-content-layer {
-  position: relative;
-  z-index: 1;
-}
-
-@media (max-width: 900px) {
-  .physics-controls {
-    display: none;
-  }
-}
-
-
-/* ==========================================================================
-   NEO-BRUTALIST KINETIC HERO (Layers of Time Studio)
-   ========================================================================== */
-.brutalist-hero {
-  padding: 40px 0 70px;
-  position: relative;
-  overflow: hidden;
-}
-
-.brutalist-eyebrow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 14px;
-  margin-bottom: 26px;
-  text-transform: uppercase;
-}
-
-.kinetic-text-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin-bottom: 30px;
-  overflow: hidden;
-}
-
-.kinetic-line-1 {
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 4vw, 3.2rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  color: #9496A1;
-  text-transform: uppercase;
-  line-height: 1;
-}
-
-.kinetic-line-2 {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 8vw, 7.2rem);
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  text-transform: uppercase;
-  line-height: 0.9;
-  color: #FFFFFF;
-  white-space: nowrap;
-  display: inline-block;
-  will-change: transform;
-}
-
-.kinetic-line-2 .outline-text {
-  color: transparent;
-  -webkit-text-stroke: 2px #FFFFFF;
-}
-
-.kinetic-line-3 {
-  font-family: var(--font-display);
-  font-size: clamp(3.4rem, 9.5vw, 8.4rem);
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  text-transform: uppercase;
-  line-height: 0.88;
-  background: linear-gradient(90deg, #F59E0B 0%, #38BDF8 35%, #A78BFA 70%, #F59E0B 100%);
-  background-size: 250% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: chromaticShift 6s linear infinite;
-  white-space: nowrap;
-  display: inline-block;
-  will-change: transform;
-}
-
-.kinetic-sub {
-  font-family: var(--font-mono);
-  font-size: clamp(0.9rem, 1.8vw, 1.35rem);
-  color: var(--accent);
-  letter-spacing: 0.06em;
-  font-weight: 700;
-  margin-top: 14px;
-  text-transform: uppercase;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(245, 158, 11, 0.08);
-  padding: 8px 18px;
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  border-radius: var(--radius-sm);
-  width: fit-content;
-}
-
-.brutalist-grid-meta {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 36px;
-  align-items: center;
-  border-top: 1px solid var(--border);
-  padding-top: 30px;
-  margin-top: 24px;
-}
-
-@media (max-width: 860px) {
-  .brutalist-grid-meta {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-}
-
-
-/* ==========================================================================
-   LEFT SCROLL-SPY RAIL (Menú Lateral que se Arma al Bajar)
-   ========================================================================== */
-.scroll-rail {
-  position: fixed;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 95;
-  display: flex;
-  align-items: center;
-  pointer-events: none;
-  background: transparent !important;
-  border: none !important;
-  width: auto !important;
-  right: auto !important;
-  padding: 0 !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  box-shadow: none !important;
-}
-
-.scroll-rail-line {
-  position: absolute;
-  left: 6px;
-  top: 6px;
-  bottom: 6px;
-  width: 2px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 2px;
-}
-
-.scroll-rail-fill {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 0%;
-  background: linear-gradient(180deg, var(--accent) 0%, var(--cyan) 50%, var(--purple) 100%);
-  border-radius: 2px;
-  transition: height 0.08s linear;
-}
-
-.scroll-rail-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  position: relative;
-  z-index: 1;
-  padding: 0;
-  margin: 0;
-}
-
-.rail-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  transition: all 0.25s ease;
-  pointer-events: auto;
-}
-
-.rail-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #0B0D12;
-  border: 2px solid var(--border);
-  transition: all 0.25s ease;
-  position: relative;
-}
-
-.rail-item:hover .rail-dot,
-.rail-item.active .rail-dot {
-  border-color: var(--accent);
-  background: var(--accent);
-  box-shadow: 0 0 10px var(--accent);
-  transform: scale(1.2);
-}
-
-.rail-label {
-  font-family: var(--font-mono);
-  font-size: 0.70rem;
-  letter-spacing: 0.08em;
-  color: var(--text-dim);
-  opacity: 0;
-  transform: translateX(-8px);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.rail-item:hover .rail-label,
-.rail-item.active .rail-label {
-  opacity: 1;
-  color: #FFFFFF;
-  font-weight: 700;
-  transform: translateX(0px);
-  pointer-events: auto;
-}
-
-@media (max-width: 1350px) {
-  .scroll-rail .rail-label {
-    display: none;
-  }
-}
-
-@media (max-width: 980px) {
-  .scroll-rail {
-    display: none;
-  }
-}
-
-  </style>
 </head>
 <body>
 
-  <!-- CANVAS ESPACIAL DE FONDO (Física magnética, gravedad variable y líquidos) -->
+  <!-- CANVAS ESPACIAL DE FONDO (Motor de físicas, micro-astronautas y planetas) -->
   <canvas id="nebula-canvas"></canvas>
   <div class="grid-bg" aria-hidden="true"></div>
 
@@ -1159,7 +31,7 @@ footer {
   <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
 
-  <!-- MENÚ LATERAL IZQUIERDO QUE SE ARMA AL BAJAR (SCROLL-SPY RAIL) -->
+  <!-- MENÚ LATERAL IZQUIERDO (SCROLL-SPY RAIL) -->
   <aside class="scroll-rail" id="scroll-rail" aria-label="Navegación de progreso en la página">
     <div class="scroll-rail-line">
       <div class="scroll-rail-fill" id="scroll-rail-fill"></div>
@@ -1168,37 +40,31 @@ footer {
       <li>
         <a href="#inicio" class="rail-item active" data-section="inicio">
           <span class="rail-dot"></span>
-          <span class="rail-label">01 / INICIO</span>
+          <span class="rail-label">01 / PERFIL</span>
         </a>
       </li>
       <li>
-        <a href="#servicios" class="rail-item" data-section="servicios">
+        <a href="#enfoque" class="rail-item" data-section="enfoque">
           <span class="rail-dot"></span>
-          <span class="rail-label">02 / 4 SERVICIOS</span>
+          <span class="rail-label">02 / ENFOQUE</span>
         </a>
       </li>
       <li>
-        <a href="#menu-inteligente" class="rail-item" data-section="menu-inteligente">
+        <a href="#pilares" class="rail-item" data-section="pilares">
           <span class="rail-dot"></span>
-          <span class="rail-label">03 / MENÚ QR</span>
-        </a>
-      </li>
-      <li>
-        <a href="#proyectos" class="rail-item" data-section="proyectos">
-          <span class="rail-dot"></span>
-          <span class="rail-label">04 / CASOS REALES</span>
+          <span class="rail-label">03 / PILARES</span>
         </a>
       </li>
       <li>
         <a href="#contacto" class="rail-item" data-section="contacto">
           <span class="rail-dot"></span>
-          <span class="rail-label">05 / CONTACTO</span>
+          <span class="rail-label">04 / CONTACTO</span>
         </a>
       </li>
     </ul>
   </aside>
 
-  <!-- BARRA DE ESTUDIO CON RELOJ, DÓLAR, UF Y SELECTOR DE GRAVEDAD/LÍQUIDOS -->
+  <!-- BARRA DE ESTUDIO CON RELOJ, DÓLAR, UF Y SELECTOR DE PLANETAS -->
   <aside class="studio-bar" aria-label="Información de mercado y controles de física">
     <div class="studio-bar-inner">
       <div class="studio-bar-left">
@@ -1218,20 +84,31 @@ footer {
       </div>
 
       <div class="studio-bar-right">
-        <!-- SWITCH DE GRAVEDAD Y MEDIOS LÍQUIDOS -->
-        <div style="display: inline-flex; align-items: center; gap: 6px;">
-          <label for="gravity-fluid-switch" style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase;">Física:</label>
-          <select id="gravity-fluid-switch" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: #FFFFFF; font-family: var(--font-mono); font-size: 0.7rem; border-radius: 4px; padding: 2px 6px; cursor: pointer;">
-            <option value="space">🌌 Zero-G Espacial</option>
-            <option value="moon">🪐 Gravedad Lunar</option>
-            <option value="water">💧 Viscosidad Líquida</option>
-            <option value="plasma">🍯 Plasma Denso</option>
-            <option value="antigravity">⚡ Antigravedad</option>
-          </select>
+        <!-- BOTONES DIRECTOS DE PLANETAS CON ATAJO POR TECLA -->
+        <div class="gravity-selector-bar">
+          <span class="gravity-label">Planetas:</span>
+          <button class="gravity-btn active" data-mode="espacio" title="Atajo: Tecla [E]">
+            <span class="k-tag">E</span> Espacio
+          </button>
+          <button class="gravity-btn" data-mode="tierra" title="Atajo: Tecla [T]">
+            <span class="k-tag">T</span> Tierra
+          </button>
+          <button class="gravity-btn" data-mode="marte" title="Atajo: Tecla [M]">
+            <span class="k-tag">M</span> Marte
+          </button>
+          <button class="gravity-btn" data-mode="agua" title="Atajo: Tecla [A]">
+            <span class="k-tag">A</span> Agua
+          </button>
+          <button class="gravity-btn" data-mode="plasma" title="Atajo: Tecla [P]">
+            <span class="k-tag">P</span> Plasma
+          </button>
+          <button class="gravity-btn" data-mode="cuantico" title="Atajo: Tecla [C]">
+            <span class="k-tag">C</span> Cu&aacute;ntico &#10022;
+          </button>
         </div>
 
-        <span class="finance-badge" id="ctrl-tip" style="color: var(--accent); border-color: rgba(245,158,11,0.25);" title="Mantén pulsado Control en tu teclado">
-          Mantén [Ctrl]: Caída Libre
+        <span class="finance-badge" id="ctrl-tip" style="color: var(--accent); border-color: rgba(245,158,11,0.25);" title="Mant&eacute;n pulsado Control o Barra Espaciadora para activar gravedad">
+          Mant&eacute;n [Ctrl] / [Espacio]: Gravedad Activa
         </span>
       </div>
     </div>
@@ -1247,7 +124,7 @@ footer {
       <a href="servicios.html">4 Servicios</a>
       <a href="portafolio.html">Portafolio</a>
       <a href="https://menu-inteligente-mc.vercel.app/" target="_blank" rel="noopener">Menú Inteligente ↗</a>
-      <a href="sobre-mi.html">Sobre Mí</a>
+      <a href="sobre-mi.html" class="active">Sobre Mí</a>
       <a href="contacto.html">Contacto</a>
     </div>
     <a class="nav-cta" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20gustar%C3%ADa%20conversar%20sobre%20mi%20empresa" target="_blank" rel="noopener">
@@ -1258,62 +135,195 @@ footer {
 
   <main class="wrap" style="padding-top: 125px;">
 
-    <section style="padding: 40px 0 30px;">
-      <span class="chip chip-accent">Consultor Senior & Fundador</span>
-      <h1 class="chroma-title" style="margin-bottom: 12px;">CRISTIAN DÍAZ</h1>
-      <p style="font-size: 1.15rem; color: var(--text-muted); max-width: 760px; line-height: 1.6;">
-        Más de 12 años liderando proyectos de tecnología, atracción comercial y blindaje digital para empresas en Chile. Trato directo, sin burocracia ni mandos medios.
-      </p>
-    </section>
+    <!-- HEADER / HERO PERFIL -->
+    <section class="brutalist-hero" id="inicio" style="padding-bottom: 40px;">
+      <div class="brutalist-eyebrow">
+        <span>PERFIL PROFESIONAL · SANTIAGO DE CHILE</span>
+        <span>EXPERIENCIA COMPROBADA B2B & TI</span>
+        <span>CONSULTORÍA SENIOR DIRECTA</span>
+      </div>
 
-    <div class="tile col-12" style="margin-bottom: 30px; position: relative; padding: 40px;">
-      <img class="card-ambient-bg" src="https://images.pexels.com/photos/3182775/pexels-photo-3182775.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Consultor Senior" loading="lazy">
-      <div class="card-content-layer">
-        <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: center;">
-          <div>
-            <h2 style="font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: #FFFFFF; margin-bottom: 16px;">
-              Ingeniería y Estrategia Comercial de Alto Nivel
-            </h2>
-            <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 18px;">
-              Hola, soy Cristian Díaz. A lo largo de más de una década en el mercado chileno he visto cómo muchas empresas pierden tiempo y millones pagando a macro-agencias que delegan su trabajo en practicantes o intermediarios que no entienden el modelo de negocio.
-            </p>
-            <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 24px;">
-              En MarketingCloud opero bajo un principio simple: <strong>trato directo con Consultor Senior</strong>. Me involucro personalmente en la estrategia, el código, la infraestructura y el embudo comercial de cada cliente, garantizando agilidad, rigor técnico y resultados medibles.
-            </p>
-            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
-              <a class="btn-primary" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20gustar%C3%ADa%20agendar%20una%20reuni%C3%B3n" target="_blank" rel="noopener">
-                Agendar Reunión por WhatsApp (+569 4943 8288) →
-              </a>
-              <a class="btn-secondary" href="contacto.html">
-                Ver Canales de Contacto
-              </a>
+      <div style="margin-bottom: 24px;">
+        <span class="chip chip-accent">Consultor Senior & Fundador</span>
+        <h1 class="chroma-title" style="margin-top: 14px; margin-bottom: 16px;">CRISTIAN DÍAZ</h1>
+        <p style="font-size: var(--step-lead); color: var(--text-muted); max-width: 820px; line-height: 1.6;">
+          Más de 12 años liderando proyectos de tecnología, consultoría estratégica, atracción de demanda comercial y blindaje digital para empresas e instituciones en Chile.
+        </p>
+      </div>
+
+      <!-- TARJETA PRINCIPAL DE DECLARACIÓN Y ENFOQUE -->
+      <div class="tile col-12" id="enfoque" style="padding: 44px 38px; position: relative; margin-top: 20px;">
+        <img class="card-ambient-bg" src="https://images.pexels.com/photos/3182775/pexels-photo-3182775.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Consultor Senior Cristian Díaz" loading="lazy">
+        <div class="card-content-layer">
+          <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 44px; align-items: center;">
+            <div>
+              <span class="chip chip-cyan">Filosofía Operativa</span>
+              <h2 style="font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800; color: #FFFFFF; margin: 14px 0 16px; line-height: 1.15;">
+                Ingeniería, Estrategia Comercial y Cero Burocracia
+              </h2>
+              <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 18px;">
+                A lo largo de más de una década en el mercado chileno he visto cómo muchas empresas pierden meses y millones pagando a macro-agencias que delegan la cuenta en practicantes o intermediarios que no entienden el modelo de negocio ni la infraestructura técnica de la organización.
+              </p>
+              <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 24px;">
+                En MarketingCloud opero bajo un principio inquebrantable: <strong>trato directo con Consultor Senior</strong>. Me involucro personalmente en la arquitectura tecnológica, el código, los embudos comerciales y las decisiones críticas de cada cliente, garantizando agilidad, rigor técnico y métricas transparentes.
+              </p>
+              <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+                <a class="btn-primary" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20gustar%C3%ADa%20agendar%20una%20reuni%C3%B3n" target="_blank" rel="noopener">
+                  Agendar Reunión por WhatsApp (+569 4943 8288) →
+                </a>
+                <a class="btn-secondary" href="servicios.html">
+                  Ver los 4 Servicios Modulares
+                </a>
+              </div>
+            </div>
+
+            <!-- CUADRO DE MÉTRICAS Y ÁREAS DE ESPECIALIDAD -->
+            <div style="background: rgba(7, 8, 10, 0.75); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 30px;">
+              <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;">TRAYECTORIA & CREDENCIALES</span>
+              
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 20px 0; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+                <div>
+                  <span style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: #FFFFFF; display: block; line-height: 1;">+12</span>
+                  <span style="font-size: 0.8rem; color: var(--text-muted);">Años de Experiencia en Chile</span>
+                </div>
+                <div>
+                  <span style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: var(--emerald); display: block; line-height: 1;">100%</span>
+                  <span style="font-size: 0.8rem; color: var(--text-muted);">Consultor Senior Directo</span>
+                </div>
+                <div>
+                  <span style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: var(--cyan); display: block; line-height: 1;">0%</span>
+                  <span style="font-size: 0.8rem; color: var(--text-muted);">Comisiones en Menú QR</span>
+                </div>
+                <div>
+                  <span style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: var(--purple); display: block; line-height: 1;">B2B</span>
+                  <span style="font-size: 0.8rem; color: var(--text-muted);">Enfoque Corporativo</span>
+                </div>
+              </div>
+
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">COMPETENCIAS CLAVE</span>
+              <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 12px; font-size: 0.9rem;">
+                <li style="display: flex; gap: 8px; align-items: center;">
+                  <span style="color: var(--accent); font-weight: bold;">✔</span> Business Development & Dirección KAM B2B
+                </li>
+                <li style="display: flex; gap: 8px; align-items: center;">
+                  <span style="color: var(--cyan); font-weight: bold;">✔</span> Infraestructura Cloud, Servidores & TI Corporativo
+                </li>
+                <li style="display: flex; gap: 8px; align-items: center;">
+                  <span style="color: var(--purple); font-weight: bold;">✔</span> Ciberseguridad Activa y Blindaje Perimetral
+                </li>
+                <li style="display: flex; gap: 8px; align-items: center;">
+                  <span style="color: var(--emerald); font-weight: bold;">✔</span> SEO Técnico, Google Search Console y Captación
+                </li>
+              </ul>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <div style="background: rgba(0,0,0,0.5); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 28px;">
-            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); font-weight: 700; text-transform: uppercase;">ÁREAS DE EXPERIENCIA</span>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 18px; font-size: 0.95rem;">
-              <li style="display: flex; gap: 10px; align-items: flex-start;">
-                <span style="color: var(--accent); font-weight: bold;">✔</span>
-                <span><strong>Business Development Manager (BDM) & KAM</strong>: Negociación B2B y crecimiento de cuentas clave.</span>
-              </li>
-              <li style="display: flex; gap: 10px; align-items: flex-start;">
-                <span style="color: var(--cyan); font-weight: bold;">✔</span>
-                <span><strong>Community Manager & Redes Sociales</strong>: Gestión institucional 360° para marcas y colegios.</span>
-              </li>
-              <li style="display: flex; gap: 10px; align-items: flex-start;">
-                <span style="color: var(--purple); font-weight: bold;">✔</span>
-                <span><strong>Infraestructura TI & Ciberseguridad</strong>: Servidores cloud, backups anti-ransomware y redes.</span>
-              </li>
-              <li style="display: flex; gap: 10px; align-items: flex-start;">
-                <span style="color: var(--emerald); font-weight: bold;">✔</span>
-                <span><strong>Desarrollo Web & SEO Local</strong>: Arquitectura ultrarrápida posicionada en Google Chile.</span>
-              </li>
+    <!-- SECTION: 4 PILARES DE EXPERIENCIA PRÁCTICA -->
+    <section id="pilares" style="padding: 40px 0 60px;">
+      <div style="margin-bottom: 28px;">
+        <span class="chip chip-neutral">Capacidades Estratégicas</span>
+        <h2 style="font-family: var(--font-display); font-size: var(--step-title); font-weight: 800; letter-spacing: -0.02em; color: #FFFFFF; margin-top: 6px;">
+          Cómo Aporto Valor a tu Negocio
+        </h2>
+        <p style="color: var(--text-muted); font-size: 1rem; max-width: 680px;">
+          Un enfoque transversal que une la ingeniería de sistemas con la generación comercial constante.
+        </p>
+      </div>
+
+      <div class="board">
+        <!-- Pilar 1 -->
+        <div class="service-card col-6">
+          <div class="card-content-layer">
+            <span class="chip chip-accent">01 / ESTRATEGIA COMERCIAL B2B</span>
+            <h3 class="service-title">BDM, KAM y Ventas Consultivas</h3>
+            <p class="service-desc">
+              Diseño e implementación de procesos comerciales estructurados. Cualificación rigurosa mediante metodología BANT, prospección multicanal y nutrición de cotizaciones con tomadores de decisión reales en Chile.
+            </p>
+            <ul class="service-list">
+              <li><span class="dot" style="background: var(--accent);"></span> Apertura de cuentas corporativas y negociación senior</li>
+              <li><span class="dot" style="background: var(--accent);"></span> Prospección outbound B2B segmentada por industria</li>
+              <li><span class="dot" style="background: var(--accent);"></span> Integración de CRMs y trazabilidad del embudo comercial</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Pilar 2 -->
+        <div class="service-card col-6">
+          <div class="card-content-layer">
+            <span class="chip chip-cyan">02 / INGENIERÍA & CONTINUIDAD TI</span>
+            <h3 class="service-title">Infraestructura, Servidores & Cloud</h3>
+            <p class="service-desc">
+              Soporte técnico integral, arquitectura de hosting empresarial administrado, optimización de redes locales y resolución ágil de incidencias técnicas para garantizar que la operación nunca se detenga.
+            </p>
+            <ul class="service-list">
+              <li><span class="dot" style="background: var(--cyan);"></span> Servidores Cloud dedicados de alta disponibilidad</li>
+              <li><span class="dot" style="background: var(--cyan);"></span> Soporte corporativo presencial en Santiago y remoto</li>
+              <li><span class="dot" style="background: var(--cyan);"></span> Mantenimiento preventivo de estaciones y hardware</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Pilar 3 -->
+        <div class="service-card col-6">
+          <div class="card-content-layer">
+            <span class="chip chip-purple">03 / BLINDAJE DIGITAL</span>
+            <h3 class="service-title">Ciberseguridad y Resiliencia Activa</h3>
+            <p class="service-desc">
+              Protección perimetral frente a amenazas modernas: mitigación de ransomware, auditorías de vulnerabilidades, configuración de respaldos automáticos fuera de sitio y concientización para colaboradores.
+            </p>
+            <ul class="service-list">
+              <li><span class="dot" style="background: var(--purple);"></span> Planes de contingencia y recuperación ante desastres</li>
+              <li><span class="dot" style="background: var(--purple);"></span> Blindaje contra phishing, spoofing y robo de credenciales</li>
+              <li><span class="dot" style="background: var(--purple);"></span> Auditoría de accesos y normativas de seguridad de datos</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Pilar 4 -->
+        <div class="service-card col-6">
+          <div class="card-content-layer">
+            <span class="chip chip-emerald">04 / CRECIMIENTO DIGITAL</span>
+            <h3 class="service-title">Desarrollo Web & Marketing Digital</h3>
+            <p class="service-desc">
+              Desarrollo de sitios web ultraligeros sobre arquitectura moderna, SEO técnico optimizado para Google Chile y campañas de pauta publicitaria en Google Ads y Meta Ads pensadas para captar clientes que ya están buscando cotizar.
+            </p>
+            <ul class="service-list">
+              <li><span class="dot" style="background: var(--emerald);"></span> Posicionamiento orgánico verificado en Search Console</li>
+              <li><span class="dot" style="background: var(--emerald);"></span> Webs con tiempos de carga bajo 1 segundo (Core Web Vitals)</li>
+              <li><span class="dot" style="background: var(--emerald);"></span> Menú Inteligente QR propio sin comisiones para gastronomía</li>
             </ul>
           </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- SECTION: CONTACTO DIRECTO -->
+    <section id="contacto" style="padding: 20px 0 60px;">
+      <div class="tile col-12" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, #12141A 100%); border-color: rgba(245, 158, 11, 0.4); padding: 44px 36px; position: relative;">
+        <div class="card-content-layer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px;">
+          <div>
+            <span class="chip chip-accent">Trato Directo Sin Intermediarios</span>
+            <h2 style="font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; color: #FFFFFF; margin: 12px 0 10px;">
+              ¿Conversamos sobre el siguiente paso de tu empresa?
+            </h2>
+            <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 640px;">
+              Escríbeme directamente por WhatsApp. Revisaremos tus desafíos operativos, infraestructura o estrategia comercial para proponerte un plan a medida.
+            </p>
+          </div>
+          <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+            <a class="btn-accent" href="https://wa.me/56949438288?text=Hola%20Cristian,%20le%C3%AD%20tu%20perfil%20y%20quiero%20conversar%20sobre%20mi%20empresa" target="_blank" rel="noopener">
+              Escribir a Cristian por WhatsApp →
+            </a>
+            <a class="btn-secondary" href="contacto.html">
+              Otros Canales de Contacto
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
@@ -1350,388 +360,9 @@ footer {
     </div>
   </footer>
 
+  <!-- TOAST FLOTANTE DE CONFIRMACIÓN -->
+  <div class="physics-hud-toast" id="physics-hud-toast" aria-live="polite"></div>
+
   <script src="js/engine.js"></script>
-  <script>
-// MarketingCloud Studio - Interactive Engine
-// Physics Mediums: Space Zero-G, Lunar Gravity, Water Viscosity, Plasma, Antigravity
-// Keyboard: Hold [Ctrl] for Gravitational Freefall
-// Economic Indicators: Dólar & UF Chile
-(function() {
-  'use strict';
-
-  // 1. Reloj de Estudio - Santiago de Chile (UTC-3)
-  function updateSantiagoTime() {
-    var timeEl = document.getElementById('live-timecode');
-    if (!timeEl) return;
-    var now = new Date();
-    var santiagoTime = new Intl.DateTimeFormat('es-CL', {
-      timeZone: 'America/Santiago',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false
-    }).format(now);
-    timeEl.textContent = santiagoTime;
-  }
-  setInterval(updateSantiagoTime, 1000);
-  updateSantiagoTime();
-
-  // 2. Indicadores Económicos de Chile (Dólar y UF)
-  function initEconomicIndicators() {
-    var usdEl = document.getElementById('val-dolar');
-    var ufEl = document.getElementById('val-uf');
-    if (usdEl && !usdEl.textContent.trim()) usdEl.textContent = '$972,60';
-    if (ufEl && !ufEl.textContent.trim()) ufEl.textContent = '$41.252,94';
-
-    try {
-      fetch('https://mindicador.cl/api')
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          if (data && data.dolar && usdEl) {
-            usdEl.textContent = '$' + data.dolar.valor.toLocaleString('es-CL', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
-          }
-          if (data && data.uf && ufEl) {
-            ufEl.textContent = '$' + data.uf.valor.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-          }
-        })
-        .catch(function() {});
-    } catch (e) {}
-  }
-  initEconomicIndicators();
-
-  // 3. Cursor Reticular y Canvas Cósmico
-  var dot = document.getElementById('cursor-dot');
-  var ring = document.getElementById('cursor-ring');
-  var canvas = document.getElementById('nebula-canvas');
-  if (!canvas) return;
-
-  var ctx = canvas.getContext('2d');
-  var width = (canvas.width = window.innerWidth);
-  var height = (canvas.height = window.innerHeight);
-
-  window.addEventListener('resize', function() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  });
-
-  var mouseX = width / 2;
-  var mouseY = height / 2;
-  var targetMouseX = mouseX;
-  var targetMouseY = mouseY;
-  var ringX = mouseX;
-  var ringY = mouseY;
-  var isVisible = false;
-
-  // 4. Modos de Medio Físico y Gravedad
-  // Opciones: 'space' (Zero-G), 'moon' (Lunar), 'water' (Líquido), 'plasma' (Denso), 'antigravity' (Flotación)
-  var currentMedium = 'space';
-  var isCtrlPressed = false;
-
-  window.addEventListener('keydown', function(e) {
-    if (e.key === 'Control' || e.ctrlKey) {
-      isCtrlPressed = true;
-      var tip = document.getElementById('ctrl-tip');
-      if (tip) tip.classList.add('active');
-    }
-  });
-
-  window.addEventListener('keyup', function(e) {
-    if (e.key === 'Control' || !e.ctrlKey) {
-      isCtrlPressed = false;
-      var tip = document.getElementById('ctrl-tip');
-      if (tip) tip.classList.remove('active');
-    }
-  });
-
-  // Selector de gravedades y medios líquidos
-  var mediumSelect = document.getElementById('gravity-fluid-switch');
-  if (mediumSelect) {
-    mediumSelect.addEventListener('change', function(e) {
-      currentMedium = e.target.value;
-    });
-  }
-
-  var mediumButtons = document.querySelectorAll('.medium-btn');
-  mediumButtons.forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      mediumButtons.forEach(function(b) { b.classList.remove('active'); });
-      btn.classList.add('active');
-      currentMedium = btn.getAttribute('data-medium') || 'space';
-      if (mediumSelect) mediumSelect.value = currentMedium;
-    });
-  });
-
-  // 5. Simulación Física de 240 Micro-Partículas
-  var PARTICLE_COUNT = 240;
-  var particles = [];
-
-  var colorOptions = [
-    'rgba(255, 255, 255, ',     // Blanco estelar
-    'rgba(245, 158, 11, ',      // Ámbar
-    'rgba(56, 189, 248, ',      // Cyan
-    'rgba(167, 139, 250, '      // Púrpura
-  ];
-
-  for (var i = 0; i < PARTICLE_COUNT; i++) {
-    particles.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      radius: Math.random() * 1.5 + 0.5,
-      baseRadius: Math.random() * 1.5 + 0.5,
-      color: colorOptions[Math.floor(Math.random() * colorOptions.length)],
-      alpha: Math.random() * 0.45 + 0.2,
-      baseAlpha: Math.random() * 0.45 + 0.2,
-      baseVx: (Math.random() - 0.5) * 0.16,
-      baseVy: (Math.random() - 0.5) * 0.16,
-      vx: 0,
-      vy: 0,
-      mass: Math.random() * 0.8 + 0.4,
-      waveOffset: Math.random() * Math.PI * 2
-    });
-  }
-
-  // Estela suave de ratón
-  var smokeTrail = [];
-
-  window.addEventListener('mousemove', function(e) {
-    targetMouseX = e.clientX;
-    targetMouseY = e.clientY;
-
-    if (!isVisible) {
-      isVisible = true;
-      if (dot) dot.style.opacity = '1';
-      if (ring) ring.style.opacity = '1';
-    }
-
-    if (dot) {
-      dot.style.transform = 'translate(' + targetMouseX + 'px, ' + targetMouseY + 'px) translate(-50%, -50%)';
-    }
-
-    smokeTrail.push({
-      x: targetMouseX + (Math.random() - 0.5) * 6,
-      y: targetMouseY + (Math.random() - 0.5) * 6,
-      radius: Math.random() * 14 + 8,
-      alpha: 0.22,
-      color: colorOptions[Math.floor(Math.random() * colorOptions.length)]
-    });
-    if (smokeTrail.length > 18) smokeTrail.shift();
-  });
-
-  document.addEventListener('mouseleave', function() {
-    isVisible = false;
-    if (dot) dot.style.opacity = '0';
-    if (ring) ring.style.opacity = '0';
-  });
-
-  var timeTick = 0;
-
-  // Bucle de Física Cuántica y Fluidos
-  function loop() {
-    timeTick += 0.02;
-
-    mouseX += (targetMouseX - mouseX) * 0.28;
-    mouseY += (targetMouseY - mouseY) * 0.28;
-    ringX += (targetMouseX - ringX) * 0.14;
-    ringY += (targetMouseY - ringY) * 0.14;
-
-    if (ring && isVisible) {
-      ring.style.transform = 'translate(' + ringX + 'px, ' + ringY + 'px) translate(-50%, -50%)';
-    }
-
-    ctx.clearRect(0, 0, width, height);
-
-    // 1. Dibujar humo sutil
-    for (var s = 0; s < smokeTrail.length; s++) {
-      var sm = smokeTrail[s];
-      sm.alpha *= 0.92;
-      sm.radius += 0.3;
-      if (sm.alpha > 0.01) {
-        ctx.beginPath();
-        ctx.arc(sm.x, sm.y, sm.radius, 0, Math.PI * 2);
-        ctx.fillStyle = sm.color + sm.alpha + ')';
-        ctx.fill();
-      }
-    }
-
-    // 2. Parámetros del medio físico actual
-    var friction = 0.965;
-    var gravityY = 0;
-    var fluidWave = false;
-
-    if (isCtrlPressed) {
-      // APAGADO DE INGRAVIDEZ / CAÍDA LIBRE AL PRESIONAR CONTROL
-      gravityY = 0.42;
-      friction = 0.98;
-    } else {
-      if (currentMedium === 'space') {
-        gravityY = 0;
-        friction = 0.965;
-      } else if (currentMedium === 'moon') {
-        gravityY = 0.12;
-        friction = 0.975;
-      } else if (currentMedium === 'water') {
-        gravityY = 0.04;
-        friction = 0.91; // Viscosidad líquida
-        fluidWave = true;
-      } else if (currentMedium === 'plasma') {
-        gravityY = 0;
-        friction = 0.85; // Miel / Plasma denso
-      } else if (currentMedium === 'antigravity') {
-        gravityY = -0.22; // Elevación gravitacional
-        friction = 0.97;
-      }
-    }
-
-    var INFLUENCE_RADIUS = 150;
-
-    for (var i = 0; i < PARTICLE_COUNT; i++) {
-      var p = particles[i];
-
-      // Aceleración de gravedad del medio
-      p.vy += gravityY * p.mass;
-
-      // Ondulación fluida si es medio líquido
-      if (fluidWave) {
-        p.vx += Math.sin(timeTick + p.waveOffset) * 0.06;
-      }
-
-      // Perturbación cósmica aleatoria suave
-      p.vx += (Math.random() - 0.5) * 0.03;
-      p.vy += (Math.random() - 0.5) * 0.03;
-
-      // Interacción con ratón (si no está cayendo por Ctrl)
-      if (isVisible && !isCtrlPressed) {
-        var dx = mouseX - p.x;
-        var dy = mouseY - p.y;
-        var dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < INFLUENCE_RADIUS && dist > 5) {
-          var normDist = 1 - dist / INFLUENCE_RADIUS;
-          var pull = normDist * 0.18 / p.mass;
-          p.vx += (dx / dist) * pull;
-          p.vy += (dy / dist) * pull;
-          // Pequeña curvatura
-          p.vx += (-dy / dist) * pull * 0.15;
-          p.vy += (dx / dist) * pull * 0.15;
-          p.alpha = Math.min(0.85, p.baseAlpha + normDist * 0.3);
-        } else {
-          p.alpha += (p.baseAlpha - p.alpha) * 0.03;
-        }
-      }
-
-      // Fricción / resistencia del medio
-      p.vx *= friction;
-      p.vy *= friction;
-
-      p.x += p.vx + p.baseVx;
-      p.y += p.vy + p.baseVy;
-
-      // Rebote o retorno por bordes
-      if (p.x < -10) p.x = width + 10;
-      if (p.x > width + 10) p.x = -10;
-
-      if (isCtrlPressed || currentMedium === 'moon') {
-        // En caída libre, si tocan el fondo rebotan sutilmente
-        if (p.y > height - 5) {
-          p.y = height - 5;
-          p.vy = -p.vy * 0.35;
-        }
-      } else if (currentMedium === 'antigravity') {
-        if (p.y < 0) p.y = height;
-      } else {
-        if (p.y < -10) p.y = height + 10;
-        if (p.y > height + 10) p.y = -10;
-      }
-
-      // Renderizar partícula
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = p.color + p.alpha + ')';
-      ctx.fill();
-    }
-
-    requestAnimationFrame(loop);
-  }
-  requestAnimationFrame(loop);
-
-  // 6. Efecto Hover de Alto Contraste
-  var hoverElements = document.querySelectorAll('a, button, .service-card, .tile, .project-giant-item, h1, h2, h3, .chip, select');
-  hoverElements.forEach(function(el) {
-    el.addEventListener('mouseenter', function() {
-      if (ring) ring.classList.add('active');
-      if (dot) dot.classList.add('active');
-    });
-    el.addEventListener('mouseleave', function() {
-      if (ring) ring.classList.remove('active');
-      if (dot) dot.classList.remove('active');
-    });
-  });
-
-  // 7. Inclinación 3D en Tarjetas
-  var tiltCards = document.querySelectorAll('.service-card, .tile');
-  tiltCards.forEach(function(card) {
-    card.addEventListener('mousemove', function(e) {
-      var rect = card.getBoundingClientRect();
-      var x = (e.clientX - rect.left) / rect.width - 0.5;
-      var y = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = 'perspective(900px) rotateX(' + (-y * 4) + 'deg) rotateY(' + (x * 4) + 'deg) translateY(-4px)';
-    });
-    card.addEventListener('mouseleave', function() {
-      card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)';
-    });
-  });
-
-  // 8. Kinetic Scroll Parallax en Tipografía Brutalista
-  var kLine2 = document.querySelector('.kinetic-line-2');
-  var kLine3 = document.querySelector('.kinetic-line-3');
-  window.addEventListener('scroll', function() {
-    var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-    if (kLine2) {
-      kLine2.style.transform = 'translateX(' + (-scrolled * 0.16) + 'px)';
-    }
-    if (kLine3) {
-      kLine3.style.transform = 'translateX(' + (scrolled * 0.16) + 'px)';
-    }
-  }, { passive: true });
-
-
-  // 9. Left Vertical Scroll-Rail Progress Tracker ("Menú que se arma al bajar")
-  var railFill = document.getElementById('scroll-rail-fill');
-  var railItems = document.querySelectorAll('.rail-item');
-  var trackedSections = ['inicio', 'servicios', 'menu-inteligente', 'proyectos', 'contacto'];
-
-  window.addEventListener('scroll', function() {
-    var winScroll = document.documentElement.scrollTop || document.body.scrollTop;
-    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    var scrolledPercent = height > 0 ? (winScroll / height) * 100 : 0;
-
-    if (railFill) {
-      railFill.style.height = scrolledPercent + '%';
-    }
-
-    var currentSec = 'inicio';
-    trackedSections.forEach(function(secId) {
-      var el = document.getElementById(secId);
-      if (el) {
-        var rect = el.getBoundingClientRect();
-        if (rect.top <= window.innerHeight * 0.45) {
-          currentSec = secId;
-        }
-      }
-    });
-
-    railItems.forEach(function(item) {
-      if (item.getAttribute('data-section') === currentSec) {
-        item.classList.add('active');
-      } else {
-        item.classList.remove('active');
-      }
-    });
-  }, { passive: true });
-
-})();
-
-  </script>
 </body>
 </html>
