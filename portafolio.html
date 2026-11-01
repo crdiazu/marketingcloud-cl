@@ -1038,13 +1038,13 @@ footer {
    ========================================================================== */
 .scroll-rail {
   position: fixed;
-  left: 26px;
+  left: 20px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 95;
   display: flex;
   align-items: center;
-  pointer-events: auto;
+  pointer-events: none;
   background: transparent !important;
   border: none !important;
   width: auto !important;
@@ -1052,6 +1052,7 @@ footer {
   padding: 0 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
 }
 
 .scroll-rail-line {
@@ -1092,6 +1093,7 @@ footer {
   gap: 12px;
   text-decoration: none;
   transition: all 0.25s ease;
+  pointer-events: auto;
 }
 
 .rail-dot {
@@ -1114,13 +1116,14 @@ footer {
 
 .rail-label {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.70rem;
   letter-spacing: 0.08em;
   color: var(--text-dim);
-  opacity: 0.4;
-  transform: translateX(-4px);
-  transition: all 0.25s ease;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
+  pointer-events: none;
 }
 
 .rail-item:hover .rail-label,
@@ -1129,6 +1132,7 @@ footer {
   color: #FFFFFF;
   font-weight: 700;
   transform: translateX(0px);
+  pointer-events: auto;
 }
 
 @media (max-width: 1350px) {
