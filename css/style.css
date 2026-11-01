@@ -788,3 +788,327 @@ footer {
     height: 200px;
   }
 }
+
+
+/* ==========================================================================
+   TOP BAR FINANCIAL INDICATORS & PARTICLE CONTROLS
+   ========================================================================== */
+.studio-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.studio-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.finance-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #E2E8F0;
+  letter-spacing: 0.04em;
+}
+
+.finance-badge strong {
+  color: #FFFFFF;
+}
+
+.physics-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px 4px;
+}
+
+.physics-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.physics-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.physics-btn.active {
+  background: var(--accent-subtle);
+  color: var(--accent);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   AMBIENT BLURRED BACKGROUND PHOTOGRAPHY (Imágenes Difuminadas en Tarjetas)
+   ========================================================================== */
+.card-ambient-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(14px) brightness(0.24);
+  opacity: 0.35;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.4s ease, filter 0.4s ease, transform 0.5s ease;
+}
+
+.service-card:hover .card-ambient-bg,
+.tile:hover .card-ambient-bg {
+  opacity: 0.55;
+  filter: blur(10px) brightness(0.32);
+  transform: scale(1.05);
+}
+
+.card-content-layer {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .physics-controls {
+    display: none;
+  }
+}
+
+
+/* ==========================================================================
+   NEO-BRUTALIST KINETIC HERO (Layers of Time Studio)
+   ========================================================================== */
+.brutalist-hero {
+  padding: 40px 0 70px;
+  position: relative;
+  overflow: hidden;
+}
+
+.brutalist-eyebrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 14px;
+  margin-bottom: 26px;
+  text-transform: uppercase;
+}
+
+.kinetic-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.kinetic-line-1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #9496A1;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.kinetic-line-2 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 7.2rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  line-height: 0.9;
+  color: #FFFFFF;
+  white-space: nowrap;
+  display: inline-block;
+  will-change: transform;
+}
+
+.kinetic-line-2 .outline-text {
+  color: transparent;
+  -webkit-text-stroke: 2px #FFFFFF;
+}
+
+.kinetic-line-3 {
+  font-family: var(--font-display);
+  font-size: clamp(3.4rem, 9.5vw, 8.4rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  line-height: 0.88;
+  background: linear-gradient(90deg, #F59E0B 0%, #38BDF8 35%, #A78BFA 70%, #F59E0B 100%);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: chromaticShift 6s linear infinite;
+  white-space: nowrap;
+  display: inline-block;
+  will-change: transform;
+}
+
+.kinetic-sub {
+  font-family: var(--font-mono);
+  font-size: clamp(0.9rem, 1.8vw, 1.35rem);
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  margin-top: 14px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(245, 158, 11, 0.08);
+  padding: 8px 18px;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-sm);
+  width: fit-content;
+}
+
+.brutalist-grid-meta {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 36px;
+  align-items: center;
+  border-top: 1px solid var(--border);
+  padding-top: 30px;
+  margin-top: 24px;
+}
+
+@media (max-width: 860px) {
+  .brutalist-grid-meta {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+
+/* ==========================================================================
+   LEFT SCROLL-SPY RAIL (Menú Lateral que se Arma al Bajar)
+   ========================================================================== */
+.scroll-rail {
+  position: fixed;
+  left: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 95;
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.scroll-rail-line {
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+}
+
+.scroll-rail-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--cyan) 50%, var(--purple) 100%);
+  border-radius: 2px;
+  transition: height 0.08s linear;
+}
+
+.scroll-rail-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+  padding: 0;
+  margin: 0;
+}
+
+.rail-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.rail-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #0B0D12;
+  border: 2px solid var(--border);
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.rail-item:hover .rail-dot,
+.rail-item.active .rail-dot {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+  transform: scale(1.2);
+}
+
+.rail-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  opacity: 0.4;
+  transform: translateX(-4px);
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.rail-item:hover .rail-label,
+.rail-item.active .rail-label {
+  opacity: 1;
+  color: #FFFFFF;
+  font-weight: 700;
+  transform: translateX(0px);
+}
+
+@media (max-width: 1350px) {
+  .scroll-rail .rail-label {
+    display: none;
+  }
+}
+
+@media (max-width: 980px) {
+  .scroll-rail {
+    display: none;
+  }
+}

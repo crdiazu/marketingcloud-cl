@@ -1,8 +1,11 @@
-// MarketingCloud Studio - Interactive Engine with Gravitational Space Physics
+// MarketingCloud Studio - Interactive Engine
+// Physics Mediums: Space Zero-G, Lunar Gravity, Water Viscosity, Plasma, Antigravity
+// Keyboard: Hold [Ctrl] for Gravitational Freefall
+// Economic Indicators: Dólar & UF Chile
 (function() {
   'use strict';
 
-  // 1. Timecode de Santiago de Chile (UTC-3)
+  // 1. Reloj de Estudio - Santiago de Chile (UTC-3)
   function updateSantiagoTime() {
     var timeEl = document.getElementById('live-timecode');
     if (!timeEl) return;
@@ -19,7 +22,30 @@
   setInterval(updateSantiagoTime, 1000);
   updateSantiagoTime();
 
-  // 2. Elementos del Cursor y Canvas de Fondo
+  // 2. Indicadores Económicos de Chile (Dólar y UF)
+  function initEconomicIndicators() {
+    var usdEl = document.getElementById('val-dolar');
+    var ufEl = document.getElementById('val-uf');
+    if (usdEl && !usdEl.textContent.trim()) usdEl.textContent = '$972,60';
+    if (ufEl && !ufEl.textContent.trim()) ufEl.textContent = '$41.252,94';
+
+    try {
+      fetch('https://mindicador.cl/api')
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (data && data.dolar && usdEl) {
+            usdEl.textContent = '$' + data.dolar.valor.toLocaleString('es-CL', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
+          }
+          if (data && data.uf && ufEl) {
+            ufEl.textContent = '$' + data.uf.valor.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          }
+        })
+        .catch(function() {});
+    } catch (e) {}
+  }
+  initEconomicIndicators();
+
+  // 3. Cursor Reticular y Canvas Cósmico
   var dot = document.getElementById('cursor-dot');
   var ring = document.getElementById('cursor-ring');
   var canvas = document.getElementById('nebula-canvas');
@@ -42,39 +68,76 @@
   var ringY = mouseY;
   var isVisible = false;
 
-  // 3. FÍSICA ESPACIAL: 240 micro-partículas magnéticas de fondo de diferentes tamaños
+  // 4. Modos de Medio Físico y Gravedad
+  // Opciones: 'space' (Zero-G), 'moon' (Lunar), 'water' (Líquido), 'plasma' (Denso), 'antigravity' (Flotación)
+  var currentMedium = 'space';
+  var isCtrlPressed = false;
+
+  window.addEventListener('keydown', function(e) {
+    if (e.key === 'Control' || e.ctrlKey) {
+      isCtrlPressed = true;
+      var tip = document.getElementById('ctrl-tip');
+      if (tip) tip.classList.add('active');
+    }
+  });
+
+  window.addEventListener('keyup', function(e) {
+    if (e.key === 'Control' || !e.ctrlKey) {
+      isCtrlPressed = false;
+      var tip = document.getElementById('ctrl-tip');
+      if (tip) tip.classList.remove('active');
+    }
+  });
+
+  // Selector de gravedades y medios líquidos
+  var mediumSelect = document.getElementById('gravity-fluid-switch');
+  if (mediumSelect) {
+    mediumSelect.addEventListener('change', function(e) {
+      currentMedium = e.target.value;
+    });
+  }
+
+  var mediumButtons = document.querySelectorAll('.medium-btn');
+  mediumButtons.forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      mediumButtons.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentMedium = btn.getAttribute('data-medium') || 'space';
+      if (mediumSelect) mediumSelect.value = currentMedium;
+    });
+  });
+
+  // 5. Simulación Física de 240 Micro-Partículas
   var PARTICLE_COUNT = 240;
   var particles = [];
 
   var colorOptions = [
     'rgba(255, 255, 255, ',     // Blanco estelar
-    'rgba(245, 158, 11, ',      // Ámbar cósmico
-    'rgba(56, 189, 248, ',      // Cyan orbital
-    'rgba(167, 139, 250, '      // Púrpura nebulosa
+    'rgba(245, 158, 11, ',      // Ámbar
+    'rgba(56, 189, 248, ',      // Cyan
+    'rgba(167, 139, 250, '      // Púrpura
   ];
 
   for (var i = 0; i < PARTICLE_COUNT; i++) {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      // Tamaños pequeños y variados (entre 0.5px y 2.2px)
-      radius: Math.random() * 1.6 + 0.6,
-      baseRadius: Math.random() * 1.6 + 0.6,
+      radius: Math.random() * 1.5 + 0.5,
+      baseRadius: Math.random() * 1.5 + 0.5,
       color: colorOptions[Math.floor(Math.random() * colorOptions.length)],
-      alpha: Math.random() * 0.5 + 0.25,
-      baseAlpha: Math.random() * 0.5 + 0.25,
-      // Velocidad natural de deriva cósmica
-      baseVx: (Math.random() - 0.5) * 0.25,
-      baseVy: (Math.random() - 0.5) * 0.25,
-      // Velocidad reactiva inducida por gravedad
+      alpha: Math.random() * 0.45 + 0.2,
+      baseAlpha: Math.random() * 0.45 + 0.2,
+      baseVx: (Math.random() - 0.5) * 0.16,
+      baseVy: (Math.random() - 0.5) * 0.16,
       vx: 0,
       vy: 0,
-      // Masa y reactividad magnética
-      mass: Math.random() * 0.8 + 0.4
+      mass: Math.random() * 0.8 + 0.4,
+      waveOffset: Math.random() * Math.PI * 2
     });
   }
 
-  // Estela de humo cósmico etéreo
+  // Estela suave de ratón
   var smokeTrail = [];
 
   window.addEventListener('mousemove', function(e) {
@@ -91,15 +154,14 @@
       dot.style.transform = 'translate(' + targetMouseX + 'px, ' + targetMouseY + 'px) translate(-50%, -50%)';
     }
 
-    // Bocanadas de estela suave
     smokeTrail.push({
-      x: targetMouseX + (Math.random() - 0.5) * 8,
-      y: targetMouseY + (Math.random() - 0.5) * 8,
-      radius: Math.random() * 18 + 10,
-      alpha: 0.35,
+      x: targetMouseX + (Math.random() - 0.5) * 6,
+      y: targetMouseY + (Math.random() - 0.5) * 6,
+      radius: Math.random() * 14 + 8,
+      alpha: 0.22,
       color: colorOptions[Math.floor(Math.random() * colorOptions.length)]
     });
-    if (smokeTrail.length > 25) smokeTrail.shift();
+    if (smokeTrail.length > 18) smokeTrail.shift();
   });
 
   document.addEventListener('mouseleave', function() {
@@ -108,12 +170,16 @@
     if (ring) ring.style.opacity = '0';
   });
 
-  // Bucle de renderizado y simulación física espacial
+  var timeTick = 0;
+
+  // Bucle de Física Cuántica y Fluidos
   function loop() {
-    mouseX += (targetMouseX - mouseX) * 0.35;
-    mouseY += (targetMouseY - mouseY) * 0.35;
-    ringX += (targetMouseX - ringX) * 0.18;
-    ringY += (targetMouseY - ringY) * 0.18;
+    timeTick += 0.02;
+
+    mouseX += (targetMouseX - mouseX) * 0.28;
+    mouseY += (targetMouseY - mouseY) * 0.28;
+    ringX += (targetMouseX - ringX) * 0.14;
+    ringY += (targetMouseY - ringY) * 0.14;
 
     if (ring && isVisible) {
       ring.style.transform = 'translate(' + ringX + 'px, ' + ringY + 'px) translate(-50%, -50%)';
@@ -121,11 +187,11 @@
 
     ctx.clearRect(0, 0, width, height);
 
-    // 1. Dibujar estela de humo tenue detrás del cursor
+    // 1. Dibujar humo sutil
     for (var s = 0; s < smokeTrail.length; s++) {
       var sm = smokeTrail[s];
       sm.alpha *= 0.92;
-      sm.radius += 0.4;
+      sm.radius += 0.3;
       if (sm.alpha > 0.01) {
         ctx.beginPath();
         ctx.arc(sm.x, sm.y, sm.radius, 0, Math.PI * 2);
@@ -134,81 +200,109 @@
       }
     }
 
-    // 2. Simulación de Gravedad y Magnetismo Espacial en las 240 partículas
-    var MAGNETIC_RADIUS = 190;
+    // 2. Parámetros del medio físico actual
+    var friction = 0.965;
+    var gravityY = 0;
+    var fluidWave = false;
+
+    if (isCtrlPressed) {
+      // APAGADO DE INGRAVIDEZ / CAÍDA LIBRE AL PRESIONAR CONTROL
+      gravityY = 0.42;
+      friction = 0.98;
+    } else {
+      if (currentMedium === 'space') {
+        gravityY = 0;
+        friction = 0.965;
+      } else if (currentMedium === 'moon') {
+        gravityY = 0.12;
+        friction = 0.975;
+      } else if (currentMedium === 'water') {
+        gravityY = 0.04;
+        friction = 0.91; // Viscosidad líquida
+        fluidWave = true;
+      } else if (currentMedium === 'plasma') {
+        gravityY = 0;
+        friction = 0.85; // Miel / Plasma denso
+      } else if (currentMedium === 'antigravity') {
+        gravityY = -0.22; // Elevación gravitacional
+        friction = 0.97;
+      }
+    }
+
+    var INFLUENCE_RADIUS = 150;
 
     for (var i = 0; i < PARTICLE_COUNT; i++) {
       var p = particles[i];
 
-      if (isVisible) {
+      // Aceleración de gravedad del medio
+      p.vy += gravityY * p.mass;
+
+      // Ondulación fluida si es medio líquido
+      if (fluidWave) {
+        p.vx += Math.sin(timeTick + p.waveOffset) * 0.06;
+      }
+
+      // Perturbación cósmica aleatoria suave
+      p.vx += (Math.random() - 0.5) * 0.03;
+      p.vy += (Math.random() - 0.5) * 0.03;
+
+      // Interacción con ratón (si no está cayendo por Ctrl)
+      if (isVisible && !isCtrlPressed) {
         var dx = mouseX - p.x;
         var dy = mouseY - p.y;
         var dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < MAGNETIC_RADIUS && dist > 2) {
-          // Fuerza de atracción magnética no lineal
-          var force = (1 - dist / MAGNETIC_RADIUS) * 0.65 / p.mass;
-          // Atracción hacia el cursor
-          p.vx += (dx / dist) * force;
-          p.vy += (dy / dist) * force;
-
-          // Órbita / giro cósmico sutil
-          p.vx += (-dy / dist) * force * 0.28;
-          p.vy += (dx / dist) * force * 0.28;
-
-          // Aumento sutil de brillo cerca del cursor
-          p.alpha = Math.min(1, p.baseAlpha + (1 - dist / MAGNETIC_RADIUS) * 0.5);
-          p.radius = p.baseRadius * (1 + (1 - dist / MAGNETIC_RADIUS) * 0.4);
-
-          // Línea de filamento gravitacional magnético si está muy cerca
-          if (dist < 110) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(mouseX, mouseY);
-            ctx.strokeStyle = 'rgba(56, 189, 248, ' + (0.16 * (1 - dist / 110)) + ')';
-            ctx.lineWidth = 0.7;
-            ctx.stroke();
-          }
+        if (dist < INFLUENCE_RADIUS && dist > 5) {
+          var normDist = 1 - dist / INFLUENCE_RADIUS;
+          var pull = normDist * 0.18 / p.mass;
+          p.vx += (dx / dist) * pull;
+          p.vy += (dy / dist) * pull;
+          // Pequeña curvatura
+          p.vx += (-dy / dist) * pull * 0.15;
+          p.vy += (dx / dist) * pull * 0.15;
+          p.alpha = Math.min(0.85, p.baseAlpha + normDist * 0.3);
         } else {
-          p.alpha += (p.baseAlpha - p.alpha) * 0.05;
-          p.radius += (p.baseRadius - p.radius) * 0.05;
+          p.alpha += (p.baseAlpha - p.alpha) * 0.03;
         }
       }
 
-      // Inercia en gravedad cero (fricción espacial)
-      p.vx *= 0.94;
-      p.vy *= 0.94;
+      // Fricción / resistencia del medio
+      p.vx *= friction;
+      p.vy *= friction;
 
       p.x += p.vx + p.baseVx;
       p.y += p.vy + p.baseVy;
 
-      // Retorno toroidal a la pantalla
+      // Rebote o retorno por bordes
       if (p.x < -10) p.x = width + 10;
       if (p.x > width + 10) p.x = -10;
-      if (p.y < -10) p.y = height + 10;
-      if (p.y > height + 10) p.y = -10;
 
-      // Dibujar partícula
+      if (isCtrlPressed || currentMedium === 'moon') {
+        // En caída libre, si tocan el fondo rebotan sutilmente
+        if (p.y > height - 5) {
+          p.y = height - 5;
+          p.vy = -p.vy * 0.35;
+        }
+      } else if (currentMedium === 'antigravity') {
+        if (p.y < 0) p.y = height;
+      } else {
+        if (p.y < -10) p.y = height + 10;
+        if (p.y > height + 10) p.y = -10;
+      }
+
+      // Renderizar partícula
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
       ctx.fillStyle = p.color + p.alpha + ')';
       ctx.fill();
-
-      // Halo sutil para partículas brillantes
-      if (p.radius > 1.5) {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius * 2.2, 0, Math.PI * 2);
-        ctx.fillStyle = p.color + (p.alpha * 0.18) + ')';
-        ctx.fill();
-      }
     }
 
     requestAnimationFrame(loop);
   }
   requestAnimationFrame(loop);
 
-  // 4. Efectos de Alto Contraste en Hover (Texto siempre 100% nítido, sin blur)
-  var hoverElements = document.querySelectorAll('a, button, .service-card, .tile, .project-giant-item, h1, h2, h3, .chip');
+  // 6. Efecto Hover de Alto Contraste
+  var hoverElements = document.querySelectorAll('a, button, .service-card, .tile, .project-giant-item, h1, h2, h3, .chip, select');
   hoverElements.forEach(function(el) {
     el.addEventListener('mouseenter', function() {
       if (ring) ring.classList.add('active');
@@ -220,18 +314,66 @@
     });
   });
 
-  // 5. Inclinación 3D Limpia en Tarjetas (Texto intacto y legible)
+  // 7. Inclinación 3D en Tarjetas
   var tiltCards = document.querySelectorAll('.service-card, .tile');
   tiltCards.forEach(function(card) {
     card.addEventListener('mousemove', function(e) {
       var rect = card.getBoundingClientRect();
       var x = (e.clientX - rect.left) / rect.width - 0.5;
       var y = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = 'perspective(900px) rotateX(' + (-y * 5) + 'deg) rotateY(' + (x * 5) + 'deg) translateY(-4px)';
+      card.style.transform = 'perspective(900px) rotateX(' + (-y * 4) + 'deg) rotateY(' + (x * 4) + 'deg) translateY(-4px)';
     });
     card.addEventListener('mouseleave', function() {
       card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)';
     });
   });
+
+  // 8. Kinetic Scroll Parallax en Tipografía Brutalista
+  var kLine2 = document.querySelector('.kinetic-line-2');
+  var kLine3 = document.querySelector('.kinetic-line-3');
+  window.addEventListener('scroll', function() {
+    var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+    if (kLine2) {
+      kLine2.style.transform = 'translateX(' + (-scrolled * 0.16) + 'px)';
+    }
+    if (kLine3) {
+      kLine3.style.transform = 'translateX(' + (scrolled * 0.16) + 'px)';
+    }
+  }, { passive: true });
+
+
+  // 9. Left Vertical Scroll-Rail Progress Tracker ("Menú que se arma al bajar")
+  var railFill = document.getElementById('scroll-rail-fill');
+  var railItems = document.querySelectorAll('.rail-item');
+  var trackedSections = ['inicio', 'servicios', 'menu-inteligente', 'proyectos', 'contacto'];
+
+  window.addEventListener('scroll', function() {
+    var winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var scrolledPercent = height > 0 ? (winScroll / height) * 100 : 0;
+
+    if (railFill) {
+      railFill.style.height = scrolledPercent + '%';
+    }
+
+    var currentSec = 'inicio';
+    trackedSections.forEach(function(secId) {
+      var el = document.getElementById(secId);
+      if (el) {
+        var rect = el.getBoundingClientRect();
+        if (rect.top <= window.innerHeight * 0.45) {
+          currentSec = secId;
+        }
+      }
+    });
+
+    railItems.forEach(function(item) {
+      if (item.getAttribute('data-section') === currentSec) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+  }, { passive: true });
 
 })();

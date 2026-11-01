@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Servicios a la Carta | MarketingCloud Chile</title>
-  <meta name="description" content="Servicios independientes para empresas y PyMEs en Chile: Marketing Digital & SEO, Tecnología & Soporte (vía Tecnovoa), y Gestión de Ventas B2B (VaaS).">
+  <title>4 Servicios Principales | MarketingCloud Chile</title>
+  <meta name="description" content="Catálogo completo: Marketing Digital como Servicio, Consultoría TI, Asesor Digital y en Ciberseguridad, y Venta como Servicio en Chile.">
   <link rel="canonical" href="https://marketingcloud.cl/servicios">
   <meta name="robots" content="index, follow">
 
@@ -17,163 +17,1785 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+/* ==========================================================================
+   MARKETINGCLOUD CHILE · DESIGN SYSTEM (Layers of Time + Impeccable)
+   Direction: The Cosmic Show Board & High-Contrast Chroma
+   ========================================================================== */
+
+:root {
+  /* Colors */
+  --bg: #07080A;
+  --bg-alt: #0D0E12;
+  --surface: #12141A;
+  --surface-hover: #181B24;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(255, 255, 255, 0.22);
+  
+  --text: #F3F4F6;
+  --text-muted: #9496A1;
+  --text-dim: #5C6070;
+  
+  --accent: #F59E0B;
+  --accent-hover: #D97706;
+  --accent-subtle: rgba(245, 158, 11, 0.12);
+  
+  --cyan: #38BDF8;
+  --cyan-subtle: rgba(56, 189, 248, 0.12);
+  
+  --emerald: #10B981;
+  --emerald-subtle: rgba(16, 185, 129, 0.12);
+  
+  --purple: #A78BFA;
+  --purple-subtle: rgba(167, 139, 250, 0.12);
+
+  /* Typography */
+  --font-display: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
+
+  --step-small: clamp(0.8125rem, 0.8rem + 0.1vw, 0.875rem);
+  --step-body: clamp(0.95rem, 0.92rem + 0.2vw, 1.05rem);
+  --step-lead: clamp(1.15rem, 1.05rem + 0.5vw, 1.35rem);
+  --step-title: clamp(1.5rem, 1.3rem + 1.2vw, 2.2rem);
+  --step-head: clamp(2.4rem, 2rem + 3.2vw, 4.4rem);
+  --step-giant: clamp(2.8rem, 2.2rem + 5vw, 6.2rem);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  --gap: 16px;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  position: relative;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.wrap {
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   COSMIC CLOUD CANVAS & RETICLE CURSOR (Layers of Time Effect)
+   ========================================================================== */
+#nebula-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  
+}
+
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Cursor Core & Reticle (High Contrast, ZERO Text Blur) */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  background-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent), 0 0 20px rgba(245, 158, 11, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(245, 158, 11, 0.55);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  /* NO blur filter on cursor so text is ALWAYS sharp */
+  transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease,
+              background-color 0.2s ease,
+              transform 0.1s ease;
+}
+
+/* High contrast active state when hovering links or text */
+.cursor-ring.active {
+  width: 58px;
+  height: 58px;
+  border-color: #FFFFFF;
+  border-width: 2px;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.4), 0 0 30px rgba(56, 189, 248, 0.3);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ==========================================================================
+   STUDIO TOP BAR
+   ========================================================================== */
+.studio-bar {
+  background: rgba(7, 8, 10, 0.95);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 24px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 101;
+}
+
+.studio-bar-inner {
+  max-width: 1260px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timecode-live {
+  color: #FFFFFF;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================================================================
+   NAVIGATION
+   ========================================================================== */
+nav {
+  position: fixed;
+  top: 35px;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  background: rgba(7, 8, 10, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.nav-links a {
+  transition: color 0.2s ease;
+  padding: 4px 0;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #FFFFFF;
+}
+
+.nav-cta {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  color: var(--text);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-cta .pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--emerald);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+}
+
+.nav-cta:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-focus);
+  color: #FFFFFF;
+}
+
+@media (max-width: 960px) {
+  .nav-links {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.btn-primary {
+  background: #FFFFFF;
+  color: #07080A;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 14px 26px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  color: #07080A;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 14px 26px;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-focus);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: #07080A;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 14px 26px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-accent:hover {
+  background: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================================================
+   ANIMATIONS & KEYFRAMES (Layers of Time Studio)
+   ========================================================================== */
+@keyframes chromaticShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulseNeon {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.8)); }
+}
+
+/* ==========================================================================
+   CHROMATIC GRADIENT HEADLINES (Layers of Time Giant Typography)
+   ========================================================================== */
+.chroma-title {
+  font-family: var(--font-display);
+  font-size: var(--step-giant);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  background: linear-gradient(90deg, #FFFFFF 0%, #F59E0B 25%, #38BDF8 55%, #A78BFA 80%, #FFFFFF 100%);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: chromaticShift 7s linear infinite;
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.hero-statement {
+  font-family: var(--font-display);
+  font-size: var(--step-head);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  margin-bottom: 20px;
+}
+
+.hero-statement .gradient-text {
+  background: linear-gradient(90deg, #F59E0B 0%, #38BDF8 35%, #A78BFA 70%, #F59E0B 100%);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: chromaticShift 6s linear infinite;
+}
+
+/* ==========================================================================
+   THE BOARD & 4 SERVICES CARDS
+   ========================================================================== */
+.board {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--gap);
+  margin: var(--gap) 0;
+}
+
+.col-12 { grid-column: span 12; }
+.col-8  { grid-column: span 8; }
+.col-6  { grid-column: span 6; }
+.col-4  { grid-column: span 4; }
+.col-3  { grid-column: span 3; }
+
+@media (max-width: 980px) {
+  .col-8, .col-6, .col-4, .col-3 {
+    grid-column: span 12;
+  }
+}
+
+.tile {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease,
+              background-color 0.25s ease,
+              box-shadow 0.25s ease;
+  overflow: hidden;
+}
+
+.tile:hover {
+  border-color: var(--border-focus);
+  background: var(--surface-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+}
+
+/* 4 Main Services Card Styling - Texto 100% Nítido y de Alto Contraste */
+.service-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease,
+              box-shadow 0.25s ease,
+              background-color 0.25s ease;
+  position: relative;
+}
+
+.service-card:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: #151821;
+  transform: translateY(-4px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 255, 255, 0.05);
+}
+
+.service-card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.service-card-1:hover::after { background: var(--accent); opacity: 1; }
+.service-card-2:hover::after { background: var(--cyan); opacity: 1; }
+.service-card-3:hover::after { background: var(--purple); opacity: 1; }
+.service-card-4:hover::after { background: var(--emerald); opacity: 1; }
+
+.service-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+}
+
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin-bottom: 16px;
+}
+
+.chip-neutral {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.chip-accent {
+  background: var(--accent-subtle);
+  color: var(--accent);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.chip-cyan {
+  background: var(--cyan-subtle);
+  color: var(--cyan);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.chip-purple {
+  background: var(--purple-subtle);
+  color: var(--purple);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+}
+
+.chip-emerald {
+  background: var(--emerald-subtle);
+  color: var(--emerald);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.service-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin-bottom: 12px;
+}
+
+.service-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.service-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+.service-list li {
+  font-size: 0.88rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.service-list li span.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* ==========================================================================
+   GIANT CHROMATIC PROJECT SHOWCASE (Layers of Time Style)
+   ========================================================================== */
+.projects-section {
+  margin-top: 80px;
+  padding-top: 60px;
+  border-top: 1px solid var(--border);
+}
+
+.project-giant-item {
+  border-bottom: 1px solid var(--border);
+  padding: 36px 0;
+  display: grid;
+  grid-template-columns: 220px 1fr 240px;
+  gap: 28px;
+  align-items: center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.3s ease,
+              padding 0.3s ease;
+  position: relative;
+}
+
+.project-giant-item:hover {
+  background: rgba(255, 255, 255, 0.015);
+  padding-left: 16px;
+}
+
+.project-number {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.project-giant-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  background: linear-gradient(90deg, #FFFFFF 0%, #E2E8F0 40%, #94A3B8 70%, #FFFFFF 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+}
+
+.project-giant-item:hover .project-giant-name {
+  background: linear-gradient(90deg, #FFFFFF 0%, #F59E0B 25%, #38BDF8 55%, #A78BFA 80%, #F59E0B 100%);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: chromaticShift 3.5s linear infinite;
+  transform: translateX(12px) scale(1.02);
+  filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.35));
+}
+
+.project-desc {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-top: 10px;
+  max-width: 650px;
+}
+
+.project-meta-box {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-stat-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1;
+}
+
+.project-link-btn {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.2s ease;
+}
+
+.project-link-btn:hover {
+  transform: translateX(4px);
+  color: #FFFFFF;
+}
+
+@media (max-width: 860px) {
+  .project-giant-item {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 60px 24px 36px;
+  background: #050608;
+  margin-top: 80px;
+  position: relative;
+  z-index: 2;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 40px;
+  max-width: 1260px;
+  margin: 0 auto;
+}
+
+.footer-col h5 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #FFFFFF;
+}
+
+.footer-col p,
+.footer-col a {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  display: block;
+}
+
+.footer-col a:hover {
+  color: #FFFFFF;
+}
+
+.foot-bottom {
+  max-width: 1260px;
+  margin: 40px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+
+/* Project Stock Photography Thumbnail */
+.project-thumb {
+  width: 100%;
+  height: 145px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  position: relative;
+  background: var(--surface);
+}
+
+.project-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease, filter 0.4s ease;
+  filter: brightness(0.9) contrast(1.05);
+}
+
+.project-giant-item:hover .project-thumb img {
+  transform: scale(1.06);
+  filter: brightness(1.05) contrast(1.1);
+}
+
+@media (max-width: 980px) {
+  .project-giant-item {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .project-thumb {
+    height: 200px;
+  }
+}
+
+
+/* ==========================================================================
+   TOP BAR FINANCIAL INDICATORS & PARTICLE CONTROLS
+   ========================================================================== */
+.studio-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.studio-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.finance-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #E2E8F0;
+  letter-spacing: 0.04em;
+}
+
+.finance-badge strong {
+  color: #FFFFFF;
+}
+
+.physics-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px 4px;
+}
+
+.physics-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.physics-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.physics-btn.active {
+  background: var(--accent-subtle);
+  color: var(--accent);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   AMBIENT BLURRED BACKGROUND PHOTOGRAPHY (Imágenes Difuminadas en Tarjetas)
+   ========================================================================== */
+.card-ambient-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(14px) brightness(0.24);
+  opacity: 0.35;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.4s ease, filter 0.4s ease, transform 0.5s ease;
+}
+
+.service-card:hover .card-ambient-bg,
+.tile:hover .card-ambient-bg {
+  opacity: 0.55;
+  filter: blur(10px) brightness(0.32);
+  transform: scale(1.05);
+}
+
+.card-content-layer {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .physics-controls {
+    display: none;
+  }
+}
+
+
+/* ==========================================================================
+   NEO-BRUTALIST KINETIC HERO (Layers of Time Studio)
+   ========================================================================== */
+.brutalist-hero {
+  padding: 40px 0 70px;
+  position: relative;
+  overflow: hidden;
+}
+
+.brutalist-eyebrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 14px;
+  margin-bottom: 26px;
+  text-transform: uppercase;
+}
+
+.kinetic-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.kinetic-line-1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #9496A1;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.kinetic-line-2 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 7.2rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  line-height: 0.9;
+  color: #FFFFFF;
+  white-space: nowrap;
+  display: inline-block;
+  will-change: transform;
+}
+
+.kinetic-line-2 .outline-text {
+  color: transparent;
+  -webkit-text-stroke: 2px #FFFFFF;
+}
+
+.kinetic-line-3 {
+  font-family: var(--font-display);
+  font-size: clamp(3.4rem, 9.5vw, 8.4rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  line-height: 0.88;
+  background: linear-gradient(90deg, #F59E0B 0%, #38BDF8 35%, #A78BFA 70%, #F59E0B 100%);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: chromaticShift 6s linear infinite;
+  white-space: nowrap;
+  display: inline-block;
+  will-change: transform;
+}
+
+.kinetic-sub {
+  font-family: var(--font-mono);
+  font-size: clamp(0.9rem, 1.8vw, 1.35rem);
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  margin-top: 14px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(245, 158, 11, 0.08);
+  padding: 8px 18px;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-sm);
+  width: fit-content;
+}
+
+.brutalist-grid-meta {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 36px;
+  align-items: center;
+  border-top: 1px solid var(--border);
+  padding-top: 30px;
+  margin-top: 24px;
+}
+
+@media (max-width: 860px) {
+  .brutalist-grid-meta {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+
+/* ==========================================================================
+   LEFT SCROLL-SPY RAIL (Menú Lateral que se Arma al Bajar)
+   ========================================================================== */
+.scroll-rail {
+  position: fixed;
+  left: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 95;
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.scroll-rail-line {
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+}
+
+.scroll-rail-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--cyan) 50%, var(--purple) 100%);
+  border-radius: 2px;
+  transition: height 0.08s linear;
+}
+
+.scroll-rail-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+  padding: 0;
+  margin: 0;
+}
+
+.rail-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.rail-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #0B0D12;
+  border: 2px solid var(--border);
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.rail-item:hover .rail-dot,
+.rail-item.active .rail-dot {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+  transform: scale(1.2);
+}
+
+.rail-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  opacity: 0.4;
+  transform: translateX(-4px);
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.rail-item:hover .rail-label,
+.rail-item.active .rail-label {
+  opacity: 1;
+  color: #FFFFFF;
+  font-weight: 700;
+  transform: translateX(0px);
+}
+
+@media (max-width: 1350px) {
+  .scroll-rail .rail-label {
+    display: none;
+  }
+}
+
+@media (max-width: 980px) {
+  .scroll-rail {
+    display: none;
+  }
+}
+
+  </style>
 </head>
 <body>
 
-  <!-- NAVEGACIÓN -->
-  <nav>
-    <div class="logo"><a href="/">Marketing<span>Cloud</span></a></div>
-    <div class="nav-links">
-      <a href="/">Inicio</a>
-      <a href="/servicios" class="active">Servicios</a>
-      <a href="/portafolio">Portafolio</a>
-      <a href="/menu-inteligente">Menú Inteligente</a>
-      <a href="/tecnovoa">Tecnovoa</a>
-      <a href="/sobre-mi">Sobre Mí</a>
-      <a href="/contacto">Contacto</a>
+  <!-- CANVAS ESPACIAL DE FONDO (Física magnética, gravedad variable y líquidos) -->
+  <canvas id="nebula-canvas"></canvas>
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <!-- CURSOR RETICULAR ESPACIAL (Alto contraste, Cero desenfoque) -->
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- MENÚ LATERAL IZQUIERDO QUE SE ARMA AL BAJAR (SCROLL-SPY RAIL) -->
+  <nav class="scroll-rail" id="scroll-rail" aria-label="Navegación de progreso en la página">
+    <div class="scroll-rail-line">
+      <div class="scroll-rail-fill" id="scroll-rail-fill"></div>
     </div>
-    <a class="nav-cta" href="https://wa.me/56949438288?text=Hola%20Cristian,%20quisiera%20cotizar%20un%20servicio" target="_blank" rel="noopener">
-      <span>💬</span> Cotizar por WhatsApp
+    <ul class="scroll-rail-list">
+      <li>
+        <a href="#inicio" class="rail-item active" data-section="inicio">
+          <span class="rail-dot"></span>
+          <span class="rail-label">01 / INICIO</span>
+        </a>
+      </li>
+      <li>
+        <a href="#servicios" class="rail-item" data-section="servicios">
+          <span class="rail-dot"></span>
+          <span class="rail-label">02 / 4 SERVICIOS</span>
+        </a>
+      </li>
+      <li>
+        <a href="#menu-inteligente" class="rail-item" data-section="menu-inteligente">
+          <span class="rail-dot"></span>
+          <span class="rail-label">03 / MENÚ QR</span>
+        </a>
+      </li>
+      <li>
+        <a href="#proyectos" class="rail-item" data-section="proyectos">
+          <span class="rail-dot"></span>
+          <span class="rail-label">04 / CASOS REALES</span>
+        </a>
+      </li>
+      <li>
+        <a href="#contacto" class="rail-item" data-section="contacto">
+          <span class="rail-dot"></span>
+          <span class="rail-label">05 / CONTACTO</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- BARRA DE ESTUDIO CON RELOJ, DÓLAR, UF Y SELECTOR DE GRAVEDAD/LÍQUIDOS -->
+  <aside class="studio-bar" aria-label="Información de mercado y controles de física">
+    <div class="studio-bar-inner">
+      <div class="studio-bar-left">
+        <span style="display: inline-flex; align-items: center; gap: 6px; color: #FFFFFF; font-weight: 600;">
+          <span style="width: 6px; height: 6px; border-radius: 50%; background: #10B981; box-shadow: 0 0 8px #10B981;"></span>
+          SCL [UTC-3]
+        </span>
+        <span class="timecode-live" id="live-timecode">00:00:00</span>
+        
+        <!-- INDICADORES ECONÓMICOS CHILE EN VIVO -->
+        <span class="finance-badge" title="Valor oficial Dólar Observado en Chile">
+          USD: <strong id="val-dolar">$972,60</strong>
+        </span>
+        <span class="finance-badge" title="Valor oficial Unidad de Fomento">
+          UF: <strong id="val-uf">$41.252,94</strong>
+        </span>
+      </div>
+
+      <div class="studio-bar-right">
+        <!-- SWITCH DE GRAVEDAD Y MEDIOS LÍQUIDOS -->
+        <div style="display: inline-flex; align-items: center; gap: 6px;">
+          <label for="gravity-fluid-switch" style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase;">Física:</label>
+          <select id="gravity-fluid-switch" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: #FFFFFF; font-family: var(--font-mono); font-size: 0.7rem; border-radius: 4px; padding: 2px 6px; cursor: pointer;">
+            <option value="space">🌌 Zero-G Espacial</option>
+            <option value="moon">🪐 Gravedad Lunar</option>
+            <option value="water">💧 Viscosidad Líquida</option>
+            <option value="plasma">🍯 Plasma Denso</option>
+            <option value="antigravity">⚡ Antigravedad</option>
+          </select>
+        </div>
+
+        <span class="finance-badge" id="ctrl-tip" style="color: var(--accent); border-color: rgba(245,158,11,0.25);" title="Mantén pulsado Control en tu teclado">
+          Mantén [Ctrl]: Caída Libre
+        </span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- NAVEGACIÓN PRINCIPAL -->
+  <nav>
+    <div class="logo">
+      <a href="index.html">Marketing<span>Cloud</span></a>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">4 Servicios</a>
+      <a href="portafolio.html">Portafolio</a>
+      <a href="https://menu-inteligente-mc.vercel.app/" target="_blank" rel="noopener">Menú Inteligente ↗</a>
+      <a href="sobre-mi.html">Sobre Mí</a>
+      <a href="contacto.html">Contacto</a>
+    </div>
+    <a class="nav-cta" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20gustar%C3%ADa%20conversar%20sobre%20mi%20empresa" target="_blank" rel="noopener">
+      <span class="pulse-dot"></span>
+      <span>WhatsApp Directo</span>
     </a>
   </nav>
 
-  <!-- HEADER -->
-  <header class="page-header">
-    <div class="eyebrow">Catálogo de Soluciones</div>
-    <h1>Servicios independientes diseñados para el <span class="accent">crecimiento de tu empresa</span></h1>
-    <p>Contrata exactamente lo que tu negocio necesita hoy. Sin contratos forzados ni paquetes inflados: soluciones directas con un Consultor Senior.</p>
-  </header>
+  <main class="wrap" style="padding-top: 125px;">
 
-  <!-- SERVICIOS -->
-  <section>
-    <div class="wrap">
+    <section style="padding: 40px 0 30px;">
+      <span class="chip chip-accent">Arquitectura de Soluciones</span>
+      <h1 class="chroma-title" style="margin-bottom: 12px;">4 SERVICIOS PRINCIPALES</h1>
+      <p style="font-size: 1.15rem; color: var(--text-muted); max-width: 760px; line-height: 1.6;">
+        Infraestructura modular para empresas en Chile. Sin ataduras comerciales ni costes ocultos: contrata exactamente el servicio que tu operación requiere hoy.
+      </p>
+    </section>
 
-      <!-- SERVICIO 1: MARKETING DIGITAL -->
-      <div class="card" style="margin-bottom:36px;border-left:4px solid var(--accent);">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
-          <span class="eyebrow">Servicio 01 · Atracción & Presencia</span>
-          <span style="font-family:var(--mono);font-size:0.8rem;color:var(--text-muted);">Marketing como Servicio (MaaS)</span>
-        </div>
-        <h2 style="font-family:var(--display);font-size:2rem;margin-bottom:14px;">Marketing Digital & Posicionamiento Web</h2>
-        <p style="color:var(--text-muted);font-size:1.02rem;margin-bottom:24px;max-width:820px;">
-          Atrae visitantes con alta intención de compra. Desarrollamos sitios web estáticos ultrarrápidos, optimizamos tu visibilidad local en Google Chile y creamos mensajes que convierten visitas en contactos.
+    <!-- DETALLE SERVICIO 1: MARKETING DIGITAL -->
+    <article class="tile col-12" style="margin-bottom: 30px; position: relative;">
+      <img class="card-ambient-bg" src="https://images.pexels.com/photos/905163/pexels-photo-905163.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Marketing Digital" loading="lazy">
+      <div class="card-content-layer">
+        <span class="chip chip-accent">SERVICIO 01 · ATRACCIÓN & DEMANDA</span>
+        <h2 style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: #FFFFFF; margin: 10px 0 14px;">
+          Marketing Digital como Servicio (MaaS)
+        </h2>
+        <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; max-width: 860px; margin-bottom: 24px;">
+          Construimos tu presencia en internet orientada exclusivamente a conversión de prospectos calificados. Integramos posicionamiento SEO en Google Chile, pauta pagada de alto impacto en Meta y Google Ads, y desarrollo web ultrarrápido con analítica avanzada.
         </p>
-        <div class="grid-3" style="margin-bottom:28px;">
-          <div>
-            <h4 style="font-family:var(--display);font-size:1.1rem;margin-bottom:8px;">🚀 Desarrollo Web de Alta Conversión</h4>
-            <p style="color:var(--text-muted);font-size:0.88rem;">Páginas web optimizadas para móviles, 100/100 en Google PageSpeed y con botón directo de WhatsApp.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 26px;">
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 18px; border-radius: var(--radius-sm);">
+            <strong style="color: #FFFFFF; display: block; margin-bottom: 6px;">SEO & Visibilidad Local</strong>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Auditoría técnica, indexación en Google Chile, optimización de palabras clave comerciales y Google Business Profile.</span>
           </div>
-          <div>
-            <h4 style="font-family:var(--display);font-size:1.1rem;margin-bottom:8px;">🔍 SEO Local & Search Console</h4>
-            <p style="color:var(--text-muted);font-size:0.88rem;">Indexación técnica en Google para búsquedas en Chile, microdatos estructurados y auditoría continua.</p>
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 18px; border-radius: var(--radius-sm);">
+            <strong style="color: #FFFFFF; display: block; margin-bottom: 6px;">Pauta Publicitaria B2B</strong>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Campañas de búsqueda con intención de compra directa y captación de leads en LinkedIn y Meta Ads.</span>
           </div>
-          <div>
-            <h4 style="font-family:var(--display);font-size:1.1rem;margin-bottom:8px;">📱 Contenido & Redes Sociales</h4>
-            <p style="color:var(--text-muted);font-size:0.88rem;">Publicaciones estratégicas para construir autoridad, confianza de marca y generación de prospectos.</p>
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 18px; border-radius: var(--radius-sm);">
+            <strong style="color: #FFFFFF; display: block; margin-bottom: 6px;">Sitios Web de Alta Velocidad</strong>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Desarrollo sin bloatware ni plantillas pesadas: carga inferior a 1 segundo para maximizar cotizaciones.</span>
           </div>
         </div>
-        <a class="btn-primary" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20interesa%20cotizar%20Marketing%20Digital" target="_blank" rel="noopener">
-          Cotizar Marketing Digital →
+        <a class="btn-primary" href="https://wa.me/56949438288?text=Hola%20Cristian,%20quisiera%20cotizar%20Marketing%20Digital" target="_blank" rel="noopener">
+          Cotizar Marketing Digital por WhatsApp →
         </a>
       </div>
+    </article>
 
-      <!-- SERVICIO 2: TECNOLOGÍA TECNOVOA -->
-      <div class="card" style="margin-bottom:36px;border-left:4px solid #50b0ff;">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
-          <span class="eyebrow" style="color:#50b0ff;">Servicio 02 · Soporte & Infraestructura</span>
-          <span style="font-family:var(--mono);font-size:0.8rem;color:var(--text-muted);">División Tecnovoa</span>
-        </div>
-        <h2 style="font-family:var(--display);font-size:2rem;margin-bottom:14px;">Tecnología, Soporte Computacional & Ofimática</h2>
-        <p style="color:var(--text-muted);font-size:1.02rem;margin-bottom:24px;max-width:820px;">
-          Garantizamos la continuidad operativa de tus equipos y la seguridad de tu información. Formateo, soporte técnico, ciberseguridad práctica y capacitación en software corporativo.
+    <!-- DETALLE SERVICIO 2: CONSULTORÍA TI -->
+    <article class="tile col-12" style="margin-bottom: 30px; position: relative;">
+      <img class="card-ambient-bg" src="https://images.pexels.com/photos/17489157/pexels-photo-17489157.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Consultoría TI" loading="lazy">
+      <div class="card-content-layer">
+        <span class="chip chip-cyan">SERVICIO 02 · INFRAESTRUCTURA & SOPORTE</span>
+        <h2 style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: #FFFFFF; margin: 10px 0 14px;">
+          Consultoría TI & Soporte Técnico Integral
+        </h2>
+        <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; max-width: 860px; margin-bottom: 24px;">
+          Soporte informático corporativo para mantener tu operación informática 100% activa. Desde servidores dedicados y correo empresarial hasta mantención de puestos de trabajo y renovación de infraestructura informática con trato directo.
         </p>
-        <div class="grid-3" style="margin-bottom:28px;">
-          <div>
-            <h4 style="font-family:var(--display);font-size:1.1rem;margin-bottom:8px;">💻 Soporte y Reparación de Equipos</h4>
-            <p style="color:var(--text-muted);font-size:0.88rem;">Diagnóstico, optimización de velocidad de laptops/PCs, formateo, re-instalación limpia y mantención preventiva.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 26px;">
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 18px; border-radius: var(--radius-sm);">
+            <strong style="color: #FFFFFF; display: block; margin-bottom: 6px;">Soporte Presencial & Remoto</strong>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Mesa de ayuda directa en Santiago y atención remota inmediata para resolución ágil de incidencias de software y hardware.</span>
           </div>
-          <div>
-            <h4 style="font-family:var(--display);font-size:1.1rem;margin-bottom:8px;">🛡️ Ciberseguridad & Respaldos</h4>
-            <p style="color:var(--text-muted);font-size:0.88rem;">Copias de seguridad de archivos contables y comerciales, eliminación de malware y protección para tu negocio.</p>
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 18px; border-radius: var(--radius-sm);">
+            <strong style="color: #FFFFFF; display: block; margin-bottom: 6px;">Servidores & Cloud Hosting</strong>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Administración de servidores Linux/Windows en la nube, bases de datos y copias de seguridad continuas.</span>
           </div>
-          <div>
-            <h4 style="font-family:var(--display);font-size:1.1rem;margin-bottom:8px;">📊 Ofimática & Power BI</h4>
-            <p style="color:var(--text-muted);font-size:0.88rem;">Clases y consultoría práctica en Excel, Power BI y herramientas de productividad para tu equipo de trabajo.</p>
-          </div>
-        </div>
-        <div style="display:flex;gap:14px;flex-wrap:wrap;">
-          <a class="btn-primary" style="background:#50b0ff;color:#0d1117;" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20interesa%20cotizar%20Tecnolog%C3%ADa%20con%20Tecnovoa" target="_blank" rel="noopener">
-            Cotizar Soporte TI con Tecnovoa →
-          </a>
-          <a class="btn-secondary" href="/tecnovoa">Conocer más de Tecnovoa</a>
-        </div>
-      </div>
-
-      <!-- SERVICIO 3: GESTIÓN DE VENTAS -->
-      <div class="card" style="border-left:4px solid #58e388;">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
-          <span class="eyebrow" style="color:#58e388;">Servicio 03 · Prospección & Cierre</span>
-          <span style="font-family:var(--mono);font-size:0.8rem;color:var(--text-muted);">Venta como Servicio (VaaS)</span>
-        </div>
-        <h2 style="font-family:var(--display);font-size:2rem;margin-bottom:14px;">Gestión de Ventas B2B & Prospección Comercial</h2>
-        <p style="color:var(--text-muted);font-size:1.02rem;margin-bottom:24px;max-width:820px;">
-          Activa un brazo comercial para salir a buscar clientes corporativos. Identificamos tomadores de decisión, realizamos telemarketing consultivo y te entregamos prospectos calificados listos para cotizar.
-        </p>
-        <div class="grid-3" style="margin-bottom:28px;">
-          <div>
-            <h4 style="font-family:var(--display);font-size:1.1rem;margin-bottom:8px;">🎯 Prospección Activa B2B</h4>
-            <p style="color:var(--text-muted);font-size:0.88rem;">Búsqueda y segmentación de empresas y tomadores de decisión que necesitan exactamente lo que tú ofreces.</p>
-          </div>
-          <div>
-            <h4 style="font-family:var(--display);font-size:1.1rem;margin-bottom:8px;">📞 Telemarketing Consultivo</h4>
-            <p style="color:var(--text-muted);font-size:0.88rem;">Contacto profesional, calificación de necesidades y agendamiento de reuniones comerciales de calidad.</p>
-          </div>
-          <div>
-            <h4 style="font-family:var(--display);font-size:1.1rem;margin-bottom:8px;">📈 Embudos de Conversión</h4>
-            <p style="color:var(--text-muted);font-size:0.88rem;">Seguimiento metódico de cotizaciones y propuestas para evitar que las oportunidades se enfríen.</p>
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 18px; border-radius: var(--radius-sm);">
+            <strong style="color: #FFFFFF; display: block; margin-bottom: 6px;">Equipamiento & Redes</strong>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Armado, formateo, renovación tecnológica y cableado estructurado/WiFi para oficinas y empresas.</span>
           </div>
         </div>
-        <a class="btn-primary" style="background:#58e388;color:#0c1d12;" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20interesa%20cotizar%20Gesti%C3%B3n%20de%20Ventas" target="_blank" rel="noopener">
-          Cotizar Gestión de Ventas →
+        <a class="btn-primary" style="background: var(--cyan); color: #07080A;" href="https://wa.me/56949438288?text=Hola%20Cristian,%20necesito%20Consultor%C3%ADa%20TI" target="_blank" rel="noopener">
+          Cotizar Consultoría TI por WhatsApp →
         </a>
       </div>
+    </article>
 
-    </div>
-  </section>
+    <!-- DETALLE SERVICIO 3: CIBERSEGURIDAD -->
+    <article class="tile col-12" style="margin-bottom: 30px; position: relative;">
+      <img class="card-ambient-bg" src="https://cdn.pixabay.com/photo/2019/11/08/10/34/cyber-4610993_1280.jpg" alt="Ciberseguridad" loading="lazy">
+      <div class="card-content-layer">
+        <span class="chip chip-purple">SERVICIO 03 · BLINDAJE & RESILENCIA</span>
+        <h2 style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: #FFFFFF; margin: 10px 0 14px;">
+          Asesor Digital y en Ciberseguridad
+        </h2>
+        <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; max-width: 860px; margin-bottom: 24px;">
+          Protegemos tu empresa contra el secuestro de datos, fugas de información y ataques dirigidos. Implementamos políticas de seguridad perimetral, respaldos inmutables en la nube y auditorías de vulnerabilidad.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 26px;">
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 18px; border-radius: var(--radius-sm);">
+            <strong style="color: #FFFFFF; display: block; margin-bottom: 6px;">Anti-Ransomware & Malware</strong>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Sistemas de protección activa para impedir el cifrado malicioso de archivos empresariales y bases de datos.</span>
+          </div>
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 18px; border-radius: var(--radius-sm);">
+            <strong style="color: #FFFFFF; display: block; margin-bottom: 6px;">Respaldos Inmutables en la Nube</strong>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Backups automáticos con versionado externo para recuperación ante cualquier desastre en menos de 2 horas.</span>
+          </div>
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 18px; border-radius: var(--radius-sm);">
+            <strong style="color: #FFFFFF; display: block; margin-bottom: 6px;">Auditoría de Vulnerabilidades</strong>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Diagnóstico exhaustivo de puertos, contraseñas, correos expuestos y capacitación anti-phishing para colaboradores.</span>
+          </div>
+        </div>
+        <a class="btn-primary" style="background: var(--purple); color: #07080A;" href="https://wa.me/56949438288?text=Hola%20Cristian,%20busco%20asesor%C3%ADa%20en%20Ciberseguridad" target="_blank" rel="noopener">
+          Cotizar Ciberseguridad por WhatsApp →
+        </a>
+      </div>
+    </article>
+
+    <!-- DETALLE SERVICIO 4: VENTA COMO SERVICIO -->
+    <article class="tile col-12" style="margin-bottom: 30px; position: relative;">
+      <img class="card-ambient-bg" src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Ventas B2B" loading="lazy">
+      <div class="card-content-layer">
+        <span class="chip chip-emerald">SERVICIO 04 · CONVERSIÓN & VENTAS B2B</span>
+        <h2 style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: #FFFFFF; margin: 10px 0 14px;">
+          Venta como Servicio (VaaS) · BDM & KAM
+        </h2>
+        <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; max-width: 860px; margin-bottom: 24px;">
+          Externaliza tu fuerza comercial con un Consultor Senior especializado en prospección, calificación B2B y dirección de cuentas clave (KAM). Alimentamos tu embudo con reuniones listas para cotizar.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 26px;">
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 18px; border-radius: var(--radius-sm);">
+            <strong style="color: #FFFFFF; display: block; margin-bottom: 6px;">Prospección B2B Multicanal</strong>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Contacto directo a tomadores de decisión (Gerentes Generales, TI, Operaciones) mediante WhatsApp Business y LinkedIn.</span>
+          </div>
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 18px; border-radius: var(--radius-sm);">
+            <strong style="color: #FFFFFF; display: block; margin-bottom: 6px;">Calificación BANT Rigurosa</strong>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Filtramos presupuesto, autoridad, necesidad y tiempos antes de agendar para que tu equipo no pierda tiempo.</span>
+          </div>
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 18px; border-radius: var(--radius-sm);">
+            <strong style="color: #FFFFFF; display: block; margin-bottom: 6px;">Dirección de Cuentas (KAM)</strong>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Gestión de clientes de alto valor, contratos marco recurrentes y seguimiento comercial continuo.</span>
+          </div>
+        </div>
+        <a class="btn-primary" style="background: var(--emerald); color: #07080A;" href="https://wa.me/56949438288?text=Hola%20Cristian,%20quiero%20conversar%20sobre%20Venta%20como%20Servicio" target="_blank" rel="noopener">
+          Cotizar Venta como Servicio por WhatsApp →
+        </a>
+      </div>
+    </article>
+
+  </main>
 
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="footer-col">
         <h5>MarketingCloud Chile</h5>
-        <p>Soluciones a la carta de Marketing Digital, Tecnología (Tecnovoa) y Gestión de Ventas para empresas en Chile.</p>
-        <p style="margin-top:14px;color:var(--text);font-family:var(--mono);font-size:0.8rem;">📍 Santiago, Chile</p>
+        <p>Ecosistema de soluciones digitales: Marketing Digital, Consultoría TI, Ciberseguridad y Venta como Servicio por Cristian Díaz.</p>
+        <p style="margin-top: 14px; color: #FFFFFF; font-family: var(--font-mono); font-size: 0.8rem;">📍 Santiago, Región Metropolitana, Chile</p>
       </div>
 
       <div class="footer-col">
         <h5>Navegación</h5>
-        <a href="/">Inicio</a>
-        <a href="/servicios">Servicios</a>
-        <a href="/portafolio">Portafolio & Casos</a>
-        <a href="/menu-inteligente">Menú Inteligente</a>
-        <a href="/tecnovoa">Tecnovoa</a>
-        <a href="/sobre-mi">Sobre Mí</a>
-        <a href="/contacto">Contacto</a>
+        <a href="index.html">Inicio</a>
+        <a href="servicios.html">4 Servicios Principales</a>
+        <a href="https://menu-inteligente-mc.vercel.app/" target="_blank" rel="noopener">Menú Inteligente QR ↗</a>
+        <a href="portafolio.html">Portafolio & Casos</a>
+        <a href="sobre-mi.html">Sobre Mí</a>
+        <a href="contacto.html">Contacto</a>
       </div>
 
       <div class="footer-col">
         <h5>Contacto Directo</h5>
         <a href="https://wa.me/56949438288" target="_blank" rel="noopener">WhatsApp: +569 4943 8288</a>
         <a href="mailto:contacto@marketingcloud.cl">Email: contacto@marketingcloud.cl</a>
+        <a href="https://web.facebook.com/MarketingcloudChile/" target="_blank" rel="noopener">Facebook: @MarketingcloudChile</a>
       </div>
     </div>
+    
     <div class="foot-bottom">
-      © 2026 MarketingCloud Chile. Todos los derechos reservados.
+      <div>© 2026 MarketingCloud Chile. Dominio registrado en NIC Chile.</div>
+      <div>Trato directo con Consultor Senior Cristian Díaz</div>
     </div>
   </footer>
 
+  <script src="js/engine.js"></script>
+  <script>
+// MarketingCloud Studio - Interactive Engine
+// Physics Mediums: Space Zero-G, Lunar Gravity, Water Viscosity, Plasma, Antigravity
+// Keyboard: Hold [Ctrl] for Gravitational Freefall
+// Economic Indicators: Dólar & UF Chile
+(function() {
+  'use strict';
+
+  // 1. Reloj de Estudio - Santiago de Chile (UTC-3)
+  function updateSantiagoTime() {
+    var timeEl = document.getElementById('live-timecode');
+    if (!timeEl) return;
+    var now = new Date();
+    var santiagoTime = new Intl.DateTimeFormat('es-CL', {
+      timeZone: 'America/Santiago',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    }).format(now);
+    timeEl.textContent = santiagoTime;
+  }
+  setInterval(updateSantiagoTime, 1000);
+  updateSantiagoTime();
+
+  // 2. Indicadores Económicos de Chile (Dólar y UF)
+  function initEconomicIndicators() {
+    var usdEl = document.getElementById('val-dolar');
+    var ufEl = document.getElementById('val-uf');
+    if (usdEl && !usdEl.textContent.trim()) usdEl.textContent = '$972,60';
+    if (ufEl && !ufEl.textContent.trim()) ufEl.textContent = '$41.252,94';
+
+    try {
+      fetch('https://mindicador.cl/api')
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (data && data.dolar && usdEl) {
+            usdEl.textContent = '$' + data.dolar.valor.toLocaleString('es-CL', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
+          }
+          if (data && data.uf && ufEl) {
+            ufEl.textContent = '$' + data.uf.valor.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          }
+        })
+        .catch(function() {});
+    } catch (e) {}
+  }
+  initEconomicIndicators();
+
+  // 3. Cursor Reticular y Canvas Cósmico
+  var dot = document.getElementById('cursor-dot');
+  var ring = document.getElementById('cursor-ring');
+  var canvas = document.getElementById('nebula-canvas');
+  if (!canvas) return;
+
+  var ctx = canvas.getContext('2d');
+  var width = (canvas.width = window.innerWidth);
+  var height = (canvas.height = window.innerHeight);
+
+  window.addEventListener('resize', function() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  var mouseX = width / 2;
+  var mouseY = height / 2;
+  var targetMouseX = mouseX;
+  var targetMouseY = mouseY;
+  var ringX = mouseX;
+  var ringY = mouseY;
+  var isVisible = false;
+
+  // 4. Modos de Medio Físico y Gravedad
+  // Opciones: 'space' (Zero-G), 'moon' (Lunar), 'water' (Líquido), 'plasma' (Denso), 'antigravity' (Flotación)
+  var currentMedium = 'space';
+  var isCtrlPressed = false;
+
+  window.addEventListener('keydown', function(e) {
+    if (e.key === 'Control' || e.ctrlKey) {
+      isCtrlPressed = true;
+      var tip = document.getElementById('ctrl-tip');
+      if (tip) tip.classList.add('active');
+    }
+  });
+
+  window.addEventListener('keyup', function(e) {
+    if (e.key === 'Control' || !e.ctrlKey) {
+      isCtrlPressed = false;
+      var tip = document.getElementById('ctrl-tip');
+      if (tip) tip.classList.remove('active');
+    }
+  });
+
+  // Selector de gravedades y medios líquidos
+  var mediumSelect = document.getElementById('gravity-fluid-switch');
+  if (mediumSelect) {
+    mediumSelect.addEventListener('change', function(e) {
+      currentMedium = e.target.value;
+    });
+  }
+
+  var mediumButtons = document.querySelectorAll('.medium-btn');
+  mediumButtons.forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      mediumButtons.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentMedium = btn.getAttribute('data-medium') || 'space';
+      if (mediumSelect) mediumSelect.value = currentMedium;
+    });
+  });
+
+  // 5. Simulación Física de 240 Micro-Partículas
+  var PARTICLE_COUNT = 240;
+  var particles = [];
+
+  var colorOptions = [
+    'rgba(255, 255, 255, ',     // Blanco estelar
+    'rgba(245, 158, 11, ',      // Ámbar
+    'rgba(56, 189, 248, ',      // Cyan
+    'rgba(167, 139, 250, '      // Púrpura
+  ];
+
+  for (var i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: Math.random() * 1.5 + 0.5,
+      baseRadius: Math.random() * 1.5 + 0.5,
+      color: colorOptions[Math.floor(Math.random() * colorOptions.length)],
+      alpha: Math.random() * 0.45 + 0.2,
+      baseAlpha: Math.random() * 0.45 + 0.2,
+      baseVx: (Math.random() - 0.5) * 0.16,
+      baseVy: (Math.random() - 0.5) * 0.16,
+      vx: 0,
+      vy: 0,
+      mass: Math.random() * 0.8 + 0.4,
+      waveOffset: Math.random() * Math.PI * 2
+    });
+  }
+
+  // Estela suave de ratón
+  var smokeTrail = [];
+
+  window.addEventListener('mousemove', function(e) {
+    targetMouseX = e.clientX;
+    targetMouseY = e.clientY;
+
+    if (!isVisible) {
+      isVisible = true;
+      if (dot) dot.style.opacity = '1';
+      if (ring) ring.style.opacity = '1';
+    }
+
+    if (dot) {
+      dot.style.transform = 'translate(' + targetMouseX + 'px, ' + targetMouseY + 'px) translate(-50%, -50%)';
+    }
+
+    smokeTrail.push({
+      x: targetMouseX + (Math.random() - 0.5) * 6,
+      y: targetMouseY + (Math.random() - 0.5) * 6,
+      radius: Math.random() * 14 + 8,
+      alpha: 0.22,
+      color: colorOptions[Math.floor(Math.random() * colorOptions.length)]
+    });
+    if (smokeTrail.length > 18) smokeTrail.shift();
+  });
+
+  document.addEventListener('mouseleave', function() {
+    isVisible = false;
+    if (dot) dot.style.opacity = '0';
+    if (ring) ring.style.opacity = '0';
+  });
+
+  var timeTick = 0;
+
+  // Bucle de Física Cuántica y Fluidos
+  function loop() {
+    timeTick += 0.02;
+
+    mouseX += (targetMouseX - mouseX) * 0.28;
+    mouseY += (targetMouseY - mouseY) * 0.28;
+    ringX += (targetMouseX - ringX) * 0.14;
+    ringY += (targetMouseY - ringY) * 0.14;
+
+    if (ring && isVisible) {
+      ring.style.transform = 'translate(' + ringX + 'px, ' + ringY + 'px) translate(-50%, -50%)';
+    }
+
+    ctx.clearRect(0, 0, width, height);
+
+    // 1. Dibujar humo sutil
+    for (var s = 0; s < smokeTrail.length; s++) {
+      var sm = smokeTrail[s];
+      sm.alpha *= 0.92;
+      sm.radius += 0.3;
+      if (sm.alpha > 0.01) {
+        ctx.beginPath();
+        ctx.arc(sm.x, sm.y, sm.radius, 0, Math.PI * 2);
+        ctx.fillStyle = sm.color + sm.alpha + ')';
+        ctx.fill();
+      }
+    }
+
+    // 2. Parámetros del medio físico actual
+    var friction = 0.965;
+    var gravityY = 0;
+    var fluidWave = false;
+
+    if (isCtrlPressed) {
+      // APAGADO DE INGRAVIDEZ / CAÍDA LIBRE AL PRESIONAR CONTROL
+      gravityY = 0.42;
+      friction = 0.98;
+    } else {
+      if (currentMedium === 'space') {
+        gravityY = 0;
+        friction = 0.965;
+      } else if (currentMedium === 'moon') {
+        gravityY = 0.12;
+        friction = 0.975;
+      } else if (currentMedium === 'water') {
+        gravityY = 0.04;
+        friction = 0.91; // Viscosidad líquida
+        fluidWave = true;
+      } else if (currentMedium === 'plasma') {
+        gravityY = 0;
+        friction = 0.85; // Miel / Plasma denso
+      } else if (currentMedium === 'antigravity') {
+        gravityY = -0.22; // Elevación gravitacional
+        friction = 0.97;
+      }
+    }
+
+    var INFLUENCE_RADIUS = 150;
+
+    for (var i = 0; i < PARTICLE_COUNT; i++) {
+      var p = particles[i];
+
+      // Aceleración de gravedad del medio
+      p.vy += gravityY * p.mass;
+
+      // Ondulación fluida si es medio líquido
+      if (fluidWave) {
+        p.vx += Math.sin(timeTick + p.waveOffset) * 0.06;
+      }
+
+      // Perturbación cósmica aleatoria suave
+      p.vx += (Math.random() - 0.5) * 0.03;
+      p.vy += (Math.random() - 0.5) * 0.03;
+
+      // Interacción con ratón (si no está cayendo por Ctrl)
+      if (isVisible && !isCtrlPressed) {
+        var dx = mouseX - p.x;
+        var dy = mouseY - p.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < INFLUENCE_RADIUS && dist > 5) {
+          var normDist = 1 - dist / INFLUENCE_RADIUS;
+          var pull = normDist * 0.18 / p.mass;
+          p.vx += (dx / dist) * pull;
+          p.vy += (dy / dist) * pull;
+          // Pequeña curvatura
+          p.vx += (-dy / dist) * pull * 0.15;
+          p.vy += (dx / dist) * pull * 0.15;
+          p.alpha = Math.min(0.85, p.baseAlpha + normDist * 0.3);
+        } else {
+          p.alpha += (p.baseAlpha - p.alpha) * 0.03;
+        }
+      }
+
+      // Fricción / resistencia del medio
+      p.vx *= friction;
+      p.vy *= friction;
+
+      p.x += p.vx + p.baseVx;
+      p.y += p.vy + p.baseVy;
+
+      // Rebote o retorno por bordes
+      if (p.x < -10) p.x = width + 10;
+      if (p.x > width + 10) p.x = -10;
+
+      if (isCtrlPressed || currentMedium === 'moon') {
+        // En caída libre, si tocan el fondo rebotan sutilmente
+        if (p.y > height - 5) {
+          p.y = height - 5;
+          p.vy = -p.vy * 0.35;
+        }
+      } else if (currentMedium === 'antigravity') {
+        if (p.y < 0) p.y = height;
+      } else {
+        if (p.y < -10) p.y = height + 10;
+        if (p.y > height + 10) p.y = -10;
+      }
+
+      // Renderizar partícula
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color + p.alpha + ')';
+      ctx.fill();
+    }
+
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  // 6. Efecto Hover de Alto Contraste
+  var hoverElements = document.querySelectorAll('a, button, .service-card, .tile, .project-giant-item, h1, h2, h3, .chip, select');
+  hoverElements.forEach(function(el) {
+    el.addEventListener('mouseenter', function() {
+      if (ring) ring.classList.add('active');
+      if (dot) dot.classList.add('active');
+    });
+    el.addEventListener('mouseleave', function() {
+      if (ring) ring.classList.remove('active');
+      if (dot) dot.classList.remove('active');
+    });
+  });
+
+  // 7. Inclinación 3D en Tarjetas
+  var tiltCards = document.querySelectorAll('.service-card, .tile');
+  tiltCards.forEach(function(card) {
+    card.addEventListener('mousemove', function(e) {
+      var rect = card.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = 'perspective(900px) rotateX(' + (-y * 4) + 'deg) rotateY(' + (x * 4) + 'deg) translateY(-4px)';
+    });
+    card.addEventListener('mouseleave', function() {
+      card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)';
+    });
+  });
+
+  // 8. Kinetic Scroll Parallax en Tipografía Brutalista
+  var kLine2 = document.querySelector('.kinetic-line-2');
+  var kLine3 = document.querySelector('.kinetic-line-3');
+  window.addEventListener('scroll', function() {
+    var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+    if (kLine2) {
+      kLine2.style.transform = 'translateX(' + (-scrolled * 0.16) + 'px)';
+    }
+    if (kLine3) {
+      kLine3.style.transform = 'translateX(' + (scrolled * 0.16) + 'px)';
+    }
+  }, { passive: true });
+
+
+  // 9. Left Vertical Scroll-Rail Progress Tracker ("Menú que se arma al bajar")
+  var railFill = document.getElementById('scroll-rail-fill');
+  var railItems = document.querySelectorAll('.rail-item');
+  var trackedSections = ['inicio', 'servicios', 'menu-inteligente', 'proyectos', 'contacto'];
+
+  window.addEventListener('scroll', function() {
+    var winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var scrolledPercent = height > 0 ? (winScroll / height) * 100 : 0;
+
+    if (railFill) {
+      railFill.style.height = scrolledPercent + '%';
+    }
+
+    var currentSec = 'inicio';
+    trackedSections.forEach(function(secId) {
+      var el = document.getElementById(secId);
+      if (el) {
+        var rect = el.getBoundingClientRect();
+        if (rect.top <= window.innerHeight * 0.45) {
+          currentSec = secId;
+        }
+      }
+    });
+
+    railItems.forEach(function(item) {
+      if (item.getAttribute('data-section') === currentSec) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+  }, { passive: true });
+
+})();
+
+  </script>
 </body>
 </html>
-
