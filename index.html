@@ -135,8 +135,8 @@ img {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 5;
-  mix-blend-mode: screen;
+  z-index: 1;
+  
 }
 
 .grid-bg {
@@ -473,12 +473,10 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.3s ease,
-              background-color 0.3s ease,
-              box-shadow 0.3s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease,
+              background-color 0.25s ease,
+              box-shadow 0.25s ease;
   overflow: hidden;
 }
 
@@ -486,9 +484,10 @@ nav {
   border-color: var(--border-focus);
   background: var(--surface-hover);
   transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
 }
 
-/* 4 Main Services Card Styling */
+/* 4 Main Services Card Styling - Texto 100% Nítido y de Alto Contraste */
 .service-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -497,102 +496,18 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.3s ease,
-              box-shadow 0.3s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease,
+              box-shadow 0.25s ease,
+              background-color 0.25s ease;
   position: relative;
-}
-
-/* ==========================================================================
-   SPOTLIGHT FOCUS EFFECT (Difumina y desvanece todo lo demás)
-   ========================================================================== */
-body.spotlight-active .service-card:not(.is-focused),
-body.spotlight-active .tile:not(.is-focused),
-body.spotlight-active .project-giant-item:not(.is-focused) {
-  opacity: 0.16 !important;
-  filter: blur(3px) grayscale(50%) !important;
-  transform: scale(0.985);
-  pointer-events: auto;
-}
-
-.service-card.is-focused,
-.tile.is-focused {
-  opacity: 1 !important;
-  filter: none !important;
-  z-index: 10;
-  border-color: rgba(255, 255, 255, 0.4) !important;
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(245, 158, 11, 0.22);
-}
-
-.project-giant-item.is-focused {
-  opacity: 1 !important;
-  filter: none !important;
-  z-index: 10;
-  background: rgba(255, 255, 255, 0.04) !important;
-  border-color: rgba(255, 255, 255, 0.3) !important;
-}
-
-/* ==========================================================================
-   GLITCH & Z-INDEX DEPTH EFFECT (Texto pasa atrás de partículas)
-   ========================================================================== */
-.glitch-depth-mode {
-  transform-style: preserve-3d;
-  perspective: 1000px;
-}
-
-.glitch-depth-mode .service-desc,
-.glitch-depth-mode .service-list,
-.glitch-depth-mode .project-desc {
-  transition: transform 0.4s ease, opacity 0.4s ease, text-shadow 0.4s ease;
-  position: relative;
-  z-index: 1;
-}
-
-.glitch-depth-mode.is-focused .service-desc,
-.glitch-depth-mode.is-focused .service-list,
-.glitch-depth-mode.is-focused .project-desc {
-  transform: translateZ(-35px) scale(0.96);
-  opacity: 0.7;
-  text-shadow: -2.5px 0 rgba(56, 189, 248, 0.75), 2.5px 0 rgba(245, 158, 11, 0.75);
-  animation: glitchJitter 2.5s infinite ease-in-out alternate;
-}
-
-/* Rejilla de scanlines translúcida para sensación de profundidad */
-.glitch-depth-mode::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 0.04) 0px,
-    rgba(255, 255, 255, 0.04) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  opacity: 0;
-  pointer-events: none;
-  z-index: 4;
-  transition: opacity 0.35s ease;
-}
-
-.glitch-depth-mode.is-focused::before {
-  opacity: 0.65;
-}
-
-@keyframes glitchJitter {
-  0%   { transform: translateZ(-35px) translateX(0px); }
-  25%  { transform: translateZ(-35px) translateX(-2px); }
-  50%  { transform: translateZ(-35px) translateX(2px); }
-  75%  { transform: translateZ(-35px) translateX(-1px); }
-  100% { transform: translateZ(-35px) translateX(0px); }
 }
 
 .service-card:hover {
-  border-color: var(--border-focus);
+  border-color: rgba(255, 255, 255, 0.35);
+  background: #151821;
   transform: translateY(-4px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 255, 255, 0.05);
 }
 
 .service-card::after {
@@ -716,14 +631,12 @@ body.spotlight-active .project-giant-item:not(.is-focused) {
 
 .project-giant-item {
   border-bottom: 1px solid var(--border);
-  padding: 40px 0;
+  padding: 36px 0;
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 30px;
+  grid-template-columns: 220px 1fr 240px;
+  gap: 28px;
   align-items: center;
-  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
               background-color 0.3s ease,
               padding 0.3s ease;
   position: relative;
@@ -877,6 +790,41 @@ footer {
   }
 }
 
+
+/* Project Stock Photography Thumbnail */
+.project-thumb {
+  width: 100%;
+  height: 145px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  position: relative;
+  background: var(--surface);
+}
+
+.project-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease, filter 0.4s ease;
+  filter: brightness(0.9) contrast(1.05);
+}
+
+.project-giant-item:hover .project-thumb img {
+  transform: scale(1.06);
+  filter: brightness(1.05) contrast(1.1);
+}
+
+@media (max-width: 980px) {
+  .project-giant-item {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .project-thumb {
+    height: 200px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -1020,7 +968,7 @@ footer {
             <span class="chip chip-cyan">02 / INFRAESTRUCTURA & SOPORTE</span>
             <h3 class="service-title">Consultoría TI</h3>
             <p class="service-desc">
-              Ingeniería y soporte técnico informático integral para empresas y personas a través de nuestra división Tecnovoa. Garantizamos estabilidad operativa, mantención de equipos, servidores en la nube y resolución ágil de incidencias.
+              Ingeniería, infraestructura y soporte técnico informático integral para empresas y organizaciones. Garantizamos estabilidad operativa, mantención de equipos, servidores en la nube y continuidad tecnológica con trato directo y consultoría senior.
             </p>
             <ul class="service-list">
               <li><span class="dot" style="background: var(--cyan);"></span> Soporte informático corporativo presencial y remoto</li>
@@ -1095,11 +1043,11 @@ footer {
               ¿Tienes un restaurante, cafetería o local de comida en Chile? Elimina las cartas de papel sucias y el 30% de comisión de las apps de delivery. Tus comensales escanean el código QR en la mesa y te envían sus pedidos formateados directamente a tu WhatsApp oficial.
             </p>
             <div style="display: flex; gap: 14px; flex-wrap: wrap;">
-              <a class="btn-accent" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20gustar%C3%ADa%20ver%20un%20demo%20de%20Men%C3%BA%20Inteligente" target="_blank" rel="noopener">
-                Pedir Demo en Vivo por WhatsApp →
+              <a class="btn-accent" href="https://menu-inteligente-mc.vercel.app/" target="_blank" rel="noopener">
+                Ver Menú Inteligente en Vivo (Demo Vercel) ↗
               </a>
-              <a class="btn-secondary" href="#menu-inteligente">
-                Conocer Más Detalles
+              <a class="btn-secondary" href="https://wa.me/56949438288?text=Hola%20Cristian,%20quiero%20implementar%20Men%C3%BA%20Inteligente%20en%20mi%20local" target="_blank" rel="noopener">
+                Cotizar para mi Restaurante por WhatsApp →
               </a>
             </div>
           </div>
@@ -1129,7 +1077,7 @@ footer {
       </div>
     </section>
 
-    <!-- SECTION: PROYECTOS CON LETRA GIGANTE Y EFECTOS CROMÁTICOS (ESTILO LAYERS OF TIME) -->
+        <!-- SECTION: PROYECTOS CON LETRA GIGANTE, FOTOGRAFÍAS Y CASOS REALES -->
     <section class="projects-section" id="proyectos">
       <div>
         <span class="chip chip-neutral">Portafolio & Trayectoria</span>
@@ -1137,75 +1085,107 @@ footer {
           PROYECTOS & CASOS REALES
         </h2>
         <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 680px; margin-top: -10px; margin-bottom: 30px;">
-          Historias de transformación donde la ingeniería y la estrategia comercial generaron impacto tangible en Chile.
+          Historias de transformación donde la ingeniería, la estrategia de redes y el crecimiento comercial generan impacto tangible.
         </p>
       </div>
 
-      <!-- PROYECTO 1: ISM EDUCACIÓN -->
+      <!-- PROYECTO 1: ISM CHILE (ismchile.cl) -->
       <article class="project-giant-item">
+        <div class="project-thumb">
+          <img src="https://images.pexels.com/photos/5212695/pexels-photo-5212695.jpeg?auto=compress&cs=tinysrgb&w=800" alt="ISM Chile - Gestión Digital y Redes" loading="lazy">
+        </div>
         <div>
-          <span class="project-number">01 / EDUCACIÓN ESCOLAR & TP</span>
-          <h3 class="project-giant-name">ISM EDUCACIÓN</h3>
+          <span class="project-number">01 / COMMUNITY MANAGER COMO SERVICIO & COMUNICACIONES</span>
+          <h3 class="project-giant-name">ISM CHILE</h3>
           <p class="project-desc">
-            Transformación de canales digitales y digitalización del proceso de admisiones para comunidad escolar, apoderados y docentes en la Región Metropolitana.
+            Administración directa y gestión digital de la plataforma institucional <strong style="color: #FFFFFF;">ismchile.cl</strong>: Community Manager como Servicio, gestión estratégica de redes sociales, comunicaciones corporativas, ciberseguridad, blindaje de activos y soporte continuo.
           </p>
         </div>
         <div class="project-meta-box">
-          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Métrica de Impacto</span>
-          <span class="project-stat-num">+185%</span>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Postulaciones calificadas y onboarding escolar digital</span>
-          <a class="project-link-btn" href="#proyectos">Explorar Caso de Éxito ⇢</a>
+          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Rol & Cobertura</span>
+          <span class="project-stat-num" style="font-size: 1.6rem; color: var(--accent);">360° Digital</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Redes + Web + Ciberseguridad</span>
+          <a class="project-link-btn" href="https://www.ismchile.cl/" target="_blank" rel="noopener">Visitar ismchile.cl ⇢</a>
         </div>
       </article>
 
-      <!-- PROYECTO 2: MI-ENFERMERA .CL -->
+      <!-- PROYECTO 2: LIMPIO TU VIDRIO (limpiotuvidrio.cl) -->
       <article class="project-giant-item">
+        <div class="project-thumb">
+          <img src="https://images.pexels.com/photos/35973143/pexels-photo-35973143.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Limpio Tu Vidrio - Limpieza en Altura" loading="lazy">
+        </div>
         <div>
-          <span class="project-number" style="color: var(--cyan);">02 / SALUD & SERVICIOS CLÍNICOS</span>
-          <h3 class="project-giant-name">MI-ENFERMERA .CL</h3>
+          <span class="project-number" style="color: var(--cyan);">02 / LIMPIEZA EN ALTURA & CAPTACIÓN DIGITAL</span>
+          <h3 class="project-giant-name">LIMPIO TU VIDRIO</h3>
           <p class="project-desc">
-            Infraestructura web de alta concurrencia y pauta digital de alta intención para atenciones de enfermería a domicilio en Santiago y la Quinta Región.
+            Plataforma web activa <strong style="color: #FFFFFF;">limpiotuvidrio.cl</strong> y canal de captación comercial para empresa especialista en limpieza de vidrios en altura, muros cortina y fachadas corporativas en Chile. Arquitectura web rápida con enlace directo a cotización.
           </p>
         </div>
         <div class="project-meta-box">
-          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Métrica de Impacto</span>
-          <span class="project-stat-num" style="color: var(--cyan);">99.98%</span>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Uptime de servidores y -38% en costo por lead clínico</span>
-          <a class="project-link-btn" style="color: var(--cyan);" href="#proyectos">Explorar Caso de Éxito ⇢</a>
+          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Operación Activa</span>
+          <span class="project-stat-num" style="font-size: 1.6rem; color: var(--cyan);">Activo 24/7</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Captación Comercial en Chile</span>
+          <a class="project-link-btn" style="color: var(--cyan);" href="https://www.limpiotuvidrio.cl/" target="_blank" rel="noopener">Visitar limpiotuvidrio.cl ⇢</a>
         </div>
       </article>
 
-      <!-- PROYECTO 3: CONTADORES EN LÍNEA -->
+      <!-- PROYECTO 3: TECNOVOA (Cliente BDM - KAM - Redes y Ventas) -->
       <article class="project-giant-item">
+        <div class="project-thumb">
+          <img src="https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tecnovoa - Infraestructura TI y Soporte" loading="lazy">
+        </div>
         <div>
-          <span class="project-number" style="color: var(--purple);">03 / SERVICIOS CONTABLES & TRIBUTARIOS</span>
+          <span class="project-number" style="color: var(--purple);">03 / BDM · KAM · REDES SOCIALES & VENTA COMO SERVICIO</span>
+          <h3 class="project-giant-name">TECNOVOA</h3>
+          <p class="project-desc">
+            Cliente corporativo de infraestructura y tecnología donde Cristian Díaz lidera la gestión integral de redes sociales, desarrollo de página web corporativa y dirección de cuentas como BDM (Business Development Manager) & KAM mediante Venta como Servicio.
+          </p>
+        </div>
+        <div class="project-meta-box">
+          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Gestión Comercial</span>
+          <span class="project-stat-num" style="font-size: 1.6rem; color: var(--purple);">BDM + KAM</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Redes Sociales + Web + Ventas</span>
+          <a class="project-link-btn" style="color: var(--purple);" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20interesa%20conocer%20el%20caso%20de%20Tecnovoa" target="_blank" rel="noopener">Consultar Caso ⇢</a>
+        </div>
+      </article>
+
+      <!-- PROYECTO 4: LINCLEAN FBV (public-ruby-psi-56.vercel.app) -->
+      <article class="project-giant-item">
+        <div class="project-thumb">
+          <img src="https://images.pexels.com/photos/6196238/pexels-photo-6196238.jpeg?auto=compress&cs=tinysrgb&w=800" alt="LinClean FBV - Marketing Digital y SEO" loading="lazy">
+        </div>
+        <div>
+          <span class="project-number" style="color: var(--emerald);">04 / MARKETING DIGITAL · SEO · GEO · WEB MODERNA</span>
+          <h3 class="project-giant-name">LINCLEAN FBV</h3>
+          <p class="project-desc">
+            Plataforma digital moderna desplegada sobre infraestructura Vercel: estrategia integral de Marketing Digital, optimización de posicionamiento orgánico SEO local, geolocalización GEO para servicios de limpieza y diseño web ultraligero de alta conversión.
+          </p>
+        </div>
+        <div class="project-meta-box">
+          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Infraestructura</span>
+          <span class="project-stat-num" style="font-size: 1.6rem; color: var(--emerald);">SEO + GEO</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Web Moderna en Vercel</span>
+          <a class="project-link-btn" style="color: var(--emerald);" href="https://public-ruby-psi-56.vercel.app/" target="_blank" rel="noopener">Ver Web en Vercel ⇢</a>
+        </div>
+      </article>
+
+      <!-- PROYECTO 5: CONTADORES EN LÍNEA -->
+      <article class="project-giant-item">
+        <div class="project-thumb">
+          <img src="https://images.pexels.com/photos/3182775/pexels-photo-3182775.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Contadores en Línea - Portal y Prospección" loading="lazy">
+        </div>
+        <div>
+          <span class="project-number" style="color: #F59E0B;">05 / SERVICIOS CONTABLES & PROSPECCIÓN</span>
           <h3 class="project-giant-name">CONTADORES EN LÍNEA</h3>
           <p class="project-desc">
-            Portal web corporativo y embudo de prospección automatizada para captación continua de clientes contables y PyMEs en todo Chile.
+            Portal web corporativo <strong style="color: #FFFFFF;">contadoresenlinea.cl</strong> y embudo de prospección automatizada para captación continua de clientes contables y PyMEs en todo Chile.
           </p>
         </div>
         <div class="project-meta-box">
           <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Métrica de Impacto</span>
-          <span class="project-stat-num" style="color: var(--purple);">&lt; 60 seg</span>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Respuesta automática y duplicación de cartera anual</span>
-          <a class="project-link-btn" style="color: var(--purple);" href="https://contadoresenlinea.cl" target="_blank" rel="noopener">Visitar contadoresenlinea.cl ⇢</a>
-        </div>
-      </article>
-
-      <!-- PROYECTO 4: LINE CLEAN STP -->
-      <article class="project-giant-item">
-        <div>
-          <span class="project-number" style="color: var(--emerald);">04 / SERVICIOS INDUSTRIALES B2B</span>
-          <h3 class="project-giant-name">LINE CLEAN STP</h3>
-          <p class="project-desc">
-            Plataforma corporativa institucional para empresa de aseo industrial, sanitización y control ambiental orientada a licitaciones y contratos corporativos.
-          </p>
-        </div>
-        <div class="project-meta-box">
-          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Métrica de Impacto</span>
-          <span class="project-stat-num" style="color: var(--emerald);">45 min</span>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Resolución promedio de incidentes con soporte Tecnovoa</span>
-          <a class="project-link-btn" style="color: var(--emerald);" href="https://linecleanstp.cl" target="_blank" rel="noopener">Visitar linecleanstp.cl ⇢</a>
+          <span class="project-stat-num" style="font-size: 1.6rem; color: #F59E0B;">&lt; 60 seg</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Respuesta automática de leads</span>
+          <a class="project-link-btn" style="color: #F59E0B;" href="https://contadoresenlinea.cl" target="_blank" rel="noopener">Visitar contadoresenlinea.cl ⇢</a>
         </div>
       </article>
     </section>
@@ -1240,7 +1220,7 @@ footer {
     <div class="footer-inner">
       <div class="footer-col">
         <h5>MarketingCloud Chile</h5>
-        <p>Ecosistema de soluciones digitales: Marketing Digital, Consultoría TI (Tecnovoa), Ciberseguridad y Ventas por Cristian Díaz.</p>
+        <p>Ecosistema de soluciones digitales: Marketing Digital, Consultoría TI, Ciberseguridad y Venta como Servicio por Cristian Díaz.</p>
         <p style="margin-top: 14px; color: #FFFFFF; font-family: var(--font-mono); font-size: 0.8rem;">📍 Santiago, Región Metropolitana, Chile</p>
       </div>
 
@@ -1271,8 +1251,11 @@ footer {
   <!-- SCRIPT: RELOJ EN VIVO + ESTELA DE NUBE CÓSMICA + CURSOR ESPACIAL DE ALTO CONTRASTE -->
   <script src="js/engine.js"></script>
   <script src="js/engine.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/engine.js"></script>
   <script>
-// MarketingCloud Studio - Interactive Engine
+// MarketingCloud Studio - Interactive Engine with Gravitational Space Physics
 (function() {
   'use strict';
 
@@ -1293,7 +1276,7 @@ footer {
   setInterval(updateSantiagoTime, 1000);
   updateSantiagoTime();
 
-  // 2. Cursor Reticular Espacial + Canvas de Nebulosa Cósmica
+  // 2. Elementos del Cursor y Canvas de Fondo
   var dot = document.getElementById('cursor-dot');
   var ring = document.getElementById('cursor-ring');
   var canvas = document.getElementById('nebula-canvas');
@@ -1316,29 +1299,40 @@ footer {
   var ringY = mouseY;
   var isVisible = false;
 
-  // Partículas de estela de ratón y estrellas de fondo
+  // 3. FÍSICA ESPACIAL: 240 micro-partículas magnéticas de fondo de diferentes tamaños
+  var PARTICLE_COUNT = 240;
   var particles = [];
-  var ambientStars = [];
 
-  // Crear 50 estrellas de fondo sutiles que flotan lentamente
-  for (var s = 0; s < 50; s++) {
-    ambientStars.push({
+  var colorOptions = [
+    'rgba(255, 255, 255, ',     // Blanco estelar
+    'rgba(245, 158, 11, ',      // Ámbar cósmico
+    'rgba(56, 189, 248, ',      // Cyan orbital
+    'rgba(167, 139, 250, '      // Púrpura nebulosa
+  ];
+
+  for (var i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 1.6 + 0.4,
-      alpha: Math.random() * 0.4 + 0.1,
-      speedY: (Math.random() - 0.5) * 0.15,
-      speedX: (Math.random() - 0.5) * 0.15
+      // Tamaños pequeños y variados (entre 0.5px y 2.2px)
+      radius: Math.random() * 1.6 + 0.6,
+      baseRadius: Math.random() * 1.6 + 0.6,
+      color: colorOptions[Math.floor(Math.random() * colorOptions.length)],
+      alpha: Math.random() * 0.5 + 0.25,
+      baseAlpha: Math.random() * 0.5 + 0.25,
+      // Velocidad natural de deriva cósmica
+      baseVx: (Math.random() - 0.5) * 0.25,
+      baseVy: (Math.random() - 0.5) * 0.25,
+      // Velocidad reactiva inducida por gravedad
+      vx: 0,
+      vy: 0,
+      // Masa y reactividad magnética
+      mass: Math.random() * 0.8 + 0.4
     });
   }
 
-  // Paleta cósmica: Ámbar estelar, Cyan hiperespacial, Púrpura nebulosa, Esmeralda
-  var nebulaPalettes = [
-    { r: 245, g: 158, b: 11 },   // Ámbar
-    { r: 56,  g: 189, b: 248 },  // Cyan
-    { r: 167, g: 139, b: 250 },  // Púrpura
-    { r: 16,  g: 185, b: 129 }   // Esmeralda
-  ];
+  // Estela de humo cósmico etéreo
+  var smokeTrail = [];
 
   window.addEventListener('mousemove', function(e) {
     targetMouseX = e.clientX;
@@ -1354,23 +1348,15 @@ footer {
       dot.style.transform = 'translate(' + targetMouseX + 'px, ' + targetMouseY + 'px) translate(-50%, -50%)';
     }
 
-    // Generar bocanadas de nube cósmica con disipación etérea prolongada
-    for (var i = 0; i < 3; i++) {
-      var col = nebulaPalettes[Math.floor(Math.random() * nebulaPalettes.length)];
-      particles.push({
-        x: targetMouseX + (Math.random() - 0.5) * 14,
-        y: targetMouseY + (Math.random() - 0.5) * 14,
-        radius: Math.random() * 24 + 16,
-        r: col.r,
-        g: col.g,
-        b: col.b,
-        alpha: 0.58,
-        decay: Math.random() * 0.005 + 0.004, // Desvanecimiento suave y lento
-        grow: Math.random() * 0.5 + 0.35,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6
-      });
-    }
+    // Bocanadas de estela suave
+    smokeTrail.push({
+      x: targetMouseX + (Math.random() - 0.5) * 8,
+      y: targetMouseY + (Math.random() - 0.5) * 8,
+      radius: Math.random() * 18 + 10,
+      alpha: 0.35,
+      color: colorOptions[Math.floor(Math.random() * colorOptions.length)]
+    });
+    if (smokeTrail.length > 25) smokeTrail.shift();
   });
 
   document.addEventListener('mouseleave', function() {
@@ -1379,8 +1365,8 @@ footer {
     if (ring) ring.style.opacity = '0';
   });
 
-  // Animación interactiva en Loop
-  function render() {
+  // Bucle de renderizado y simulación física espacial
+  function loop() {
     mouseX += (targetMouseX - mouseX) * 0.35;
     mouseY += (targetMouseY - mouseY) * 0.35;
     ringX += (targetMouseX - ringX) * 0.18;
@@ -1390,58 +1376,95 @@ footer {
       ring.style.transform = 'translate(' + ringX + 'px, ' + ringY + 'px) translate(-50%, -50%)';
     }
 
-    // Limpiar canvas
     ctx.clearRect(0, 0, width, height);
 
-    // 1. Dibujar polvo estelar ambiental suave
-    for (var a = 0; a < ambientStars.length; a++) {
-      var st = ambientStars[a];
-      st.x += st.speedX;
-      st.y += st.speedY;
-      if (st.x < 0) st.x = width;
-      if (st.x > width) st.x = 0;
-      if (st.y < 0) st.y = height;
-      if (st.y > height) st.y = 0;
-
-      ctx.beginPath();
-      ctx.arc(st.x, st.y, st.radius, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(255, 255, 255, ' + st.alpha + ')';
-      ctx.fill();
+    // 1. Dibujar estela de humo tenue detrás del cursor
+    for (var s = 0; s < smokeTrail.length; s++) {
+      var sm = smokeTrail[s];
+      sm.alpha *= 0.92;
+      sm.radius += 0.4;
+      if (sm.alpha > 0.01) {
+        ctx.beginPath();
+        ctx.arc(sm.x, sm.y, sm.radius, 0, Math.PI * 2);
+        ctx.fillStyle = sm.color + sm.alpha + ')';
+        ctx.fill();
+      }
     }
 
-    // 2. Dibujar estela de nube de ratón con mezcla aditiva
-    ctx.globalCompositeOperation = 'lighter';
+    // 2. Simulación de Gravedad y Magnetismo Espacial en las 240 partículas
+    var MAGNETIC_RADIUS = 190;
 
-    for (var j = particles.length - 1; j >= 0; j--) {
-      var p = particles[j];
-      p.x += p.vx;
-      p.y += p.vy;
-      p.radius += p.grow;
-      p.alpha -= p.decay;
+    for (var i = 0; i < PARTICLE_COUNT; i++) {
+      var p = particles[i];
 
-      if (p.alpha <= 0.01) {
-        particles.splice(j, 1);
-        continue;
+      if (isVisible) {
+        var dx = mouseX - p.x;
+        var dy = mouseY - p.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < MAGNETIC_RADIUS && dist > 2) {
+          // Fuerza de atracción magnética no lineal
+          var force = (1 - dist / MAGNETIC_RADIUS) * 0.65 / p.mass;
+          // Atracción hacia el cursor
+          p.vx += (dx / dist) * force;
+          p.vy += (dy / dist) * force;
+
+          // Órbita / giro cósmico sutil
+          p.vx += (-dy / dist) * force * 0.28;
+          p.vy += (dx / dist) * force * 0.28;
+
+          // Aumento sutil de brillo cerca del cursor
+          p.alpha = Math.min(1, p.baseAlpha + (1 - dist / MAGNETIC_RADIUS) * 0.5);
+          p.radius = p.baseRadius * (1 + (1 - dist / MAGNETIC_RADIUS) * 0.4);
+
+          // Línea de filamento gravitacional magnético si está muy cerca
+          if (dist < 110) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(mouseX, mouseY);
+            ctx.strokeStyle = 'rgba(56, 189, 248, ' + (0.16 * (1 - dist / 110)) + ')';
+            ctx.lineWidth = 0.7;
+            ctx.stroke();
+          }
+        } else {
+          p.alpha += (p.baseAlpha - p.alpha) * 0.05;
+          p.radius += (p.baseRadius - p.radius) * 0.05;
+        }
       }
 
-      var grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
-      grad.addColorStop(0, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + (p.alpha * 0.85) + ')');
-      grad.addColorStop(0.45, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + (p.alpha * 0.35) + ')');
-      grad.addColorStop(1, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ', 0)');
+      // Inercia en gravedad cero (fricción espacial)
+      p.vx *= 0.94;
+      p.vy *= 0.94;
 
-      ctx.fillStyle = grad;
+      p.x += p.vx + p.baseVx;
+      p.y += p.vy + p.baseVy;
+
+      // Retorno toroidal a la pantalla
+      if (p.x < -10) p.x = width + 10;
+      if (p.x > width + 10) p.x = -10;
+      if (p.y < -10) p.y = height + 10;
+      if (p.y > height + 10) p.y = -10;
+
+      // Dibujar partícula
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color + p.alpha + ')';
       ctx.fill();
+
+      // Halo sutil para partículas brillantes
+      if (p.radius > 1.5) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * 2.2, 0, Math.PI * 2);
+        ctx.fillStyle = p.color + (p.alpha * 0.18) + ')';
+        ctx.fill();
+      }
     }
 
-    ctx.globalCompositeOperation = 'source-over';
-
-    requestAnimationFrame(render);
+    requestAnimationFrame(loop);
   }
-  requestAnimationFrame(render);
+  requestAnimationFrame(loop);
 
-  // 3. Efectos de Alto Contraste en Hover (CERO desenfoque en textos al apuntar)
+  // 4. Efectos de Alto Contraste en Hover (Texto siempre 100% nítido, sin blur)
   var hoverElements = document.querySelectorAll('a, button, .service-card, .tile, .project-giant-item, h1, h2, h3, .chip');
   hoverElements.forEach(function(el) {
     el.addEventListener('mouseenter', function() {
@@ -1454,61 +1477,22 @@ footer {
     });
   });
 
-  // 4. Inclinación 3D en Tarjetas
+  // 5. Inclinación 3D Limpia en Tarjetas (Texto intacto y legible)
   var tiltCards = document.querySelectorAll('.service-card, .tile');
   tiltCards.forEach(function(card) {
     card.addEventListener('mousemove', function(e) {
       var rect = card.getBoundingClientRect();
       var x = (e.clientX - rect.left) / rect.width - 0.5;
       var y = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = 'perspective(900px) rotateX(' + (-y * 6) + 'deg) rotateY(' + (x * 6) + 'deg) translateY(-4px)';
+      card.style.transform = 'perspective(900px) rotateX(' + (-y * 5) + 'deg) rotateY(' + (x * 5) + 'deg) translateY(-4px)';
     });
     card.addEventListener('mouseleave', function() {
       card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)';
     });
   });
 
-  // 5. ENFOQUE SPOTLIGHT: Atenúa y difumina todas las demás tarjetas al enfocar una
-  var allCards = document.querySelectorAll('.service-card, .tile, .project-giant-item');
-  allCards.forEach(function(card) {
-    card.addEventListener('mouseenter', function() {
-      document.body.classList.add('spotlight-active');
-      card.classList.add('is-focused');
-    });
-    card.addEventListener('mouseleave', function() {
-      card.classList.remove('is-focused');
-      document.body.classList.remove('spotlight-active');
-    });
-  });
-
-  // 6. ASIGNACIÓN ALEATORIA: Efecto Glitch y Desfase Z-Index (Texto pasa atrás de partículas)
-  function applyRandomGlitchModes() {
-    var serviceCards = Array.from(document.querySelectorAll('.service-card'));
-    var projectCards = Array.from(document.querySelectorAll('.project-giant-item'));
-
-    // Limpiar clases previas
-    serviceCards.forEach(function(c) { c.classList.remove('glitch-depth-mode'); });
-    projectCards.forEach(function(c) { c.classList.remove('glitch-depth-mode'); });
-
-    // Elegir aleatoriamente 2 servicios y 2 proyectos
-    function pickRandom(arr, count) {
-      var shuffled = arr.slice().sort(function() { return 0.5 - Math.random(); });
-      return shuffled.slice(0, count);
-    }
-
-    var selectedServices = pickRandom(serviceCards, 2);
-    selectedServices.forEach(function(c) { c.classList.add('glitch-depth-mode'); });
-
-    var selectedProjects = pickRandom(projectCards, 2);
-    selectedProjects.forEach(function(c) { c.classList.add('glitch-depth-mode'); });
-  }
-
-  applyRandomGlitchModes();
-
-  // Rotar aleatoriamente los modos glitch cada 45 segundos para mantener la web viva
-  setInterval(applyRandomGlitchModes, 45000);
-
 })();
+
   </script>
 </body>
 </html>

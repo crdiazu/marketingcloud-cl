@@ -1,4 +1,4 @@
-// MarketingCloud Studio - Interactive Engine
+// MarketingCloud Studio - Interactive Engine with Gravitational Space Physics
 (function() {
   'use strict';
 
@@ -19,7 +19,7 @@
   setInterval(updateSantiagoTime, 1000);
   updateSantiagoTime();
 
-  // 2. Cursor Reticular Espacial + Canvas de Nebulosa Cósmica
+  // 2. Elementos del Cursor y Canvas de Fondo
   var dot = document.getElementById('cursor-dot');
   var ring = document.getElementById('cursor-ring');
   var canvas = document.getElementById('nebula-canvas');
@@ -42,29 +42,40 @@
   var ringY = mouseY;
   var isVisible = false;
 
-  // Partículas de estela de ratón y estrellas de fondo
+  // 3. FÍSICA ESPACIAL: 240 micro-partículas magnéticas de fondo de diferentes tamaños
+  var PARTICLE_COUNT = 240;
   var particles = [];
-  var ambientStars = [];
 
-  // Crear 50 estrellas de fondo sutiles que flotan lentamente
-  for (var s = 0; s < 50; s++) {
-    ambientStars.push({
+  var colorOptions = [
+    'rgba(255, 255, 255, ',     // Blanco estelar
+    'rgba(245, 158, 11, ',      // Ámbar cósmico
+    'rgba(56, 189, 248, ',      // Cyan orbital
+    'rgba(167, 139, 250, '      // Púrpura nebulosa
+  ];
+
+  for (var i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 1.6 + 0.4,
-      alpha: Math.random() * 0.4 + 0.1,
-      speedY: (Math.random() - 0.5) * 0.15,
-      speedX: (Math.random() - 0.5) * 0.15
+      // Tamaños pequeños y variados (entre 0.5px y 2.2px)
+      radius: Math.random() * 1.6 + 0.6,
+      baseRadius: Math.random() * 1.6 + 0.6,
+      color: colorOptions[Math.floor(Math.random() * colorOptions.length)],
+      alpha: Math.random() * 0.5 + 0.25,
+      baseAlpha: Math.random() * 0.5 + 0.25,
+      // Velocidad natural de deriva cósmica
+      baseVx: (Math.random() - 0.5) * 0.25,
+      baseVy: (Math.random() - 0.5) * 0.25,
+      // Velocidad reactiva inducida por gravedad
+      vx: 0,
+      vy: 0,
+      // Masa y reactividad magnética
+      mass: Math.random() * 0.8 + 0.4
     });
   }
 
-  // Paleta cósmica: Ámbar estelar, Cyan hiperespacial, Púrpura nebulosa, Esmeralda
-  var nebulaPalettes = [
-    { r: 245, g: 158, b: 11 },   // Ámbar
-    { r: 56,  g: 189, b: 248 },  // Cyan
-    { r: 167, g: 139, b: 250 },  // Púrpura
-    { r: 16,  g: 185, b: 129 }   // Esmeralda
-  ];
+  // Estela de humo cósmico etéreo
+  var smokeTrail = [];
 
   window.addEventListener('mousemove', function(e) {
     targetMouseX = e.clientX;
@@ -80,23 +91,15 @@
       dot.style.transform = 'translate(' + targetMouseX + 'px, ' + targetMouseY + 'px) translate(-50%, -50%)';
     }
 
-    // Generar bocanadas de nube cósmica con disipación etérea prolongada
-    for (var i = 0; i < 3; i++) {
-      var col = nebulaPalettes[Math.floor(Math.random() * nebulaPalettes.length)];
-      particles.push({
-        x: targetMouseX + (Math.random() - 0.5) * 14,
-        y: targetMouseY + (Math.random() - 0.5) * 14,
-        radius: Math.random() * 24 + 16,
-        r: col.r,
-        g: col.g,
-        b: col.b,
-        alpha: 0.58,
-        decay: Math.random() * 0.005 + 0.004, // Desvanecimiento suave y lento
-        grow: Math.random() * 0.5 + 0.35,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6
-      });
-    }
+    // Bocanadas de estela suave
+    smokeTrail.push({
+      x: targetMouseX + (Math.random() - 0.5) * 8,
+      y: targetMouseY + (Math.random() - 0.5) * 8,
+      radius: Math.random() * 18 + 10,
+      alpha: 0.35,
+      color: colorOptions[Math.floor(Math.random() * colorOptions.length)]
+    });
+    if (smokeTrail.length > 25) smokeTrail.shift();
   });
 
   document.addEventListener('mouseleave', function() {
@@ -105,8 +108,8 @@
     if (ring) ring.style.opacity = '0';
   });
 
-  // Animación interactiva en Loop
-  function render() {
+  // Bucle de renderizado y simulación física espacial
+  function loop() {
     mouseX += (targetMouseX - mouseX) * 0.35;
     mouseY += (targetMouseY - mouseY) * 0.35;
     ringX += (targetMouseX - ringX) * 0.18;
@@ -116,58 +119,95 @@
       ring.style.transform = 'translate(' + ringX + 'px, ' + ringY + 'px) translate(-50%, -50%)';
     }
 
-    // Limpiar canvas
     ctx.clearRect(0, 0, width, height);
 
-    // 1. Dibujar polvo estelar ambiental suave
-    for (var a = 0; a < ambientStars.length; a++) {
-      var st = ambientStars[a];
-      st.x += st.speedX;
-      st.y += st.speedY;
-      if (st.x < 0) st.x = width;
-      if (st.x > width) st.x = 0;
-      if (st.y < 0) st.y = height;
-      if (st.y > height) st.y = 0;
-
-      ctx.beginPath();
-      ctx.arc(st.x, st.y, st.radius, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(255, 255, 255, ' + st.alpha + ')';
-      ctx.fill();
+    // 1. Dibujar estela de humo tenue detrás del cursor
+    for (var s = 0; s < smokeTrail.length; s++) {
+      var sm = smokeTrail[s];
+      sm.alpha *= 0.92;
+      sm.radius += 0.4;
+      if (sm.alpha > 0.01) {
+        ctx.beginPath();
+        ctx.arc(sm.x, sm.y, sm.radius, 0, Math.PI * 2);
+        ctx.fillStyle = sm.color + sm.alpha + ')';
+        ctx.fill();
+      }
     }
 
-    // 2. Dibujar estela de nube de ratón con mezcla aditiva
-    ctx.globalCompositeOperation = 'lighter';
+    // 2. Simulación de Gravedad y Magnetismo Espacial en las 240 partículas
+    var MAGNETIC_RADIUS = 190;
 
-    for (var j = particles.length - 1; j >= 0; j--) {
-      var p = particles[j];
-      p.x += p.vx;
-      p.y += p.vy;
-      p.radius += p.grow;
-      p.alpha -= p.decay;
+    for (var i = 0; i < PARTICLE_COUNT; i++) {
+      var p = particles[i];
 
-      if (p.alpha <= 0.01) {
-        particles.splice(j, 1);
-        continue;
+      if (isVisible) {
+        var dx = mouseX - p.x;
+        var dy = mouseY - p.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < MAGNETIC_RADIUS && dist > 2) {
+          // Fuerza de atracción magnética no lineal
+          var force = (1 - dist / MAGNETIC_RADIUS) * 0.65 / p.mass;
+          // Atracción hacia el cursor
+          p.vx += (dx / dist) * force;
+          p.vy += (dy / dist) * force;
+
+          // Órbita / giro cósmico sutil
+          p.vx += (-dy / dist) * force * 0.28;
+          p.vy += (dx / dist) * force * 0.28;
+
+          // Aumento sutil de brillo cerca del cursor
+          p.alpha = Math.min(1, p.baseAlpha + (1 - dist / MAGNETIC_RADIUS) * 0.5);
+          p.radius = p.baseRadius * (1 + (1 - dist / MAGNETIC_RADIUS) * 0.4);
+
+          // Línea de filamento gravitacional magnético si está muy cerca
+          if (dist < 110) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(mouseX, mouseY);
+            ctx.strokeStyle = 'rgba(56, 189, 248, ' + (0.16 * (1 - dist / 110)) + ')';
+            ctx.lineWidth = 0.7;
+            ctx.stroke();
+          }
+        } else {
+          p.alpha += (p.baseAlpha - p.alpha) * 0.05;
+          p.radius += (p.baseRadius - p.radius) * 0.05;
+        }
       }
 
-      var grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
-      grad.addColorStop(0, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + (p.alpha * 0.85) + ')');
-      grad.addColorStop(0.45, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + (p.alpha * 0.35) + ')');
-      grad.addColorStop(1, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ', 0)');
+      // Inercia en gravedad cero (fricción espacial)
+      p.vx *= 0.94;
+      p.vy *= 0.94;
 
-      ctx.fillStyle = grad;
+      p.x += p.vx + p.baseVx;
+      p.y += p.vy + p.baseVy;
+
+      // Retorno toroidal a la pantalla
+      if (p.x < -10) p.x = width + 10;
+      if (p.x > width + 10) p.x = -10;
+      if (p.y < -10) p.y = height + 10;
+      if (p.y > height + 10) p.y = -10;
+
+      // Dibujar partícula
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color + p.alpha + ')';
       ctx.fill();
+
+      // Halo sutil para partículas brillantes
+      if (p.radius > 1.5) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * 2.2, 0, Math.PI * 2);
+        ctx.fillStyle = p.color + (p.alpha * 0.18) + ')';
+        ctx.fill();
+      }
     }
 
-    ctx.globalCompositeOperation = 'source-over';
-
-    requestAnimationFrame(render);
+    requestAnimationFrame(loop);
   }
-  requestAnimationFrame(render);
+  requestAnimationFrame(loop);
 
-  // 3. Efectos de Alto Contraste en Hover (CERO desenfoque en textos al apuntar)
+  // 4. Efectos de Alto Contraste en Hover (Texto siempre 100% nítido, sin blur)
   var hoverElements = document.querySelectorAll('a, button, .service-card, .tile, .project-giant-item, h1, h2, h3, .chip');
   hoverElements.forEach(function(el) {
     el.addEventListener('mouseenter', function() {
@@ -180,58 +220,18 @@
     });
   });
 
-  // 4. Inclinación 3D en Tarjetas
+  // 5. Inclinación 3D Limpia en Tarjetas (Texto intacto y legible)
   var tiltCards = document.querySelectorAll('.service-card, .tile');
   tiltCards.forEach(function(card) {
     card.addEventListener('mousemove', function(e) {
       var rect = card.getBoundingClientRect();
       var x = (e.clientX - rect.left) / rect.width - 0.5;
       var y = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = 'perspective(900px) rotateX(' + (-y * 6) + 'deg) rotateY(' + (x * 6) + 'deg) translateY(-4px)';
+      card.style.transform = 'perspective(900px) rotateX(' + (-y * 5) + 'deg) rotateY(' + (x * 5) + 'deg) translateY(-4px)';
     });
     card.addEventListener('mouseleave', function() {
       card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)';
     });
   });
-
-  // 5. ENFOQUE SPOTLIGHT: Atenúa y difumina todas las demás tarjetas al enfocar una
-  var allCards = document.querySelectorAll('.service-card, .tile, .project-giant-item');
-  allCards.forEach(function(card) {
-    card.addEventListener('mouseenter', function() {
-      document.body.classList.add('spotlight-active');
-      card.classList.add('is-focused');
-    });
-    card.addEventListener('mouseleave', function() {
-      card.classList.remove('is-focused');
-      document.body.classList.remove('spotlight-active');
-    });
-  });
-
-  // 6. ASIGNACIÓN ALEATORIA: Efecto Glitch y Desfase Z-Index (Texto pasa atrás de partículas)
-  function applyRandomGlitchModes() {
-    var serviceCards = Array.from(document.querySelectorAll('.service-card'));
-    var projectCards = Array.from(document.querySelectorAll('.project-giant-item'));
-
-    // Limpiar clases previas
-    serviceCards.forEach(function(c) { c.classList.remove('glitch-depth-mode'); });
-    projectCards.forEach(function(c) { c.classList.remove('glitch-depth-mode'); });
-
-    // Elegir aleatoriamente 2 servicios y 2 proyectos
-    function pickRandom(arr, count) {
-      var shuffled = arr.slice().sort(function() { return 0.5 - Math.random(); });
-      return shuffled.slice(0, count);
-    }
-
-    var selectedServices = pickRandom(serviceCards, 2);
-    selectedServices.forEach(function(c) { c.classList.add('glitch-depth-mode'); });
-
-    var selectedProjects = pickRandom(projectCards, 2);
-    selectedProjects.forEach(function(c) { c.classList.add('glitch-depth-mode'); });
-  }
-
-  applyRandomGlitchModes();
-
-  // Rotar aleatoriamente los modos glitch cada 45 segundos para mantener la web viva
-  setInterval(applyRandomGlitchModes, 45000);
 
 })();
