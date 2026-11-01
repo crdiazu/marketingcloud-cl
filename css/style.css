@@ -1693,3 +1693,298 @@ body.mode-cuantico .cursor-dot {
   background-color: #C084FC !important;
   box-shadow: 0 0 14px #C084FC, 0 0 28px rgba(192, 132, 252, 0.7) !important;
 }
+
+/* ==========================================================================
+   GLOBO FLOTANTE DE WHATSAPP (DIRECTO CON CRISTIAN DÍAZ EN TODAS LAS PÁGINAS)
+   ========================================================================== */
+.whatsapp-float-bubble {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+}
+
+.whatsapp-bubble-inner {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.42), 0 2px 8px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: background 0.2s ease, transform 0.2s ease;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+}
+
+.whatsapp-float-bubble:hover .whatsapp-bubble-inner {
+  background: #20BA5A;
+  transform: scale(1.08);
+  box-shadow: 0 12px 32px rgba(37, 211, 102, 0.6), 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.whatsapp-svg-icon {
+  width: 32px;
+  height: 32px;
+  fill: #FFFFFF;
+}
+
+.whatsapp-pulse-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid #25D366;
+  animation: waPing 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes waPing {
+  0% { transform: scale(0.85); opacity: 0.9; }
+  75%, 100% { transform: scale(1.6); opacity: 0; }
+}
+
+.whatsapp-bubble-tooltip {
+  display: flex;
+  flex-direction: column;
+  background: rgba(13, 16, 24, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.whatsapp-bubble-tooltip small {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #34D399;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.whatsapp-bubble-tooltip strong {
+  font-family: var(--font-display);
+  font-size: 0.84rem;
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   CABECERA MÓVIL SUPERIOR (SLIM, LIVIANA, CERO COLISIÓN)
+   ========================================================================== */
+.mobile-top-bar {
+  display: none;
+}
+
+/* En escritorio, ocultar los iconos de las pestañas */
+.nav-tab-icon {
+  display: none;
+}
+
+/* ==========================================================================
+   RESPONSIVO MÓVIL TOTAL (HASTA 768px): CABECERA ABAJO + MODO LIVIANO
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* 1. Ocultar la barra pesada de escritorio con reloj, UF, dólar y atajos */
+  .studio-bar {
+    display: none !important;
+  }
+
+  /* 2. Cabecera móvil superior ultraliviana (Logo + Estado + Botón Planeta) */
+  .mobile-top-bar {
+    display: flex !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background: rgba(7, 9, 14, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 100;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+  }
+
+  .mobile-logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .mobile-logo span {
+    color: var(--accent);
+  }
+
+  .mobile-top-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mobile-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10B981;
+    box-shadow: 0 0 8px #10B981;
+  }
+
+  .mobile-planet-pill {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #E2E8F0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* 3. CABECERA PRINCIPAL SE MUEVE ABAJO (DOCK DE NAVEGACIÓN MÓVIL) */
+  nav.main-nav {
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: auto !important;
+    padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px)) 6px !important;
+    background: rgba(10, 14, 22, 0.96) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-bottom: none !important;
+    z-index: 1000 !important;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.7) !important;
+    display: flex !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+  }
+
+  nav.main-nav .logo,
+  nav.main-nav .nav-cta {
+    display: none !important;
+  }
+
+  nav.main-nav .nav-links {
+    display: flex !important;
+    width: 100% !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    gap: 2px !important;
+  }
+
+  .nav-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 4px 6px !important;
+    border-radius: 8px !important;
+    color: #94A3B8 !important;
+    text-decoration: none !important;
+    font-size: 0.65rem !important;
+    font-weight: 600 !important;
+    gap: 3px !important;
+    min-width: 52px !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .nav-item.active,
+  .nav-item:hover {
+    color: #FFFFFF !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+  }
+
+  .nav-item.active svg {
+    stroke: var(--accent) !important;
+  }
+
+  .nav-tab-icon {
+    display: block !important;
+    stroke: currentColor !important;
+    transition: stroke 0.2s ease !important;
+  }
+
+  /* 4. Espaciado del contenido para móvil (sin hueco gigante arriba ni corte abajo) */
+  main.wrap,
+  main[style*="padding-top"] {
+    padding-top: 58px !important;
+    padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* 5. GLOBO FLOTANTE DE WHATSAPP EN MÓVIL (ARRIBA DEL DOCK) */
+  .whatsapp-float-bubble {
+    bottom: calc(72px + env(safe-area-inset-bottom, 8px)) !important;
+    right: 14px !important;
+  }
+
+  .whatsapp-bubble-inner {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .whatsapp-svg-icon {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  .whatsapp-bubble-tooltip {
+    display: none !important;
+  }
+
+  /* 6. Desactivar cursores personalizados en táctil */
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+
+  /* 7. Ocultar scroll rail en móvil */
+  .scroll-rail {
+    display: none !important;
+  }
+
+  /* 8. Adaptación de tarjetas y cuadrículas */
+  .grid-2, .grid-3, .grid-4, .timeline, .profile-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hero-cta-group, .btn-group {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .btn-primary, .btn-secondary, .btn-accent {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .brutalist-hero {
+    padding: 16px 0 35px !important;
+  }
+
+  .chroma-title {
+    font-size: clamp(2rem, 1.8rem + 3vw, 3.2rem) !important;
+    line-height: 1.05 !important;
+  }
+}

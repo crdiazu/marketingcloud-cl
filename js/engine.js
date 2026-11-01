@@ -1,31 +1,31 @@
 // MarketingCloud Studio - Interactive Engine
 // 1. Live Santiago Timecode & Chilean Economic Indicators (USD / UF)
 // 2. Micro 80's Astronauts (H.E.R.O. Activision Style):
-//    - SE MUEVEN POR TODA LA PANTALLA (2D roaming, patrullaje horizontal, vertical y diagonal)
-//    - Equilibrio aerodinámico: no se escapan hacia arriba, rebotan suavemente en los bordes de pantalla
-//    - PISTOLA MARCIANA MAGNÉTICA: anclaje y tracción magnética hacia tarjetas en primera plana
-//    - INTERACCIÓN ENTRE ELLOS: rebotes elásticos juguetones y enlaces magnéticos de escuadrón
-//    - MAGNETISMO CON EL MOUSE: atracción directa suave (NO órbitas de planetas)
-//    - [Ctrl] y [Espacio] activan sobrecarga de gravedad pesada (caída libre hacia las tarjetas)
-//    - Escape subterráneo: si quedan atrapados contra un objeto, se sumergen y pasan por debajo
-//    - CERO interferencia con letras de fondo ("VENTAJA COMPETITIVA DIGITAL")
+//    - VUELAN LIBREMENTE POR TODA LA PANTALLA EN 2D (NO CAEN NI SE QUEDAN EN EL SUELO)
+//    - CHOQUE ELÁSTICO CON LETRAS Y TARJETAS con chispas de colores
+//    - PISTOLA MARCIANA MAGNÉTICA: anclaje y tracción hacia tarjetas y títulos
+//    - INTERACCIÓN ENTRE ELLOS: rebotes elásticos y enlaces de escuadrón
+//    - ULTRA LIVIANO EN MODO CELULAR: DPR optimizado, conteo adaptativo (6 en móvil, 14 en PC)
+//    - CERO interferencia con letras de fondo atmosféricas
 // 3. 6 Entornos Planetarios con Cambio Total de Color y Atajos de Teclado:
 //    - [E] Espacio (Negro, Zero-G)
 //    - [T] Tierra (Verde, 1.0g)
 //    - [M] Marte (Rojo, 0.38g)
 //    - [A] Agua (Azul, Oleaje)
-//    - [P] Plasma (Verde Neón, Resistencia Magnética)
-//    - [C] Cuántico (Púrpura Iridiscente, Gravedad Oscilante)
+//    - [P] Plasma (Verde Neón, Resistencia)
+//    - [C] Cuántico (Púrpura Iridiscente, Oscilante)
 
 (function() {
   'use strict';
+
+  var isMobile = (window.innerWidth <= 768) || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
   // ==========================================================================
   // 1. TIMECODE EN VIVO - SANTIAGO DE CHILE (UTC-3)
   // ==========================================================================
   function updateSantiagoTime() {
     var timeEl = document.getElementById('live-timecode');
-    if (!timeEl) return;
+    var mobileTimeEl = document.getElementById('mobile-live-time');
     try {
       var santiagoTime = new Intl.DateTimeFormat('es-CL', {
         timeZone: 'America/Santiago',
@@ -34,7 +34,8 @@
         second: '2-digit',
         hour12: false
       }).format(new Date());
-      timeEl.textContent = santiagoTime;
+      if (timeEl) timeEl.textContent = santiagoTime;
+      if (mobileTimeEl) mobileTimeEl.textContent = santiagoTime;
     } catch (e) {}
   }
   setInterval(updateSantiagoTime, 1000);
@@ -67,7 +68,7 @@
   initEconomicIndicators();
 
   // ==========================================================================
-  // 3. CANVAS CÓSMICO Y CURSOR RETICULAR (CERO DESENFOQUE EN CONTENIDO)
+  // 3. CANVAS CÓSMICO Y ADAPTACIÓN LIVIANA MÓVIL
   // ==========================================================================
   var dot = document.getElementById('cursor-dot');
   var ring = document.getElementById('cursor-ring');
@@ -75,18 +76,21 @@
   if (!canvas) return;
 
   var ctx = canvas.getContext('2d');
-  var dpr = window.devicePixelRatio || 1;
+  // En móvil limitamos el DPR a 1.0 para que la GPU rinda a 60 FPS estables sin calentar el teléfono
+  var dpr = isMobile ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.75);
   var width = window.innerWidth;
   var height = window.innerHeight;
 
   function resizeCanvas() {
-    dpr = window.devicePixelRatio || 1;
+    isMobile = (window.innerWidth <= 768) || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    dpr = isMobile ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.75);
     width = window.innerWidth;
     height = window.innerHeight;
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
     canvas.style.width = width + 'px';
     canvas.style.height = height + 'px';
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(dpr, dpr);
   }
   resizeCanvas();
@@ -100,42 +104,68 @@
   var ringY = mouseY;
   var isVisible = false;
 
-  window.addEventListener('mousemove', function(e) {
-    targetMouseX = e.clientX;
-    targetMouseY = e.clientY;
+  // Interacción de mouse (solo activa en escritorio o cuando hay cursor)
+  if (!isMobile) {
+    window.addEventListener('mousemove', function(e) {
+      targetMouseX = e.clientX;
+      targetMouseY = e.clientY;
 
-    if (!isVisible) {
+      if (!isVisible) {
+        isVisible = true;
+        if (dot) dot.style.opacity = '1';
+        if (ring) ring.style.opacity = '1';
+      }
+
+      if (dot) {
+        dot.style.transform = 'translate(' + targetMouseX + 'px, ' + targetMouseY + 'px) translate(-50%, -50%)';
+      }
+    });
+
+    document.addEventListener('mouseleave', function() {
+      isVisible = false;
+      if (dot) dot.style.opacity = '0';
+      if (ring) ring.style.opacity = '0';
+    });
+  }
+
+  // Interacción táctil en celular (Toque suave atrae al astronauta más cercano)
+  window.addEventListener('touchstart', function(e) {
+    if (e.touches && e.touches[0]) {
+      targetMouseX = e.touches[0].clientX;
+      targetMouseY = e.touches[0].clientY;
+      mouseX = targetMouseX;
+      mouseY = targetMouseY;
       isVisible = true;
-      if (dot) dot.style.opacity = '1';
-      if (ring) ring.style.opacity = '1';
     }
+  }, { passive: true });
 
-    if (dot) {
-      dot.style.transform = 'translate(' + targetMouseX + 'px, ' + targetMouseY + 'px) translate(-50%, -50%)';
+  window.addEventListener('touchmove', function(e) {
+    if (e.touches && e.touches[0]) {
+      targetMouseX = e.touches[0].clientX;
+      targetMouseY = e.touches[0].clientY;
+      isVisible = true;
     }
-  });
+  }, { passive: true });
 
-  document.addEventListener('mouseleave', function() {
-    isVisible = false;
-    if (dot) dot.style.opacity = '0';
-    if (ring) ring.style.opacity = '0';
-  });
+  window.addEventListener('touchend', function() {
+    setTimeout(function() { isVisible = false; }, 800);
+  }, { passive: true });
 
   // ==========================================================================
   // 4. PLANETAS Y MEDIOS FÍSICOS (ATAJOS E, T, M, A, P, C)
   // ==========================================================================
   var PLANETS = [
-    { id: 'espacio', key: 'e', name: 'Espacio', color: 'Negro', icon: '🌌', gravityY: 0.015, friction: 0.985, desc: 'Zero-G cósmico y navegación libre' },
-    { id: 'tierra', key: 't', name: 'Tierra', color: 'Verde', icon: '🌍', gravityY: 0.18, friction: 0.97, desc: 'Gravedad estándar 1.0g y propulsión firme' },
-    { id: 'marte', key: 'm', name: 'Marte', color: 'Rojo', icon: '🪐', gravityY: 0.08, friction: 0.98, desc: 'Gravedad reducida 0.38g y polvo carmesí' },
-    { id: 'agua', key: 'a', name: 'Agua', color: 'Azul', icon: '💧', gravityY: 0.035, friction: 0.88, fluidWave: true, desc: 'Viscosidad hidrodinámica y oleaje abisal' },
-    { id: 'plasma', key: 'p', name: 'Plasma', color: 'Verde Neón', icon: '⚡', gravityY: 0.02, friction: 0.84, plasma: true, desc: 'Amortiguación magnética y alta fricción' },
-    { id: 'cuantico', key: 'c', name: 'Cuántico', color: 'Púrpura', icon: '✦', surreal: true, friction: 0.95, desc: 'Gravedad multidireccional oscilante y destellos' }
+    { id: 'espacio', key: 'e', name: 'Espacio', color: 'Negro', icon: '🌌', gravityY: 0.0, friction: 0.985, desc: 'Zero-G cósmico y navegación libre' },
+    { id: 'tierra', key: 't', name: 'Tierra', color: 'Verde', icon: '🌍', gravityY: 0.08, friction: 0.98, desc: 'Gravedad terrestre con sustentación activa' },
+    { id: 'marte', key: 'm', name: 'Marte', color: 'Rojo', icon: '🪐', gravityY: 0.04, friction: 0.985, desc: 'Gravedad reducida 0.38g y polvo carmesí' },
+    { id: 'agua', key: 'a', name: 'Agua', color: 'Azul', icon: '💧', gravityY: 0.02, friction: 0.92, fluidWave: true, desc: 'Viscosidad hidrodinámica y oleaje abisal' },
+    { id: 'plasma', key: 'p', name: 'Plasma', color: 'Verde Neón', icon: '⚡', gravityY: 0.015, friction: 0.88, plasma: true, desc: 'Amortiguación magnética y alta fricción' },
+    { id: 'cuantico', key: 'c', name: 'Cuántico', color: 'Púrpura', icon: '✦', surreal: true, friction: 0.96, desc: 'Gravedad multidireccional oscilante y destellos' }
   ];
 
   var currentPlanetIndex = 0;
   var currentPlanet = PLANETS[0];
-  var isGravitySurge = false; // Activado con [Ctrl] o [Espacio]
+  var isGravitySurge = false; // Activado con [Ctrl], [Espacio] o botón táctil
 
   var hudToast = document.getElementById('physics-hud-toast');
   var ctrlTip = document.getElementById('ctrl-tip');
@@ -178,6 +208,11 @@
       }
     });
 
+    var mobilePlanetBtn = document.getElementById('mobile-planet-btn');
+    if (mobilePlanetBtn) {
+      mobilePlanetBtn.innerHTML = currentPlanet.icon + ' ' + currentPlanet.name;
+    }
+
     showHudToast('<strong>' + currentPlanet.icon + ' ' + currentPlanet.name + ' (' + currentPlanet.color + ')</strong> &nbsp;·&nbsp; ' + currentPlanet.desc.toUpperCase());
   }
 
@@ -213,6 +248,7 @@
     }
   });
 
+  // Botones de planetas en barra de estudio
   var planetButtons = document.querySelectorAll('.gravity-btn');
   planetButtons.forEach(function(btn) {
     btn.addEventListener('click', function(e) {
@@ -222,10 +258,19 @@
     });
   });
 
+  // Botón ciclar planetas en cabecera móvil
+  var mobilePlanetBtn = document.getElementById('mobile-planet-btn');
+  if (mobilePlanetBtn) {
+    mobilePlanetBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      setPlanet(currentPlanetIndex + 1);
+    });
+  }
+
   // ==========================================================================
-  // 5. ESTRELLAS DE FONDO Y PARTÍCULAS
+  // 5. ESTRELLAS DE FONDO (ADAPTATIVO)
   // ==========================================================================
-  var STAR_COUNT = 90;
+  var STAR_COUNT = isMobile ? 32 : 80;
   var stars = [];
   for (var s = 0; s < STAR_COUNT; s++) {
     stars.push({
@@ -240,55 +285,44 @@
   var sparks = [];
 
   // ==========================================================================
-  // 6. OPERATIVOS MICRO 80's: NAVEGACIÓN 2D COMPLETA POR TODA LA PANTALLA
+  // 6. OPERATIVOS MICRO 80's: VUELO LIBRE 2D (NUNCA CAEN AL FONDO)
   // ==========================================================================
-  var OPERATIVE_COUNT = 18;
+  var OPERATIVE_COUNT = isMobile ? 6 : 14;
   var operatives = [];
 
   for (var i = 0; i < OPERATIVE_COUNT; i++) {
-    var isCruiser = (i % 2 === 0);
     operatives.push({
       id: i,
-      // Distribuidos naturalmente por toda la pantalla
-      x: Math.random() * (width - 120) + 60,
-      y: Math.random() * (height - 180) + 90,
+      // Distribuidos naturalmente por toda la pantalla (entre el 10% y el 80% de la altura)
+      x: Math.random() * (width - 100) + 50,
+      y: Math.random() * (height * 0.70) + 70,
 
-      // Velocidades 2D de crucero
-      vx: (Math.random() - 0.5) * 1.6,
-      vy: (Math.random() - 0.5) * 1.2,
-      targetVx: (Math.random() - 0.5) * 1.8,
-      targetVy: (Math.random() - 0.5) * 1.2,
+      // Velocidades 2D equilibradas de crucero
+      vx: (Math.random() - 0.5) * 1.8,
+      vy: (Math.random() - 0.5) * 1.4,
+      targetVx: (Math.random() - 0.5) * 2.0,
+      targetVy: (Math.random() - 0.5) * 1.6,
       wanderTimer: Math.random() * 90 + 30,
 
       facingLeft: Math.random() < 0.5,
       tilt: 0,
-      role: isCruiser ? 'flyer' : 'explorer',
 
-      // Hélice chiquita
+      // Hélice propulsora chiquita
       rotorAngle: Math.random() * 10,
       rotorSpeed: 0.55,
 
-      // PISTOLA MARCIANA MAGNÉTICA HACIA OBJETOS DE PRIMERA PLANA
+      // PISTOLA MARCIANA MAGNÉTICA
       magneticBeamActive: false,
       magneticTargetX: 0,
       magneticTargetY: 0,
       magneticBeamTimer: 0,
-      magneticCooldown: Math.random() * 90 + 40,
+      magneticCooldown: Math.random() * 80 + 30,
 
       // INTERACCIÓN ENTRE ELLOS (SQUAD BEAM)
       peerBeamActive: false,
       peerTargetOp: null,
       peerBeamTimer: 0,
 
-      // Estado en repisa / caminante
-      isOnLedge: false,
-
-      // Escape de trampas ("cuando queden atrapados que pasen por debajo del objeto")
-      stuckCounter: 0,
-      isTunneling: false,
-      tunnelTargetY: 0,
-
-      mass: Math.random() * 0.2 + 0.9,
       waveOffset: Math.random() * Math.PI * 2
     });
   }
@@ -298,8 +332,8 @@
     ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
   }
 
-  // Render del astronauta micro (p = 1.15) con pistola marciana magnética
-  function drawMicroAstronaut(ctx, op, timeTick) {
+  // Render del astronauta micro con prop-pack y pistola marciana
+  function drawMicroAstronaut(ctx, op) {
     ctx.save();
     ctx.translate(Math.round(op.x), Math.round(op.y));
 
@@ -349,115 +383,91 @@
     // 4. CASCO CON LENTES AMARILLOS Y BANDA ROJA
     drawPixelRect(ctx, -2 * p, -5.5 * p, 4.5 * p, 3.5 * p, '#FFFFFF');
     drawPixelRect(ctx, -2 * p, -4 * p, 4.5 * p, 1 * p, '#DC2626');
-    drawPixelRect(ctx, 0.8 * p, -4 * p, 2 * p, 1.5 * p, '#FFEA00');
+    drawPixelRect(ctx, 0.8 * p, -4.2 * p, 1.8 * p, 1.8 * p, '#FFEA00');
 
-    // 5. CUERPO Y TRAJE BLANCO CON CINTURÓN CYAN
-    drawPixelRect(ctx, -2 * p, -2 * p, 4.5 * p, 4.5 * p, '#FFFFFF');
-    drawPixelRect(ctx, -2 * p, 0.5 * p, 4.5 * p, 1.2 * p, '#0284C7');
+    // 5. CUERPO BLANCO CON CINTURÓN AZUL
+    drawPixelRect(ctx, -2 * p, -2 * p, 4.5 * p, 4 * p, '#FFFFFF');
+    drawPixelRect(ctx, -2 * p, 0.2 * p, 4.5 * p, 0.9 * p, '#0284C7');
 
-    // 6. BRAZOS Y BOTAS
-    if (op.isOnLedge) {
-      var walkStep = Math.sin(timeTick * 8) * 1.5 * p;
-      drawPixelRect(ctx, -3 * p, -1.5 * p, 1.5 * p, 2.5 * p, '#FFFFFF');
-      drawPixelRect(ctx, 2.5 * p, -1.5 * p, 1.5 * p, 2.5 * p, '#FFFFFF');
-      drawPixelRect(ctx, -2 * p + walkStep, 2.5 * p, 2 * p, 3 * p, '#FFFFFF');
-      drawPixelRect(ctx, 0.5 * p - walkStep, 2.5 * p, 2 * p, 3 * p, '#FFFFFF');
-      drawPixelRect(ctx, -2.2 * p + walkStep, 5 * p, 2.4 * p, 1.5 * p, '#1E293B');
-      drawPixelRect(ctx, 0.5 * p - walkStep, 5 * p, 2.4 * p, 1.5 * p, '#1E293B');
-    } else {
-      drawPixelRect(ctx, -3 * p, -1.5 * p, 1.5 * p, 2.5 * p, '#FFFFFF');
-      drawPixelRect(ctx, 2.5 * p, -1.5 * p, 1.5 * p, 2.5 * p, '#FFFFFF');
-      drawPixelRect(ctx, -1.8 * p, 2.5 * p, 1.8 * p, 2.5 * p, '#FFFFFF');
-      drawPixelRect(ctx, 0.8 * p, 2.5 * p, 1.8 * p, 2.5 * p, '#FFFFFF');
-      drawPixelRect(ctx, -2.2 * p, 4.5 * p, 2.2 * p, 1.5 * p, '#1E293B');
-      drawPixelRect(ctx, 0.8 * p, 4.5 * p, 2.2 * p, 1.5 * p, '#1E293B');
-    }
-
-    if (op.isTunneling) {
-      drawPixelRect(ctx, -p, 6 * p, 2 * p, 2 * p, '#FF1744');
-    }
+    // 6. PIERNAS Y BOTAS NEGRAS
+    drawPixelRect(ctx, -2 * p, 2 * p, 1.6 * p, 2.2 * p, '#FFFFFF');
+    drawPixelRect(ctx, 0.9 * p, 2 * p, 1.6 * p, 2.2 * p, '#FFFFFF');
+    drawPixelRect(ctx, -2.6 * p, 4.2 * p, 2.2 * p, 1.4 * p, '#0F172A');
+    drawPixelRect(ctx, 0.9 * p, 4.2 * p, 2.2 * p, 1.4 * p, '#0F172A');
 
     ctx.restore();
   }
 
-  // Dibuja el Rayo Magnético Marciano hacia objetos en primera plana
+  // Dibujar el rayo magnético con anillos pulsantes hacia tarjetas o letras
   function drawMartianMagneticRay(ctx, op, timeTick) {
     if (!op.magneticBeamActive) return;
 
-    var originX = op.x + (op.facingLeft ? -6 : 6);
-    var originY = op.y - 2;
+    var startX = op.x + (op.facingLeft ? -10 : 10);
+    var startY = op.y - 1;
     var targetX = op.magneticTargetX;
     var targetY = op.magneticTargetY;
 
-    var beamColor = (currentPlanet.id === 'marte') ? '#FF2255' :
+    var beamColor = (currentPlanet.id === 'marte') ? '#F87171' :
                     (currentPlanet.id === 'tierra' || currentPlanet.id === 'plasma') ? '#34D399' :
+                    (currentPlanet.id === 'agua') ? '#38BDF8' :
                     (currentPlanet.id === 'cuantico') ? '#C084FC' : '#38BDF8';
 
+    // Línea base del rayo tractor
     ctx.save();
     ctx.strokeStyle = beamColor;
-    ctx.lineWidth = 1.0;
-    ctx.setLineDash([4, 3]);
+    ctx.lineWidth = 1.8;
     ctx.beginPath();
-    ctx.moveTo(originX, originY);
+    ctx.moveTo(startX, startY);
     ctx.lineTo(targetX, targetY);
     ctx.stroke();
-    ctx.setLineDash([]);
 
-    for (var r = 0; r < 3; r++) {
-      var progress = ((timeTick * 4 + r * 0.33) % 1);
-      var rx = originX + (targetX - originX) * progress;
-      var ry = originY + (targetY - originY) * progress;
-      var ringR = 3 + progress * 5;
+    // Anillos magnéticos pulsantes concéntricos a lo largo del rayo
+    for (var rStep = 0.25; rStep <= 0.85; rStep += 0.3) {
+      var pulseOffset = (timeTick * 4 + rStep * 2) % 1;
+      var ringT = Math.min(0.95, rStep + pulseOffset * 0.15);
+      var rx = startX + (targetX - startX) * ringT;
+      var ry = startY + (targetY - startY) * ringT;
+      var ringSize = 4 + pulseOffset * 5;
 
       ctx.beginPath();
-      ctx.arc(rx, ry, ringR, 0, Math.PI * 2);
+      ctx.arc(rx, ry, ringSize, 0, Math.PI * 2);
       ctx.strokeStyle = beamColor;
-      ctx.lineWidth = 0.8;
-      ctx.globalAlpha = 0.75 - progress * 0.5;
+      ctx.lineWidth = 1.2;
       ctx.stroke();
     }
 
-    ctx.globalAlpha = 0.85;
-    ctx.fillStyle = '#FFEA00';
+    // Chispa de impacto en el destino
     ctx.beginPath();
-    ctx.arc(targetX, targetY, 2.5, 0, Math.PI * 2);
+    ctx.arc(targetX, targetY, 3 + Math.sin(timeTick * 12) * 1.5, 0, Math.PI * 2);
+    ctx.fillStyle = '#FFEA00';
     ctx.fill();
 
     ctx.restore();
   }
 
-  // Dibuja el Rayo Magnético de Interacción entre Astronautas
-  function drawPeerInteractionRay(ctx, a, b, timeTick) {
+  // Rayo de interacción entre compañeros de escuadrón
+  function drawPeerInteractionRay(ctx, op1, op2, timeTick) {
     ctx.save();
-    var midX = (a.x + b.x) / 2;
-    var midY = (a.y + b.y) / 2;
-
-    ctx.strokeStyle = 'rgba(255, 234, 0, 0.45)';
-    ctx.lineWidth = 0.8;
-    ctx.setLineDash([2, 4]);
+    ctx.strokeStyle = (currentPlanet.id === 'plasma') ? 'rgba(52, 211, 153, 0.7)' : 'rgba(56, 189, 248, 0.7)';
+    ctx.lineWidth = 1.2;
+    ctx.setLineDash([3, 3]);
+    ctx.lineDashOffset = -timeTick * 20;
     ctx.beginPath();
-    ctx.moveTo(a.x, a.y);
-    ctx.lineTo(b.x, b.y);
+    ctx.moveTo(op1.x, op1.y);
+    ctx.lineTo(op2.x, op2.y);
     ctx.stroke();
     ctx.setLineDash([]);
-
-    var pulseR = (timeTick * 12) % 12;
-    ctx.beginPath();
-    ctx.arc(midX, midY, pulseR, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(56, 189, 248, 0.5)';
-    ctx.lineWidth = 0.6;
-    ctx.stroke();
     ctx.restore();
   }
 
   // ==========================================================================
-  // 7. SEGUNDA CAPA: MONOLITOS CIFRADOS DE FONDO (SIN INTERACCIÓN CON ASTRONAUTAS)
+  // 7. LETRAS ATMOSFÉRICAS TRASERAS (SEGUNDA CAPA, CERO COLISIÓN)
   // ==========================================================================
-  var currentScrollY = 0;
-  var lastScrollY = 0;
-  var scrollVelocity = 0;
   var cityOffsetX = 0;
-  var cityOpacity = 0;
+  var cityOpacity = 0.20;
+  var currentScrollY = window.pageYOffset || 0;
+  var lastScrollY = currentScrollY;
+  var scrollVelocity = 0;
 
   window.addEventListener('scroll', function() {
     currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
@@ -465,28 +475,17 @@
     lastScrollY = currentScrollY;
   }, { passive: true });
 
-  var timeTick = 0;
-
   function renderAtmosphericBackgroundLetters(ctx) {
     if (cityOpacity <= 0.01) return;
 
     ctx.save();
-    ctx.globalAlpha = cityOpacity;
+    ctx.globalAlpha = Math.min(0.18, cityOpacity);
 
-    var buildingH = Math.min(300, Math.max(160, height * 0.38));
-    var baseY = height;
-
-    var mistGrad = ctx.createLinearGradient(0, height - buildingH * 1.2, 0, height);
-    mistGrad.addColorStop(0, 'rgba(0,0,0,0)');
-    mistGrad.addColorStop(0.7, 'rgba(7, 8, 10, 0.65)');
-    mistGrad.addColorStop(1, 'rgba(5, 5, 7, 0.95)');
-    ctx.fillStyle = mistGrad;
-    ctx.fillRect(0, height - buildingH * 1.25, width, buildingH * 1.25);
-
-    var fontSize = Math.min(320, Math.max(150, width * 0.20));
+    var fontSize = Math.max(50, Math.round(width * (isMobile ? 0.08 : 0.065)));
     ctx.font = '900 ' + fontSize + 'px "Space Grotesk", sans-serif';
-    ctx.textBaseline = 'bottom';
+    ctx.textBaseline = 'alphabetic';
 
+    var baseY = height * 0.88;
     var w1 = 'VENTAJA';
     var w2 = 'COMPETITIVA';
     var w3 = 'DIGITAL';
@@ -494,78 +493,113 @@
     var widthW1 = ctx.measureText(w1).width;
     var widthW2 = ctx.measureText(w2).width;
     var widthW3 = ctx.measureText(w3).width;
-
-    var wordGap = 60;
-    var phraseGap = 160;
+    var wordGap = fontSize * 0.25;
+    var phraseGap = fontSize * 1.2;
     var singlePhraseWidth = widthW1 + widthW2 + widthW3 + (wordGap * 2) + phraseGap;
 
     var startX = -(cityOffsetX % singlePhraseWidth);
     var repeatCount = Math.ceil(width / singlePhraseWidth) + 2;
 
-    ctx.save();
-    try {
-      ctx.filter = 'blur(10px)';
-    } catch (e) {}
-
     for (var r = 0; r < repeatCount; r++) {
       var curX = startX + (r * singlePhraseWidth);
 
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
       ctx.fillText(w1, curX, baseY);
       curX += widthW1 + wordGap;
 
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.55)';
-      ctx.lineWidth = 6;
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.40)';
+      ctx.lineWidth = 4;
       ctx.strokeText(w2, curX, baseY);
       curX += widthW2 + wordGap;
 
-      var grad = ctx.createLinearGradient(curX, baseY - fontSize, curX + widthW3, baseY);
-      grad.addColorStop(0, '#F59E0B');
-      grad.addColorStop(0.5, '#EC4899');
-      grad.addColorStop(1, '#8B5CF6');
-      ctx.fillStyle = grad;
+      ctx.fillStyle = 'rgba(245, 158, 11, 0.50)';
       ctx.fillText(w3, curX, baseY);
     }
-
-    try {
-      ctx.filter = 'none';
-    } catch (e) {}
-    ctx.restore();
 
     ctx.restore();
   }
 
   // ==========================================================================
-  // 8. BUCLE PRINCIPAL DE FÍSICA Y SIMULACIÓN
+  // 8. CACHÉ INTELIGENTE DE OBSTÁCULOS (TARJETAS Y LETRAS DESTACADAS)
   // ==========================================================================
+  // "Y QUE CHOQUEN CON LAS LETRAS, LAS TARJETAS SOLIDAS CON IMAGEN DIFUMINADA ESTA PERFECT"
+  var contentBoxes = [];
+  var boxUpdateCooldown = 0;
+
+  function refreshContentBoxes() {
+    contentBoxes = [];
+    var selectors = '.service-card, .tile, .price-card, .project-giant-item, .chroma-title, .brutalist-title, .kinetic-text-wrap, .stat-tile, .card';
+    var elements = document.querySelectorAll(selectors);
+
+    for (var i = 0; i < elements.length; i++) {
+      var rect = elements[i].getBoundingClientRect();
+      // Solo consideramos elementos actualmente visibles en el viewport
+      if (rect.bottom > 20 && rect.top < height - 20 && rect.width > 30 && rect.height > 20) {
+        contentBoxes.push({
+          left: rect.left,
+          right: rect.right,
+          top: rect.top,
+          bottom: rect.bottom,
+          centerX: (rect.left + rect.right) / 2,
+          centerY: (rect.top + rect.bottom) / 2
+        });
+      }
+    }
+  }
+
+  refreshContentBoxes();
+  window.addEventListener('resize', refreshContentBoxes);
+  window.addEventListener('scroll', function() {
+    if (boxUpdateCooldown <= 0) {
+      refreshContentBoxes();
+      boxUpdateCooldown = 15;
+    }
+  }, { passive: true });
+
+  // ==========================================================================
+  // 9. BUCLE PRINCIPAL DE FÍSICA Y SIMULACIÓN
+  // ==========================================================================
+  var timeTick = 0;
+
   function loop() {
     timeTick += 0.02;
     scrollVelocity *= 0.90;
 
-    mouseX += (targetMouseX - mouseX) * 0.28;
-    mouseY += (targetMouseY - mouseY) * 0.28;
-    ringX += (targetMouseX - ringX) * 0.14;
-    ringY += (targetMouseY - ringY) * 0.14;
+    if (boxUpdateCooldown > 0) {
+      boxUpdateCooldown--;
+    } else {
+      // Actualización periódica liviana (cada 35 frames)
+      refreshContentBoxes();
+      boxUpdateCooldown = 35;
+    }
 
-    if (ring && isVisible) {
-      ring.style.transform = 'translate(' + ringX + 'px, ' + ringY + 'px) translate(-50%, -50%)';
+    // Suavizado de cursor en escritorio
+    if (!isMobile && isVisible) {
+      mouseX += (targetMouseX - mouseX) * 0.28;
+      mouseY += (targetMouseY - mouseY) * 0.28;
+      ringX += (targetMouseX - ringX) * 0.14;
+      ringY += (targetMouseY - ringY) * 0.14;
+
+      if (ring) {
+        ring.style.transform = 'translate(' + ringX + 'px, ' + ringY + 'px) translate(-50%, -50%)';
+      }
     }
 
     ctx.clearRect(0, 0, width, height);
 
-    var isCityActive = (currentScrollY > 220);
-    var targetCityOpacity = isCityActive ? 0.22 : 0;
+    // Movimiento sutil de monolitos de fondo
+    var isCityActive = (currentScrollY > 180);
+    var targetCityOpacity = isCityActive ? 0.20 : 0;
     cityOpacity += (targetCityOpacity - cityOpacity) * 0.08;
 
-    var citySpeed = 1.2 + (scrollVelocity * 0.5);
-    if (cityOpacity > 0.02) {
-      cityOffsetX += citySpeed;
+    if (cityOpacity > 0.01) {
+      cityOffsetX += 1.0 + (scrollVelocity * 0.4);
     }
 
     // 1. Estrellas de fondo
     for (var s = 0; s < STAR_COUNT; s++) {
       var st = stars[s];
-      var tw = Math.sin(timeTick * 2 + s) * 0.16;
+      var tw = Math.sin(timeTick * 2 + s) * 0.15;
       ctx.beginPath();
       ctx.arc(st.x, st.y, st.radius, 0, Math.PI * 2);
 
@@ -580,10 +614,10 @@
       ctx.fill();
     }
 
-    // 2. Monolitos de fondo (Segunda capa)
+    // 2. Letras atmosféricas traseras
     renderAtmosphericBackgroundLetters(ctx);
 
-    // 3. Chispas de impacto o escape
+    // 3. Chispas de impacto con letras o tarjetas
     for (var spIdx = sparks.length - 1; spIdx >= 0; spIdx--) {
       var spk = sparks[spIdx];
       spk.x += spk.vx;
@@ -601,133 +635,98 @@
       ctx.globalAlpha = 1.0;
     }
 
-    // 4. DETECCIÓN DE CONTENIDO FRONTAL (Tarjetas, botones, cajas)
-    var contentBoxes = [];
-    var frontElements = document.querySelectorAll('.service-card, .tile, .price-card, .project-giant-item, .brutalist-grid-meta > div');
-    frontElements.forEach(function(el) {
-      var rect = el.getBoundingClientRect();
-      if (rect.top < height && rect.bottom > 0 && rect.width > 50 && rect.height > 50) {
-        contentBoxes.push({
-          left: rect.left,
-          right: rect.right,
-          top: rect.top,
-          bottom: rect.bottom
-        });
-      }
-    });
-
-    // 5. Parámetros físicos del planeta actual
+    // 4. Parámetros del entorno
     var friction = currentPlanet.friction || 0.98;
-    var gravX = 0;
-    var gravY = currentPlanet.gravityY || 0;
-
-    if (isGravitySurge) {
-      // Sobrecarga de gravedad pesada con [Ctrl] o [Espacio]
-      gravY = 0.54;
-      friction = 0.985;
-    } else if (currentPlanet.surreal) {
-      // Física cuántica oscilante
-      gravX = Math.sin(timeTick * 2.2) * 0.22;
-      gravY = Math.cos(timeTick * 1.6) * 0.18;
-    }
 
     // ======================================================================
-    // 6. OPERATIVOS MICRO: NAVEGACIÓN 2D COMPLETA (NO SOLO SUBEN)
+    // 5. OPERATIVOS MICRO: VUELO LIBRE 2D CONTINUO (NO CAEN AL FONDO)
     // ======================================================================
     for (var opIdx = 0; opIdx < OPERATIVE_COUNT; opIdx++) {
       var op = operatives[opIdx];
 
       op.rotorAngle += op.rotorSpeed;
 
-      // Inclinación aerodinámica natural según velocidad horizontal
+      // Inclinación aerodinámica natural
       var targetTilt = Math.max(-0.35, Math.min(0.35, op.vx * 0.16));
       op.tilt += (targetTilt - op.tilt) * 0.12;
 
-      // A. COMPORTAMIENTO AUTÓNOMO 2D: EXPLORACIÓN POR TODA LA PANTALLA
+      // A. NAVEGACIÓN 2D AUTÓNOMA: VUELO POR TODO EL PLANO
       op.wanderTimer--;
       if (op.wanderTimer <= 0) {
-        op.wanderTimer = Math.random() * 120 + 60;
-        // Nueva dirección de crucero 2D (izquierda/derecha, arriba/abajo equilibrado)
-        op.targetVx = (Math.random() - 0.5) * 2.4;
-        op.targetVy = (Math.random() - 0.5) * 1.6;
+        op.wanderTimer = Math.random() * 110 + 50;
+        // Rumbo 2D equilibrado en los 4 cuadrantes
+        op.targetVx = (Math.random() - 0.5) * (isMobile ? 1.8 : 2.4);
+        op.targetVy = (Math.random() - 0.5) * (isMobile ? 1.5 : 2.0);
       }
 
-      if (!op.isOnLedge && !isGravitySurge) {
-        // Suave aceleración hacia su vector de crucero 2D
-        op.vx += (op.targetVx - op.vx) * 0.04;
-        op.vy += (op.targetVy - op.vy) * 0.04;
+      // Propulsión activa del prop-pack: vuela hacia su objetivo 2D
+      op.vx += (op.targetVx - op.vx) * 0.045;
+      op.vy += (op.targetVy - op.vy) * 0.045;
 
-        // Balance de sustentación: contrarresta exactamente la gravedad para no caer ni salir disparado
-        op.vy -= (gravY * 0.96);
+      // Flotación senoidal de vuelo
+      op.vy += Math.sin(timeTick * 2.8 + op.waveOffset) * 0.07;
 
-        // Flotación senoidal natural
-        op.vy += Math.sin(timeTick * 2.5 + op.waveOffset) * 0.04;
-
-        if (Math.abs(op.vx) > 0.15) {
-          op.facingLeft = (op.vx < 0);
-        }
+      if (Math.abs(op.vx) > 0.15) {
+        op.facingLeft = (op.vx < 0);
       }
 
-      // Oleaje en planetas acuáticos
+      // Oleaje en planeta Agua
       if (currentPlanet.fluidWave) {
-        op.vx += Math.sin(timeTick * 2 + op.waveOffset) * 0.05;
-        op.vy += Math.cos(timeTick * 1.5 + op.waveOffset) * 0.03;
+        op.vx += Math.sin(timeTick * 2 + op.waveOffset) * 0.06;
+        op.vy += Math.cos(timeTick * 1.6 + op.waveOffset) * 0.04;
       }
 
-      // B. MAGNETISMO PURO CON EL MOUSE (DIRECTO, SIN ÓRBITAS CIRCULARES)
+      // Si el usuario activa sobrecarga con [Ctrl]/[Espacio], caen por gravedad pesada
+      if (isGravitySurge) {
+        op.vy += 0.48;
+      }
+
+      // B. ATRACCIÓN MAGNÉTICA CON MOUSE O TOQUE
       if (isVisible) {
-        var mdx = mouseX - op.x;
-        var mdy = mouseY - op.y;
+        var mdx = (isMobile ? targetMouseX : mouseX) - op.x;
+        var mdy = (isMobile ? targetMouseY : mouseY) - op.y;
         var mDist = Math.hypot(mdx, mdy);
 
-        if (mDist < 260 && mDist > 20) {
-          var pull = Math.min(0.24, (260 - mDist) / 260 * 0.14);
+        if (mDist < (isMobile ? 180 : 240) && mDist > 25) {
+          var pull = Math.min(0.20, ((isMobile ? 180 : 240) - mDist) / 240 * 0.12);
           op.vx += (mdx / mDist) * pull;
           op.vy += (mdy / mDist) * pull;
           op.facingLeft = (mdx < 0);
-
-          if (mDist < 80) {
-            op.vx *= 0.94;
-            op.vy *= 0.94;
-          }
-
-          if (op.isOnLedge && pull > 0.08) {
-            op.isOnLedge = false;
-            op.vy = -1.2;
-          }
         }
       }
 
-      // C. INTERACCIÓN ENTRE ELLOS (SQUAD BEAM Y CHOQUES ELÁSTICOS)
+      // C. INTERACCIÓN ENTRE ELLOS: REBOTES ELÁSTICOS Y VÍNCULOS
       for (var otherIdx = opIdx + 1; otherIdx < OPERATIVE_COUNT; otherIdx++) {
         var other = operatives[otherIdx];
         var dBetweenX = other.x - op.x;
         var dBetweenY = other.y - op.y;
         var distBetween = Math.hypot(dBetweenX, dBetweenY);
 
-        // 1. Choque elástico juguetón entre astronautas (se empujan en 2D)
-        if (distBetween < 24 && distBetween > 1) {
-          var repulse = (24 - distBetween) * 0.12;
+        // Rebote elástico juguetón entre astronautas (se esquivan en vuelo)
+        if (distBetween < 22 && distBetween > 1) {
+          var repulse = (22 - distBetween) * 0.14;
           op.vx -= (dBetweenX / distBetween) * repulse;
           op.vy -= (dBetweenY / distBetween) * repulse;
           other.vx += (dBetweenX / distBetween) * repulse;
           other.vy += (dBetweenY / distBetween) * repulse;
 
-          sparks.push({
-            x: (op.x + other.x) / 2,
-            y: (op.y + other.y) / 2,
-            vx: (Math.random() - 0.5) * 3,
-            vy: (Math.random() - 0.5) * 3,
-            life: 0.7,
-            color: '#38BDF8'
-          });
+          if (sparks.length < 25) {
+            sparks.push({
+              x: (op.x + other.x) / 2,
+              y: (op.y + other.y) / 2,
+              vx: (Math.random() - 0.5) * 2.5,
+              vy: (Math.random() - 0.5) * 2.5,
+              life: 0.65,
+              color: '#38BDF8'
+            });
+          }
         }
 
-        // 2. Vínculo magnético entre compañeros
-        if (distBetween >= 40 && distBetween <= 90 && Math.random() < 0.008 && !op.peerBeamActive && !other.peerBeamActive) {
+        // Vínculo magnético entre compañeros de escuadrón
+        if (!isMobile && distBetween >= 45 && distBetween <= 85 && Math.random() < 0.007 && !op.peerBeamActive && !other.peerBeamActive) {
           op.peerBeamActive = true;
           op.peerTargetOp = other;
-          op.peerBeamTimer = 18;
+          op.peerBeamTimer = 16;
         }
       }
 
@@ -741,7 +740,7 @@
         }
       }
 
-      // D. PISTOLA MARCIANA MAGNÉTICA HACIA OBJETOS EN PRIMERA PLANA
+      // D. PISTOLA MARCIANA MAGNÉTICA HACIA TARJETAS O TÍTULOS
       op.magneticCooldown--;
       if (contentBoxes.length > 0 && op.magneticCooldown <= 0 && !op.magneticBeamActive) {
         var closestBox = null;
@@ -751,14 +750,14 @@
 
         for (var b = 0; b < contentBoxes.length; b++) {
           var box = contentBoxes[b];
-          var targetLedgeX = Math.max(box.left, Math.min(box.right, op.x + (op.facingLeft ? -45 : 45)));
-          var targetLedgeY = box.top;
-          var d = Math.hypot(targetLedgeX - op.x, targetLedgeY - op.y);
-          if (d < closestDist && d < 220) {
+          var targetX = Math.max(box.left, Math.min(box.right, op.x));
+          var targetY = Math.max(box.top, Math.min(box.bottom, op.y));
+          var d = Math.hypot(targetX - op.x, targetY - op.y);
+          if (d < closestDist && d < (isMobile ? 160 : 210)) {
             closestDist = d;
             closestBox = box;
-            hitX = targetLedgeX;
-            hitY = targetLedgeY;
+            hitX = targetX;
+            hitY = targetY;
           }
         }
 
@@ -766,22 +765,23 @@
           op.magneticBeamActive = true;
           op.magneticTargetX = hitX;
           op.magneticTargetY = hitY;
-          op.magneticBeamTimer = 22;
-          op.magneticCooldown = Math.random() * 110 + 60;
+          op.magneticBeamTimer = isMobile ? 14 : 20;
+          op.magneticCooldown = Math.random() * 100 + 50;
 
+          // Suave tirón magnético
           var bdx = hitX - op.x;
           var bdy = hitY - op.y;
           var bDist = Math.max(20, Math.hypot(bdx, bdy));
-          op.vx += (bdx / bDist) * 1.5;
-          op.vy += (bdy / bDist) * 1.2;
+          op.vx += (bdx / bDist) * 1.1;
+          op.vy += (bdy / bDist) * 0.9;
 
-          for (var ms = 0; ms < 2; ms++) {
+          if (sparks.length < 25) {
             sparks.push({
               x: hitX,
               y: hitY,
-              vx: (Math.random() - 0.5) * 3,
+              vx: (Math.random() - 0.5) * 2.5,
               vy: -Math.random() * 2,
-              life: 0.8,
+              life: 0.7,
               color: '#FFEA00'
             });
           }
@@ -797,200 +797,110 @@
         }
       }
 
-      // E. COMPORTAMIENTO EN REPISA
-      if (op.isOnLedge) {
-        op.vy = 0;
-        op.rotorSpeed += (0.2 - op.rotorSpeed) * 0.1;
-        op.vx = (op.facingLeft ? -0.7 : 0.7);
+      // E. CHOQUE ELÁSTICO CON LETRAS Y TARJETAS ("Y QUE CHOQUEN CON LAS LETRAS")
+      var pad = 6;
+      for (var cbIdx = 0; cbIdx < contentBoxes.length; cbIdx++) {
+        var cb = contentBoxes[cbIdx];
+        if (op.x > cb.left - pad && op.x < cb.right + pad && op.y > cb.top - pad && op.y < cb.bottom + pad) {
+          // Calcular penetración
+          var ovL = op.x - (cb.left - pad);
+          var ovR = (cb.right + pad) - op.x;
+          var ovT = op.y - (cb.top - pad);
+          var ovB = (cb.bottom + pad) - op.y;
+          var minOv = Math.min(ovL, ovR, ovT, ovB);
 
-        var isStillOnTop = false;
-        for (var c = 0; c < contentBoxes.length; c++) {
-          var cbL = contentBoxes[c];
-          if (op.x >= cbL.left && op.x <= cbL.right && Math.abs(op.y - (cbL.top - 8)) < 4) {
-            isStillOnTop = true;
-            break;
+          if (minOv === ovT) {
+            op.y = cb.top - pad;
+            op.vy = -Math.abs(op.vy) * 0.85 - 0.6;
+            op.targetVy = -1.2;
+          } else if (minOv === ovB) {
+            op.y = cb.bottom + pad;
+            op.vy = Math.abs(op.vy) * 0.85 + 0.6;
+            op.targetVy = 1.2;
+          } else if (minOv === ovL) {
+            op.x = cb.left - pad;
+            op.vx = -Math.abs(op.vx) * 0.85 - 0.6;
+            op.targetVx = -1.4;
+            op.facingLeft = true;
+          } else {
+            op.x = cb.right + pad;
+            op.vx = Math.abs(op.vx) * 0.85 + 0.6;
+            op.targetVx = 1.4;
+            op.facingLeft = false;
           }
-        }
 
-        if (!isStillOnTop || isGravitySurge) {
-          op.isOnLedge = false;
-          op.rotorSpeed = 0.55;
-          if (!isGravitySurge) {
-            op.vy = -1.6;
-            op.vx = (op.facingLeft ? -1.5 : 1.5);
-          }
-        }
-      }
-
-      // F. CHOQUE EXCLUSIVO CON TARJETAS
-      var isCollidingWithCard = false;
-      var pad = 8;
-
-      if (!op.isTunneling && !op.isOnLedge && contentBoxes.length > 0) {
-        for (var cbIdx = 0; cbIdx < contentBoxes.length; cbIdx++) {
-          var cb = contentBoxes[cbIdx];
-          if (op.x > cb.left - pad && op.x < cb.right + pad && op.y > cb.top - pad && op.y < cb.bottom + pad) {
-            isCollidingWithCard = true;
-            op.stuckCounter++;
-
-            // Escape subterráneo si queda atrapado
-            if (op.stuckCounter >= 3) {
-              op.isTunneling = true;
-              op.tunnelTargetY = cb.bottom + 12;
-              op.isOnLedge = false;
-              break;
-            }
-
-            var ovL = op.x - (cb.left - pad);
-            var ovR = (cb.right + pad) - op.x;
-            var ovT = op.y - (cb.top - pad);
-            var ovB = (cb.bottom + pad) - op.y;
-            var minOv = Math.min(ovL, ovR, ovT, ovB);
-
-            if (minOv === ovT) {
-              if (op.role === 'explorer' && !isGravitySurge && Math.random() < 0.6) {
-                op.y = cb.top - 8;
-                op.isOnLedge = true;
-                op.vy = 0;
-                op.stuckCounter = 0;
-                break;
-              } else {
-                op.y = cb.top - pad;
-                op.vy = -Math.abs(op.vy) * 0.75 - 0.5;
-                op.targetVy = -1.0;
-              }
-            } else if (minOv === ovB) {
-              op.y = cb.bottom + pad;
-              op.vy = Math.abs(op.vy) * 0.75 + 0.5;
-              op.targetVy = 1.0;
-            } else if (minOv === ovL) {
-              op.x = cb.left - pad;
-              op.vx = -Math.abs(op.vx) * 0.75 - 0.5;
-              op.targetVx = -1.2;
-              op.facingLeft = true;
-            } else {
-              op.x = cb.right + pad;
-              op.vx = Math.abs(op.vx) * 0.75 + 0.5;
-              op.targetVx = 1.2;
-              op.facingLeft = false;
-            }
-
-            for (var sp = 0; sp < 2; sp++) {
-              sparks.push({
-                x: op.x,
-                y: op.y,
-                vx: (Math.random() - 0.5) * 3,
-                vy: (Math.random() - 0.5) * 3,
-                life: 0.8,
-                color: (currentPlanet.id === 'marte') ? '#F87171' :
-                       (currentPlanet.id === 'tierra' || currentPlanet.id === 'plasma') ? '#4ADE80' :
-                       (currentPlanet.id === 'cuantico') ? '#C084FC' : '#FFEA00'
-              });
-            }
-            break;
-          }
-        }
-      }
-
-      if (!isCollidingWithCard && !op.isTunneling) {
-        op.stuckCounter = Math.max(0, op.stuckCounter - 1);
-      }
-
-      // G. FASE SUBTERRÁNEA: PASAR POR DEBAJO DEL OBJETO
-      if (op.isTunneling) {
-        op.vy = 2.4;
-        op.vx *= 0.5;
-        op.rotorSpeed = 0.85;
-
-        if (op.y >= op.tunnelTargetY) {
-          op.isTunneling = false;
-          op.stuckCounter = 0;
-          op.vy = 0.8;
-          op.vx = op.facingLeft ? -1.8 : 1.8;
-          op.rotorSpeed = 0.55;
-
-          for (var esc = 0; esc < 3; esc++) {
+          if (sparks.length < 25) {
             sparks.push({
               x: op.x,
               y: op.y,
-              vx: (Math.random() - 0.5) * 4,
-              vy: Math.random() * 2,
-              life: 0.9,
-              color: '#FFEA00'
+              vx: (Math.random() - 0.5) * 3,
+              vy: (Math.random() - 0.5) * 3,
+              life: 0.75,
+              color: (currentPlanet.id === 'marte') ? '#F87171' :
+                     (currentPlanet.id === 'tierra' || currentPlanet.id === 'plasma') ? '#4ADE80' :
+                     (currentPlanet.id === 'cuantico') ? '#C084FC' : '#FFEA00'
             });
           }
+          break;
         }
       }
 
-      // H. APLICACIÓN DE FUERZAS Y DESPLAZAMIENTO
-      if (!op.isOnLedge) {
-        op.vx += gravX;
-        op.vy += gravY * op.mass;
+      // F. INTEGRACIÓN DE VELOCIDAD
+      op.vx *= friction;
+      op.vy *= friction;
+      op.x += op.vx;
+      op.y += op.vy;
 
-        op.vx *= friction;
-        op.vy *= friction;
-        op.x += op.vx;
-        op.y += op.vy;
+      // G. LÍMITES DE PANTALLA: SUSTENTACIÓN Y VUELO LIBRE (NUNCA CAER AL FONDO)
+      // Techo
+      if (op.y < 60) {
+        op.y = 60;
+        op.vy = Math.abs(op.vy) * 0.8 + 0.5;
+        op.targetVy = Math.random() * 1.2 + 0.5;
+      }
+      // Suelo (Repulsión activa para que sigan volando sin quedarse atrapados en fila)
+      var floorLimit = height - (isMobile ? 85 : 70);
+      if (op.y > floorLimit) {
+        op.y = floorLimit;
+        op.vy = -Math.abs(op.vy) * 0.85 - 0.8;
+        op.targetVy = -(Math.random() * 1.5 + 0.8); // Impulso vertical hacia arriba
+        op.rotorSpeed = 0.75;
       }
 
-      // I. LÍMITES DE PANTALLA: REBOTE SUAVE (SE MANTIENEN EN PANTALLA EN VEZ DE ESCAPARSE HACIA ARRIBA)
-      // "QUE SE MUEVAN POR LA PANTALLA NO QUE SUBAN SOLAMENTE"
-      if (op.y < 45) {
-        op.y = 45;
-        op.vy = Math.abs(op.vy) * 0.75 + 0.4;
-        op.targetVy = Math.random() * 1.2 + 0.4; // Se orienta a navegar hacia abajo
-      } else if (op.y > height - 55) {
-        op.y = height - 55;
-        op.vy = -Math.abs(op.vy) * 0.75 - 0.4;
-        op.targetVy = -(Math.random() * 1.2 + 0.4); // Se orienta a navegar hacia arriba
-      }
-
-      if (op.x < 30) {
-        op.x = 30;
-        op.vx = Math.abs(op.vx) * 0.75 + 0.4;
-        op.targetVx = Math.random() * 1.5 + 0.4;
+      // Paredes laterales
+      if (op.x < 25) {
+        op.x = 25;
+        op.vx = Math.abs(op.vx) * 0.8 + 0.5;
+        op.targetVx = Math.random() * 1.5 + 0.5;
         op.facingLeft = false;
-      } else if (op.x > width - 30) {
-        op.x = width - 30;
-        op.vx = -Math.abs(op.vx) * 0.75 - 0.4;
-        op.targetVx = -(Math.random() * 1.5 + 0.4);
+      } else if (op.x > width - 25) {
+        op.x = width - 25;
+        op.vx = -Math.abs(op.vx) * 0.8 - 0.5;
+        op.targetVx = -(Math.random() * 1.5 + 0.5);
         op.facingLeft = true;
       }
 
-      // Dibujar rayo magnético hacia tarjeta
+      // Dibujar rayo marciano si está disparando
       drawMartianMagneticRay(ctx, op, timeTick);
 
-      // Dibujar astronauta micro
-      drawMicroAstronaut(ctx, op, timeTick);
+      // Dibujar astronauta
+      drawMicroAstronaut(ctx, op);
     }
 
     requestAnimationFrame(loop);
   }
+
   requestAnimationFrame(loop);
 
   // ==========================================================================
-  // 9. EFECTOS HOVER Y CONTROL DE TARJETAS
-  // ==========================================================================
-  var hoverElements = document.querySelectorAll('a, button, .service-card, .tile, .project-giant-item, h1, h2, h3, .chip, .gravity-btn');
-  hoverElements.forEach(function(el) {
-    el.addEventListener('mouseenter', function() {
-      if (ring) ring.classList.add('active');
-      if (dot) dot.classList.add('active');
-    });
-    el.addEventListener('mouseleave', function() {
-      if (ring) ring.classList.remove('active');
-      if (dot) dot.classList.remove('active');
-    });
-  });
-
-  // ==========================================================================
-  // 10. SEGUIMIENTO DE PROGRESO EN BARRA LATERAL (SCROLL-RAIL)
+  // 10. SCROLL-RAIL LATERAL (SOLO EN ESCRITORIO)
   // ==========================================================================
   var railFill = document.getElementById('scroll-rail-fill');
   var railItems = document.querySelectorAll('.rail-item');
   var trackedSections = ['inicio', 'servicios', 'menu-inteligente', 'proyectos', 'contacto'];
 
   window.addEventListener('scroll', function() {
+    if (isMobile) return;
     var winScroll = document.documentElement.scrollTop || document.body.scrollTop;
     var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     var scrolledPercent = docHeight > 0 ? (winScroll / docHeight) * 100 : 0;

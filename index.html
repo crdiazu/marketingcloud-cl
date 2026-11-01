@@ -143,18 +143,43 @@
     </div>
   </aside>
 
-  <!-- NAVEGACIÓN PRINCIPAL -->
-  <nav class="main-nav">
+    <!-- CABECERA SUPERIOR MÓVIL (LIVIANA, COMPACTA, CERO COLISIÓN) -->
+  <header class="mobile-top-bar" aria-label="Identidad móvil y selector de entorno">
+    <a href="index.html" class="mobile-logo">Marketing<span>Cloud</span></a>
+    <div class="mobile-top-actions">
+      <span class="mobile-status-dot" title="Santiago de Chile Online"></span>
+      <button class="mobile-planet-pill" id="mobile-planet-btn" aria-label="Cambiar entorno planetario">
+        🌌 Espacio
+      </button>
+    </div>
+  </header>
+
+  <!-- NAVEGACIÓN PRINCIPAL (ARRIBA EN ESCRITORIO / DOCK INFERIOR EN MÓVIL) -->
+  <nav class="main-nav" aria-label="Navegación principal">
     <div class="logo">
       <a href="index.html">Marketing<span>Cloud</span></a>
     </div>
     <div class="nav-links">
-      <a href="index.html">Inicio</a>
-      <a href="servicios.html">4 Servicios</a>
-      <a href="portafolio.html">Portafolio</a>
-      <a href="https://menu-inteligente-mc.vercel.app/" target="_blank" rel="noopener">Menú Inteligente ↗</a>
-      <a href="sobre-mi.html">Sobre Mí</a>
-      <a href="contacto.html">Contacto</a>
+      <a href="index.html" class="nav-item active">
+        <svg class="nav-tab-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V10"/></svg>
+        <span>Inicio</span>
+      </a>
+      <a href="servicios.html" class="nav-item">
+        <svg class="nav-tab-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Servicios</span>
+      </a>
+      <a href="portafolio.html" class="nav-item">
+        <svg class="nav-tab-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+        <span>Portafolio</span>
+      </a>
+      <a href="sobre-mi.html" class="nav-item">
+        <svg class="nav-tab-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>Sobre Mí</span>
+      </a>
+      <a href="contacto.html" class="nav-item">
+        <svg class="nav-tab-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span>Contacto</span>
+      </a>
     </div>
     <a class="nav-cta" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20gustar%C3%ADa%20conversar%20sobre%20mi%20empresa" target="_blank" rel="noopener">
       <span class="pulse-dot"></span>
@@ -571,6 +596,24 @@
 
   <!-- TOAST FLOTANTE DE CONFIRMACIÃ“N -->
   <div class="physics-hud-toast" id="physics-hud-toast" aria-live="polite"></div>
+
+    <!-- GLOBO FLOTANTE DE WHATSAPP (DIRECTO CON CRISTIAN DÍAZ) -->
+  <a href="https://wa.me/56949438288?text=Hola%20Cristian,%20vi%20tu%20sitio%20MarketingCloud%20y%20me%20gustar%C3%ADa%20hacer%20una%20consulta." 
+     class="whatsapp-float-bubble" 
+     target="_blank" 
+     rel="noopener noreferrer" 
+     aria-label="Contactar a Cristian Díaz por WhatsApp">
+    <div class="whatsapp-bubble-inner">
+      <span class="whatsapp-pulse-ring" aria-hidden="true"></span>
+      <svg class="whatsapp-svg-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2C8.268 2 2 8.268 2 16c0 2.652.738 5.132 2.022 7.262L2 30l6.942-1.996A13.926 13.926 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm-1.07 7.74c-.31-.69-.636-.704-.93-.717-.24-.01-.516-.01-.792-.01-.276 0-.724.103-1.103.517-.38.413-1.448 1.413-1.448 3.447s1.482 3.998 1.689 4.274c.207.276 2.87 4.599 7.07 6.257 3.49 1.378 4.2 1.103 4.958 1.034.758-.069 2.447-1 2.792-1.965.345-.965.345-1.792.241-1.965-.103-.172-.379-.276-.793-.482-.413-.207-2.447-1.206-2.826-1.344-.38-.138-.655-.207-.93.207-.276.413-1.069 1.344-1.31 1.62-.241.275-.483.31-.896.103-.414-.207-1.748-.644-3.33-2.054-1.23-1.097-2.062-2.453-2.303-2.866-.241-.414-.026-.638.181-.844.186-.186.414-.482.62-.723.207-.242.276-.414.414-.69.138-.275.069-.517-.034-.723-.104-.207-.905-2.247-1.27-3.056z" fill="white"/>
+      </svg>
+    </div>
+    <span class="whatsapp-bubble-tooltip">
+      <small>Cristian Díaz · Online</small>
+      <strong>¿Hablamos por WhatsApp?</strong>
+    </span>
+  </a>
 
   <script src="js/engine.js"></script>
 </body>
