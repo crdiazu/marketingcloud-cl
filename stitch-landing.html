@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MarketingCloud Chile | Consultoría B2B, TI &amp; Marketing Estratégico</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary": "#ffc174",
+            "on-tertiary": "#003824",
+            "tertiary-container": "#30c88f",
+            "tertiary-fixed": "#6ffbbe",
+            "surface-container-lowest": "#0d0e11",
+            "surface-variant": "#343538",
+            "surface-container-low": "#1b1b1f",
+            "tertiary-fixed-dim": "#4edea3",
+            "secondary-container": "#00a6e0",
+            "outline": "#a08e7a",
+            "on-secondary-fixed": "#001e2c",
+            "on-error-container": "#ffdad6",
+            "surface-bright": "#38393c",
+            "on-primary-container": "#613b00",
+            "surface-container": "#1f1f23",
+            "on-secondary": "#00354a",
+            "surface-container-high": "#292a2d",
+            "secondary": "#7bd0ff",
+            "on-surface": "#e3e2e6",
+            "surface": "#121316",
+            "on-background": "#e3e2e6",
+            "primary-fixed": "#ffddb8",
+            "primary-container": "#f59e0b",
+            "on-secondary-container": "#00374d",
+            "on-primary": "#472a00",
+            "outline-variant": "#534434",
+            "secondary-fixed-dim": "#7bd0ff",
+            "on-error": "#690005",
+            "on-primary-fixed-variant": "#653e00",
+            "background": "#121316",
+            "on-surface-variant": "#d8c3ad",
+            "surface-container-highest": "#343538",
+            "on-tertiary-fixed-variant": "#005236",
+            "on-secondary-fixed-variant": "#004c69",
+            "tertiary": "#56e5a9",
+            "surface-tint": "#ffb95f",
+            "error": "#ffb4ab",
+            "inverse-surface": "#e3e2e6",
+            "inverse-on-surface": "#303034",
+            "primary-fixed-dim": "#ffb95f",
+            "on-tertiary-container": "#004e34",
+            "error-container": "#93000a",
+            "on-primary-fixed": "#2a1700",
+            "inverse-primary": "#855300",
+            "secondary-fixed": "#c4e7ff",
+            "surface-dim": "#121316",
+            "on-tertiary-fixed": "#002113"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter": "1.5rem",
+            "space-2xl": "4rem",
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem",
+            "margin": "1rem",
+            "space-xl": "2.5rem",
+            "space-md": "1rem",
+            "margin-tablet": "2rem",
+            "gutter-desktop": "2rem",
+            "margin-desktop": "4rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "display-hero-mobile": [
+              "Plus Jakarta Sans"
+            ],
+            "stat-metric": [
+              "Plus Jakarta Sans"
+            ],
+            "code-metric": [
+              "Inter"
+            ],
+            "headline-md": [
+              "Plus Jakarta Sans"
+            ],
+            "body-md": [
+              "Inter"
+            ],
+            "body-lg": [
+              "Inter"
+            ],
+            "headline-lg-mobile": [
+              "Plus Jakarta Sans"
+            ],
+            "body-sm": [
+              "Inter"
+            ],
+            "display-hero": [
+              "Plus Jakarta Sans"
+            ],
+            "label-caps": [
+              "Inter"
+            ],
+            "headline-lg": [
+              "Plus Jakarta Sans"
+            ],
+            "headline-sm": [
+              "Plus Jakarta Sans"
+            ]
+          },
+          "fontSize": {
+            "display-hero-mobile": [
+              "36px",
+              {
+                "lineHeight": "44px",
+                "letterSpacing": "-0.02em",
+                "fontWeight": "700"
+              }
+            ],
+            "stat-metric": [
+              "48px",
+              {
+                "lineHeight": "52px",
+                "letterSpacing": "-0.03em",
+                "fontWeight": "800"
+              }
+            ],
+            "code-metric": [
+              "13px",
+              {
+                "lineHeight": "18px",
+                "fontWeight": "500"
+              }
+            ],
+            "headline-md": [
+              "28px",
+              {
+                "lineHeight": "36px",
+                "letterSpacing": "-0.015em",
+                "fontWeight": "600"
+              }
+            ],
+            "body-md": [
+              "15px",
+              {
+                "lineHeight": "24px",
+                "fontWeight": "400"
+              }
+            ],
+            "body-lg": [
+              "18px",
+              {
+                "lineHeight": "28px",
+                "letterSpacing": "-0.005em",
+                "fontWeight": "400"
+              }
+            ],
+            "headline-lg-mobile": [
+              "28px",
+              {
+                "lineHeight": "36px",
+                "letterSpacing": "-0.02em",
+                "fontWeight": "700"
+              }
+            ],
+            "body-sm": [
+              "13px",
+              {
+                "lineHeight": "20px",
+                "fontWeight": "400"
+              }
+            ],
+            "display-hero": [
+              "56px",
+              {
+                "lineHeight": "64px",
+                "letterSpacing": "-0.03em",
+                "fontWeight": "700"
+              }
+            ],
+            "label-caps": [
+              "11px",
+              {
+                "lineHeight": "14px",
+                "letterSpacing": "0.08em",
+                "fontWeight": "600"
+              }
+            ],
+            "headline-lg": [
+              "40px",
+              {
+                "lineHeight": "48px",
+                "letterSpacing": "-0.025em",
+                "fontWeight": "700"
+              }
+            ],
+            "headline-sm": [
+              "20px",
+              {
+                "lineHeight": "28px",
+                "letterSpacing": "-0.01em",
+                "fontWeight": "600"
+              }
+            ]
+          }
+        },
+      },
+    }
+  </script>
+
+<style>
+.grid-bg {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+.mouse-spotlight {
+  position: fixed; inset: 0; pointer-events: none; z-index: 1;
+  background: radial-gradient(800px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(245, 158, 11, 0.06), transparent 70%);
+  transition: opacity 0.3s ease;
+}
+@media (pointer: fine) {
+  /* cursor */
+  /* cursor */
+}
+.cursor-dot {
+  position: fixed; top: 0; left: 0; width: 6px; height: 6px;
+  background-color: #F59E0B; border-radius: 50%; pointer-events: none; z-index: 10000;
+  transform: translate(-50%, -50%); transition: opacity 0.2s ease;
+}
+.cursor-ring {
+  position: fixed; top: 0; left: 0; width: 38px; height: 38px;
+  border: 1.5px solid rgba(245, 158, 11, 0.45); border-radius: 50%; pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease, background-color 0.2s ease;
+}
+.cursor-ring.active {
+  width: 64px; height: 64px; border-color: rgba(245, 158, 11, 0.85);
+  background-color: rgba(245, 158, 11, 0.08); backdrop-filter: blur(2px);
+}
+.studio-bar {
+  background: rgba(9, 10, 13, 0.95); border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 8px 24px; font-family: monospace; font-size: 11px; color: #64748B;
+  letter-spacing: 0.06em; position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+}
+.studio-bar-inner {
+  max-width: 1320px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;
+}
+header.docked { top: 33px !important; }
+</style>
+
+</head>
+
+
+
+<body class="bg-[#090A0D] text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col font-body-md text-body-md overflow-x-hidden">
+<div class="grid-bg" aria-hidden="true"></div>
+<div class="mouse-spotlight" id="mouse-spotlight" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+<aside class="studio-bar" aria-label="Estado de estudio">
+  <div class="studio-bar-inner">
+    <div style="display:flex; gap:16px; align-items:center;">
+      <span style="display:inline-flex; align-items:center; gap:6px;">
+        <span style="width:6px; height:6px; border-radius:50%; background:#10B981; box-shadow:0 0 8px #10B981;"></span>
+        SANTIAGO DE CHILE [UTC-3]
+      </span>
+      <span style="color:#94A3B8; font-variant-numeric:tabular-nums; font-weight:bold;" id="live-timecode">00:00:00</span>
+    </div>
+    <div style="display:flex; gap:20px;">
+      <span style="color:#94A3B8;">CONSULTORÍA ACTIVA</span>
+      <span style="color:#F59E0B;">Q4 2026</span>
+    </div>
+  </div>
+</aside>
+<!-- Shared Component: TopNavBar -->
+<header class="docked full-width top-0 fixed z-50 bg-surface/85 dark:bg-surface/85 backdrop-blur-md border-b border-outline-variant/30 shadow-sm">
+<div class="flex justify-between items-center w-full px-6 lg:px-12 max-w-[1320px] mx-auto h-20" style="line-height: 24;">
+<!-- Brand Anchor -->
+<a class="flex items-center gap-3 group" href="#">
+<div class="w-9 h-9 rounded-xl bg-surface-container-high border border-white/10 flex items-center justify-center relative overflow-hidden group-hover:border-secondary/40 transition-colors">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="cloud">cloud</span>
+<span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="text-headline-sm font-headline-sm font-bold text-on-surface dark:text-on-surface tracking-tight">MarketingCloud</span>
+
+</div>
+<span class="text-[10px] font-label-caps text-on-surface-variant uppercase tracking-widest -mt-1">Consultoría &amp; TI SpA</span>
+</div>
+</a>
+<!-- Desktop Navigation Links from JSON Anchor -->
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-primary dark:text-primary font-bold border-b-2 border-primary pb-1 transition-all duration-200" href="#servicios">Servicios</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:text-primary dark:hover:text-primary transition-colors text-body-md font-body-md" href="#casos">Casos de Éxito</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:text-primary dark:hover:text-primary transition-colors text-body-md font-body-md" href="#menu-inteligente">Menú Inteligente</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:text-primary dark:hover:text-primary transition-colors text-body-md font-body-md" href="#tecnovoa">Metodología</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:text-primary dark:hover:text-primary transition-colors text-body-md font-body-md" href="#contacto">Contacto</a>
+</nav>
+<!-- Right Direct Action & Status -->
+<div class="flex items-center gap-4">
+<!-- Live Status Pill -->
+<div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-high/60 border border-white/5">
+<span class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_#56e5a9] animate-pulse"></span>
+<span class="text-[11px] font-label-caps text-tertiary">Online • Santiago GMT-3</span>
+</div>
+<!-- WhatsApp Action Button -->
+<a class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-container-high hover:bg-surface-bright text-on-surface border border-white/10 hover:border-secondary/40 transition-all duration-200 text-body-sm font-medium" href="https://wa.me/56949438288" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-tertiary text-[18px]" data-icon="chat">chat</span>
+<span>WhatsApp Directo</span>
+</a>
+<!-- Primary Executive Action -->
+<a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary-container hover:bg-primary-fixed text-on-primary-container font-semibold text-body-sm transition-all duration-200 shadow-sm active:scale-95" href="#contacto">
+<span class="material-symbols-outlined text-[18px]" data-icon="terminal">terminal</span>
+<span>Agendar Consultoría</span>
+</a>
+</div>
+</div>
+</header>
+<!-- Main Executive Experience -->
+<main class="flex-grow pt-28">
+<!-- Section 1: Hero Bento Section (Executive Command Grid) -->
+<section class="max-w-[1320px] mx-auto px-6 lg:px-12 pt-8 pb-16 lg:pb-24">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left Bento Card (Core Proposition) -->
+<div class="lg:col-span-7 bg-[#14161C] border border-white/10 rounded-xl p-8 lg:p-12 relative overflow-hidden flex flex-col justify-between shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
+<div class="absolute -top-32 -right-32 w-80 h-80 rounded-full bg-secondary/5 blur-[90px] pointer-events-none"></div>
+<div>
+<!-- Pill Tag -->
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 border border-secondary/30 mb-6">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+<span class="text-label-caps font-label-caps text-secondary uppercase">Consultoría Estratégica B2B &amp; TI • Santiago, Chile</span>
+</div>
+<!-- Main Headline -->
+<h1 class="text-headline-lg lg:text-display-hero font-headline-lg lg:font-display-hero text-on-surface mb-6 tracking-tight">
+              Ecosistema de soluciones en ventas, tecnología y marketing en Chile
+            </h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-xl mb-8" style="display: block;">
+              Alineamos infraestructura en la nube, adquisición de clientes de alto valor y automatización de procesos bajo un modelo boutique de consultoría ejecutiva directa.
+            </p>
+</div>
+<!-- Principal Executive Anchor Card -->
+<div class="p-5 rounded-xl bg-[#1E222B]/90 border border-white/10 mb-8 backdrop-blur-md">
+<div class="flex items-start gap-4">
+<div class="relative w-12 h-12 rounded-xl bg-surface-container-highest flex-shrink-0 overflow-hidden border border-primary/30">
+<img class="w-full h-full object-cover" data-alt="Close up professional portrait of a senior Latin American IT executive consultant Cristian Diaz in Santiago Chile wearing dark executive attire with a sharp confident demeanor under subtle corporate studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACsOwHwL5wCmCjPxzwFyd4nIZMmePdKXb_C0mjXNwG8S1Lo0FRTIZsWKFDWnNQK9T4BoT-CtF0BfqhdIDXyAuBenga8o4aaFQxrWKgrUBh8ZjtXi4EcCyy1xkt6BwWNaCyb9qkk5eVyNgJYWfb-TwQoS-H8vOp-0GiBQMHuIxP7UMuHkP35Mo6AAjvUjuWlIWEIzUTKdfzGFl5fSZH3BZGaAbQ3MAkkxFvutnxfhdIdp8I1c9bTFVhkFmPzc3NetE1GZjXMUZgJmqE"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-tertiary rounded-full border-2 border-[#1E222B]"></span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-body-md font-semibold text-on-surface">Cristian Díaz</span>
+<span class="text-[11px] font-label-caps text-primary px-2 py-0.5 rounded bg-primary/10 border border-primary/20">Socio Consultor Senior</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">
+                  "Atención directa de socio fundador, sin intermediarios ni sobrecostos de macro-agencias. Cada decisión técnica y comercial es auditada por quien responde por los resultados."
+                </p>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-wrap items-center gap-4">
+<a class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-primary-container hover:bg-primary-fixed text-on-primary-container font-semibold text-body-md transition-all duration-200 active:scale-95 shadow-[0_0_20px_rgba(245,158,11,0.25)]" href="https://wa.me/56949438288" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-[20px]" data-icon="chat">chat</span>
+<span>Hablar por WhatsApp (+56 9)</span>
+</a>
+<a class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1E222B] hover:bg-surface-bright text-on-surface border border-white/10 hover:border-secondary/40 font-medium text-body-md transition-all duration-200" href="#servicios">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="dashboard">dashboard</span>
+<span>Ver Servicios a la Carta</span>
+</a>
+</div>
+</div>
+<!-- Right Bento Card (Trust, Metrics & Legal Verification) -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<!-- 2x2 Metric Cards Grid -->
+<div class="grid grid-cols-2 gap-4">
+<!-- Metric 1 -->
+<div class="bg-[#14161C] border border-white/10 rounded-xl p-6 hover:border-secondary/30 transition-all duration-200 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider">Trayectoria</span>
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="history">history</span>
+</div>
+<div>
+<span class="text-stat-metric font-stat-metric text-primary block tracking-tight">+10 Años</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant mt-1 block">Experiencia en despliegue digital y soporte corporativo.</span>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-[#14161C] border border-white/10 rounded-xl p-6 hover:border-secondary/30 transition-all duration-200 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider">Involucramiento</span>
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="person_check">person_check</span>
+</div>
+<div>
+<span class="text-stat-metric font-stat-metric text-on-surface block tracking-tight">100%</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant mt-1 block">Trato directo con consultor senior (sin juniors en cadena).</span>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-[#14161C] border border-white/10 rounded-xl p-6 hover:border-secondary/30 transition-all duration-200 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider">Menú QR SaaS</span>
+<span class="material-symbols-outlined text-tertiary text-[20px]" data-icon="qr_code">qr_code</span>
+</div>
+<div>
+<span class="text-stat-metric font-stat-metric text-tertiary block tracking-tight">0%</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant mt-1 block">Comisiones por venta en producto SaaS gastronómico propio.</span>
+</div>
+</div>
+<!-- Metric 4 -->
+<div class="bg-[#14161C] border border-white/10 rounded-xl p-6 hover:border-secondary/30 transition-all duration-200 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider">Alcance TI</span>
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="public">public</span>
+</div>
+<div>
+<span class="text-stat-metric font-stat-metric text-on-surface block tracking-tight">Nacional</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant mt-1 block">Cobertura remota e in-situ en Santiago y regiones de Chile.</span>
+</div>
+</div>
+</div>
+<!-- Live Chilean Business Verification Badge -->
+<div class="bg-[#14161C] border border-white/10 rounded-xl p-6 flex flex-col justify-between flex-grow">
+<div class="flex items-center justify-between pb-4 border-b border-white/5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-tertiary/10 border border-tertiary/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-[18px]" data-icon="verified_user">verified_user</span>
+</div>
+<div>
+<h4 class="text-body-md font-semibold text-on-surface">Validación Empresarial Tributaria</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Constitución SpA ante el SII • Santiago de Chile</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded bg-tertiary/10 text-tertiary text-label-caps font-label-caps uppercase border border-tertiary/20">Vigente 2025</span>
+</div>
+<div class="grid grid-cols-3 gap-3 py-4">
+<div class="p-2.5 rounded-lg bg-[#1E222B]/60 border border-white/5">
+<span class="text-[10px] font-label-caps text-on-surface-variant block uppercase">Facturación</span>
+<span class="text-body-sm font-semibold text-on-surface flex items-center gap-1 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> 100% Electrónica
+                </span>
+</div>
+<div class="p-2.5 rounded-lg bg-[#1E222B]/60 border border-white/5">
+<span class="text-[10px] font-label-caps text-on-surface-variant block uppercase">SLA Soporte TI</span>
+<span class="text-body-sm font-semibold text-on-surface flex items-center gap-1 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 99.9% Uptime
+                </span>
+</div>
+<div class="p-2.5 rounded-lg bg-[#1E222B]/60 border border-white/5">
+<span class="text-[10px] font-label-caps text-on-surface-variant block uppercase">Contratos</span>
+<span class="text-body-sm font-semibold text-on-surface flex items-center gap-1 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> NDA &amp; B2B SpA
+                </span>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm text-on-surface-variant pt-2">
+<span class="text-code-metric font-code-metric text-[12px] text-on-surface-variant">RUT SpA al día • Marco Legal Corporativo</span>
+<span class="text-secondary flex items-center gap-1 text-[12px] font-medium">
+                Auditoría Activa <span class="material-symbols-outlined text-[14px]" data-icon="arrow_forward">arrow_forward</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Three Strategic Pillars Section -->
+<section class="max-w-[1320px] mx-auto px-6 lg:px-12 py-16 lg:py-24 border-t border-white/5" id="servicios">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+<div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-3">
+<span class="text-label-caps font-label-caps text-primary uppercase">Metodología de Alto Rendimiento</span>
+</div>
+<h2 class="text-headline-md lg:text-headline-lg font-headline-md lg:font-headline-lg text-on-surface tracking-tight">
+            Tres Pilares de Crecimiento Empresarial
+          </h2>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-md mt-4 md:mt-0">
+          Un único partner para resolver la brecha entre demanda comercial, infraestructura cloud estable y cierre sistemático de ventas.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Pillar 01: Atracción -->
+<div class="bg-[#14161C] border border-white/10 rounded-xl p-8 hover:border-secondary/40 transition-all duration-200 flex flex-col justify-between group shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]">
+<div>
+<div class="flex items-center justify-between mb-6">
+<span class="text-code-metric font-code-metric text-[14px] font-semibold text-secondary px-2.5 py-1 rounded bg-secondary/10 border border-secondary/20">01 ATRACCIÓN</span>
+<div class="w-10 h-10 rounded-lg bg-surface-container-high border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary text-[22px]" data-icon="search">search</span>
+</div>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-3">
+              Marketing Digital &amp; SEO
+            </h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6">
+              Captación hiperdirigida a tomadores de decisión en Chile mediante campañas de intención de búsqueda y segmentación B2B rigurosa.
+            </p>
+<ul class="space-y-3 mb-8 border-t border-white/5 pt-6">
+<li class="flex items-center gap-2.5 text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="check_circle">check_circle</span>
+<span>Google Ads orientado a transacciones B2B</span>
+</li>
+<li class="flex items-center gap-2.5 text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="check_circle">check_circle</span>
+<span>Meta Ads B2B con formularios calificados</span>
+</li>
+<li class="flex items-center gap-2.5 text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="check_circle">check_circle</span>
+<span>Posicionamiento SEO de alta intención comercial</span>
+</li>
+<li class="flex items-center gap-2.5 text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="check_circle">check_circle</span>
+<span>Embudos de prospección y landing pages de conversión</span>
+</li>
+</ul>
+</div>
+<a class="inline-flex items-center gap-2 text-secondary group-hover:text-primary transition-colors text-body-sm font-medium" href="#contacto">
+<span>Explorar servicio de Atracción</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<!-- Pillar 02: Tecnología (Tecnovoa) -->
+<div class="bg-[#14161C] border border-white/10 rounded-xl p-8 hover:border-secondary/40 transition-all duration-200 flex flex-col justify-between group shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] relative overflow-hidden" id="tecnovoa">
+<div class="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-secondary/5 blur-[50px] pointer-events-none"></div>
+<div>
+<div class="flex items-center justify-between mb-6">
+<span class="text-code-metric font-code-metric text-[14px] font-semibold text-secondary px-2.5 py-1 rounded bg-secondary/10 border border-secondary/20">02 TECNOLOGÍA</span>
+<div class="w-10 h-10 rounded-lg bg-surface-container-high border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary text-[22px]" data-icon="dns">dns</span>
+</div>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-3">
+              Tecnovoa TI &amp; Soporte
+            </h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6">
+              Infraestructura resiliente y mesa de ayuda técnica para blindar la continuidad operativa de empresas medianas y corporativas.
+            </p>
+<ul class="space-y-3 mb-8 border-t border-white/5 pt-6">
+<li class="flex items-center gap-2.5 text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="check_circle">check_circle</span>
+<span>Infraestructura Cloud &amp; servidores dedicados</span>
+</li>
+<li class="flex items-center gap-2.5 text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="check_circle">check_circle</span>
+<span>Soporte computacional a puestos de trabajo</span>
+</li>
+<li class="flex items-center gap-2.5 text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="check_circle">check_circle</span>
+<span>Seguridad perimetral y respaldos automáticos</span>
+</li>
+<li class="flex items-center gap-2.5 text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="check_circle">check_circle</span>
+<span>Hosting empresarial administrado en Chile</span>
+</li>
+</ul>
+</div>
+<a class="inline-flex items-center gap-2 text-secondary group-hover:text-primary transition-colors text-body-sm font-medium" href="#contacto">
+<span>Explorar Tecnovoa TI</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<!-- Pillar 03: Conversión -->
+<div class="bg-[#14161C] border border-white/10 rounded-xl p-8 hover:border-primary/40 transition-all duration-200 flex flex-col justify-between group shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]">
+<div>
+<div class="flex items-center justify-between mb-6">
+<span class="text-code-metric font-code-metric text-[14px] font-semibold text-primary px-2.5 py-1 rounded bg-primary/10 border border-primary/20">03 CONVERSIÓN</span>
+<div class="w-10 h-10 rounded-lg bg-surface-container-high border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-[22px]" data-icon="trending_up">trending_up</span>
+</div>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-3">
+              Gestión Ventas B2B / VaaS
+            </h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6">
+              Ventas como Servicio (Sales as a Service) estructurando procesos de calificación, CRM y automatizaciones de seguimiento.
+            </p>
+<ul class="space-y-3 mb-8 border-t border-white/5 pt-6">
+<li class="flex items-center gap-2.5 text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[16px]" data-icon="check_circle">check_circle</span>
+<span>Configuración y sincronización CRM (Hubspot/Pipedrive)</span>
+</li>
+<li class="flex items-center gap-2.5 text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[16px]" data-icon="check_circle">check_circle</span>
+<span>Automatización con WhatsApp Business API</span>
+</li>
+<li class="flex items-center gap-2.5 text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[16px]" data-icon="check_circle">check_circle</span>
+<span>Metodología de calificación B2B (BANT/MEDDIC)</span>
+</li>
+<li class="flex items-center gap-2.5 text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[16px]" data-icon="check_circle">check_circle</span>
+<span>Auditoría de pipelines y cierre de prospectos</span>
+</li>
+</ul>
+</div>
+<a class="inline-flex items-center gap-2 text-primary group-hover:text-primary-fixed transition-colors text-body-sm font-medium" href="#contacto">
+<span>Explorar servicio de Conversión</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Section 3: Featured Product Showcase Banner (Menú Inteligente SaaS) -->
+<section class="max-w-[1320px] mx-auto px-6 lg:px-12 py-16 lg:py-24 border-t border-white/5" id="menu-inteligente">
+<div class="bg-[#14161C] border border-white/10 rounded-xl p-8 lg:p-14 relative overflow-hidden shadow-2xl">
+<!-- Radial Ambient Flare -->
+<div class="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-primary/10 blur-[120px] pointer-events-none"></div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+<!-- Left Info & Value Proposition -->
+<div class="lg:col-span-7">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tertiary/10 border border-tertiary/30 mb-6">
+<span class="material-symbols-outlined text-tertiary text-[14px]" data-icon="stars">stars</span>
+<span class="text-label-caps font-label-caps text-tertiary uppercase">Solución Propietaria SaaS • Gastronomía &amp; Retail</span>
+</div>
+<h2 class="text-headline-md lg:text-headline-lg font-headline-md lg:font-headline-lg text-on-surface mb-6 tracking-tight">
+              Menú Inteligente: La carta digital QR que no cobra comisión por venta
+            </h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant mb-8">
+              Desarrollado en Chile para restaurantes, cafeterías y cadenas que buscan independencia tecnológica sin intermediarios que resten margen a sus operaciones culinarias.
+            </p>
+<!-- Grid Benefits -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+<div class="flex items-start gap-3 p-3 rounded-lg bg-[#1E222B]/60 border border-white/5">
+<span class="material-symbols-outlined text-tertiary text-[20px] mt-0.5" data-icon="chat">chat</span>
+<div>
+<h4 class="text-body-sm font-semibold text-on-surface">Pedidos a WhatsApp</h4>
+<p class="text-[12px] text-on-surface-variant">Llegan limpios y detallados a caja o cocina.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 rounded-lg bg-[#1E222B]/60 border border-white/5">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5" data-icon="price_change">price_change</span>
+<div>
+<h4 class="text-body-sm font-semibold text-on-surface">Control de Precios</h4>
+<p class="text-[12px] text-on-surface-variant">Actualización inmediata sin reimprimir cartas.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 rounded-lg bg-[#1E222B]/60 border border-white/5">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5" data-icon="speed">speed</span>
+<div>
+<h4 class="text-body-sm font-semibold text-on-surface">Carga Ultrarrápida</h4>
+<p class="text-[12px] text-on-surface-variant">Sin descargar apps; abre en menos de 1 segundo.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 rounded-lg bg-[#1E222B]/60 border border-white/5">
+<span class="material-symbols-outlined text-tertiary text-[20px] mt-0.5" data-icon="money_off">money_off</span>
+<div>
+<h4 class="text-body-sm font-semibold text-on-surface">Tarifa Fija Mensual</h4>
+<p class="text-[12px] text-on-surface-variant">0% comisiones por comandas recibidas.</p>
+</div>
+</div>
+</div>
+<!-- CTAs -->
+<div class="flex flex-wrap items-center gap-4">
+<a class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-tertiary hover:bg-tertiary-fixed text-on-tertiary font-semibold text-body-md transition-all duration-200 active:scale-95 shadow-md" href="#contacto">
+<span class="material-symbols-outlined text-[20px]" data-icon="restaurant_menu">restaurant_menu</span>
+<span>Probar Demo en Vivo</span>
+</a>
+<a class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1E222B] hover:bg-surface-bright text-on-surface border border-white/10 hover:border-tertiary/40 font-medium text-body-md transition-all duration-200" href="https://wa.me/56949438288" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-tertiary text-[20px]" data-icon="add_circle">add_circle</span>
+<span>Activar para mi Restaurante</span>
+</a>
+</div>
+</div>
+<!-- Right Interactive Mockup Simulation -->
+<div class="lg:col-span-5 flex justify-center">
+<div class="w-full max-w-sm rounded-xl bg-[#181B22] border border-white/15 p-5 shadow-2xl relative">
+<!-- Simulator Header -->
+<div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-error"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary"></span>
+<span class="text-code-metric font-code-metric text-[11px] text-on-surface-variant ml-2">menuinteligente.cl/demo</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]" data-icon="qr_code_scanner">qr_code_scanner</span>
+</div>
+<!-- QR Code Simulator Frame -->
+<div class="bg-[#0D0F14] rounded-lg p-5 border border-white/10 flex flex-col items-center mb-4">
+<div class="w-36 h-36 bg-[#181B22] rounded-lg border border-secondary/30 p-2.5 flex flex-col items-center justify-center relative mb-3">
+<div class="w-full h-full border border-dashed border-secondary/40 rounded flex flex-col items-center justify-center text-center p-2">
+<span class="material-symbols-outlined text-secondary text-[36px]" data-icon="qr_code_2">qr_code_2</span>
+<span class="text-[9px] font-label-caps text-secondary mt-1">Escanear para probar</span>
+</div>
+<span class="absolute top-1 left-1 w-2 h-2 border-t-2 border-l-2 border-primary"></span>
+<span class="absolute top-1 right-1 w-2 h-2 border-t-2 border-r-2 border-primary"></span>
+<span class="absolute bottom-1 left-1 w-2 h-2 border-b-2 border-l-2 border-primary"></span>
+<span class="absolute bottom-1 right-1 w-2 h-2 border-b-2 border-r-2 border-primary"></span>
+</div>
+<span class="text-[11px] font-label-caps text-on-surface-variant uppercase">Mesa 14 • Restaurante Ejemplo Santiago</span>
+</div>
+<!-- Simulated WhatsApp Order Snippet -->
+<div class="bg-[#14161C] rounded-lg p-3 border border-white/10">
+<div class="flex items-center justify-between text-[11px] font-label-caps text-tertiary mb-2">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="chat">chat</span> Mensaje Listo para WhatsApp
+                  </span>
+<span class="text-on-surface-variant">13:42 hrs</span>
+</div>
+<p class="text-code-metric font-code-metric text-[12px] text-on-surface bg-[#0D0F14] p-2.5 rounded border border-white/5 leading-relaxed">
+                  "Hola! 👋 Pedido Mesa 14:<br/>
+                  • 2x Hamburguesa Robusta Ahumada<br/>
+                  • 1x Papas Trufadas<br/>
+                  • 2x Bebidas 350ml<br/>
+<span class="text-primary font-bold">Total: $24.800</span> (Pago con tarjeta)"
+                </p>
+</div>
+<div class="mt-4 flex items-center justify-between text-body-sm text-on-surface-variant">
+<span class="text-[11px]">Integración API lista</span>
+<span class="text-[11px] text-tertiary font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> 0% deducción de ventas
+                </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Client Case Studies Section (Casos de Éxito en Chile) -->
+<section class="max-w-[1320px] mx-auto px-6 lg:px-12 py-16 lg:py-24 border-t border-white/5" id="casos">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+<div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 border border-secondary/20 mb-3">
+<span class="text-label-caps font-label-caps text-secondary uppercase">Resultados Verificables en el Mercado Nacional</span>
+</div>
+<h2 class="text-headline-md lg:text-headline-lg font-headline-md lg:font-headline-lg text-on-surface tracking-tight">
+            Casos de Éxito en Chile
+          </h2>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-md mt-4 md:mt-0">
+          Proyectos reales donde la ingeniería de sistemas y la estrategia comercial generaron impacto medible en facturación y operatividad.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Case 1: ISM Educación -->
+<div class="bg-[#14161C] border border-white/10 rounded-xl p-8 hover:border-secondary/40 transition-all duration-200 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="px-2.5 py-1 rounded bg-secondary/10 border border-secondary/20 text-secondary text-label-caps font-label-caps uppercase">Educación &amp; Colegios</span>
+<span class="text-code-metric font-code-metric text-[12px] text-on-surface-variant">Santiago, Región Metropolitana</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-3">ISM Educación</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6">
+<strong class="text-on-surface">Desafío:</strong> Procesos manuales de admisión, baja tasa de conversión en postulaciones y falta de trazabilidad en campañas digitales de matrículas.
+            </p>
+</div>
+<div class="p-4 rounded-lg bg-[#1E222B]/70 border border-white/5 mt-2">
+<span class="text-label-caps font-label-caps text-primary uppercase block mb-1">Impacto Medible</span>
+<p class="text-body-md font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="trending_up">trending_up</span>
+<span>+185% en postulaciones calificadas y onboarding 100% digitalizado</span>
+</p>
+</div>
+</div>
+<!-- Case 2: Mi-Enfermera.cl -->
+<div class="bg-[#14161C] border border-white/10 rounded-xl p-8 hover:border-secondary/40 transition-all duration-200 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="px-2.5 py-1 rounded bg-tertiary/10 border border-tertiary/20 text-tertiary text-label-caps font-label-caps uppercase">Salud &amp; Servicios Clínicos</span>
+<span class="text-code-metric font-code-metric text-[12px] text-on-surface-variant">Santiago y V Región</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-3">Mi-Enfermera.cl</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6">
+<strong class="text-on-surface">Desafío:</strong> Plataforma web vulnerable a caídas de tráfico durante emergencias y alto costo de adquisición en pauta para atención médica domiciliaria.
+            </p>
+</div>
+<div class="p-4 rounded-lg bg-[#1E222B]/70 border border-white/5 mt-2">
+<span class="text-label-caps font-label-caps text-tertiary uppercase block mb-1">Impacto Medible</span>
+<p class="text-body-md font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[18px]" data-icon="bolt">bolt</span>
+<span>99.98% de disponibilidad de servidores y -38% en costo por lead clínico</span>
+</p>
+</div>
+</div>
+<!-- Case 3: Contadores en Línea -->
+<div class="bg-[#14161C] border border-white/10 rounded-xl p-8 hover:border-primary/40 transition-all duration-200 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="px-2.5 py-1 rounded bg-primary/10 border border-primary/20 text-primary text-label-caps font-label-caps uppercase">Finanzas &amp; Consultoría B2B</span>
+<span class="text-code-metric font-code-metric text-[12px] text-on-surface-variant">Nacional / Remoto</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-3">Contadores en Línea</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6">
+<strong class="text-on-surface">Desafío:</strong> Fuga de prospectos tributarios calificados por tiempos lentos de respuesta y falta de embudos automatizados para declaraciones anuales SII.
+            </p>
+</div>
+<div class="p-4 rounded-lg bg-[#1E222B]/70 border border-white/5 mt-2">
+<span class="text-label-caps font-label-caps text-primary uppercase block mb-1">Impacto Medible</span>
+<p class="text-body-md font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="check_circle">check_circle</span>
+<span>Respuesta automática bajo 60 segundos y duplicación del pipeline anual</span>
+</p>
+</div>
+</div>
+<!-- Case 4: Line Clean STP -->
+<div class="bg-[#14161C] border border-white/10 rounded-xl p-8 hover:border-secondary/40 transition-all duration-200 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="px-2.5 py-1 rounded bg-secondary/10 border border-secondary/20 text-secondary text-label-caps font-label-caps uppercase">Servicios Industriales &amp; Limpieza</span>
+<span class="text-code-metric font-code-metric text-[12px] text-on-surface-variant">Santiago Industrial</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-3">Line Clean STP</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6">
+<strong class="text-on-surface">Desafío:</strong> Pérdida recurrente de conectividad en bases operativas, desorden en licencias de software y falta de protocolo de mesa de ayuda TI.
+            </p>
+</div>
+<div class="p-4 rounded-lg bg-[#1E222B]/70 border border-white/5 mt-2">
+<span class="text-label-caps font-label-caps text-secondary uppercase block mb-1">Impacto Medible</span>
+<p class="text-body-md font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]" data-icon="support_agent">support_agent</span>
+<span>Soporte centralizado Tecnovoa con resolución promedio de incidentes en 45 min</span>
+</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 5: Direct Contact & Advisory CTA Strip -->
+<section class="max-w-[1320px] mx-auto px-6 lg:px-12 py-16 lg:py-24 border-t border-white/5" id="contacto">
+<div class="bg-[#14161C] border border-white/15 rounded-xl p-8 lg:p-14 relative overflow-hidden shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
+<div class="max-w-2xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-4">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-label-caps font-label-caps text-primary uppercase">Atención Inmediata de Socios</span>
+</div>
+<h2 class="text-headline-md lg:text-headline-lg font-headline-md lg:font-headline-lg text-on-surface mb-4 tracking-tight">
+            ¿Tienes un desafío operativo o comercial en tu empresa?
+          </h2>
+<p class="text-body-md font-body-md text-on-surface-variant">
+            Habla directamente con Cristian Díaz. Diagnosticamos el estado de tus campañas, infraestructura tecnológica o procesos de venta sin compromisos burocráticos.
+          </p>
+<div class="flex items-center gap-4 mt-6 text-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-tertiary text-[16px]" data-icon="timer">timer</span> Respuesta &lt; 15 minutos
+            </span>
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="location_on">location_on</span> Santiago de Chile
+            </span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto flex-shrink-0">
+<a class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-primary-container hover:bg-primary-fixed text-on-primary-container font-semibold text-body-md transition-all duration-200 active:scale-95 shadow-md" href="https://wa.me/56949438288" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-[20px]" data-icon="chat">chat</span>
+<span>Escribir por WhatsApp</span>
+</a>
+<a class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-[#1E222B] hover:bg-surface-bright text-on-surface border border-white/10 hover:border-secondary/40 font-medium text-body-md transition-all duration-200" href="mailto:contacto@marketingcloud.cl">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="mail">mail</span>
+<span>contacto@marketingcloud.cl</span>
+</a>
+</div>
+</div>
+</section>
+</main>
+<!-- Shared Component: Footer (Institutional Chilean Enterprise) -->
+<footer class="docked full-width bottom bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant/20 flat no shadows">
+<div class="w-full py-16 px-6 lg:px-12 max-w-[1320px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+<!-- Brand & Entity Bio -->
+<div class="md:col-span-1">
+<a class="inline-flex items-center gap-2 mb-4" href="#">
+<span class="material-symbols-outlined text-secondary text-[24px]" data-icon="cloud">cloud</span>
+<span class="text-headline-md font-headline-md font-bold text-on-surface dark:text-on-surface tracking-tight">MarketingCloud</span>
+</a>
+<p class="text-body-sm font-body-sm text-on-surface-variant dark:text-on-surface-variant mb-6">
+          Boutique de consultoría estratégica B2B, integración cloud y desarrollo de soluciones operativas para empresas en Chile. Trato directo y sin sobrecostos de macro-agencias.
+        </p>
+<div class="flex items-center gap-2 text-[12px] font-code-metric text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span>Sede: Santiago, Chile</span>
+</div>
+</div>
+<!-- Links Column 1: Services (Exact JSON Tokens) -->
+<div>
+<h4 class="text-label-caps font-label-caps text-on-surface uppercase mb-4 tracking-wider">Soluciones</h4>
+<ul class="space-y-2.5">
+<li>
+<a class="text-body-sm font-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:text-secondary dark:hover:text-secondary transition-colors duration-150" href="#servicios">Atracción &amp; Performance</a>
+</li>
+<li>
+<a class="text-body-sm font-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:text-secondary dark:hover:text-secondary transition-colors duration-150" href="#tecnovoa">Infraestructura Cloud</a>
+</li>
+<li>
+<a class="text-body-sm font-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:text-secondary dark:hover:text-secondary transition-colors duration-150" href="#menu-inteligente">SaaS Menú Inteligente</a>
+</li>
+</ul>
+</div>
+<!-- Links Column 2: Trust & Proof (Exact JSON Tokens) -->
+<div>
+<h4 class="text-label-caps font-label-caps text-on-surface uppercase mb-4 tracking-wider">Garantías &amp; Casos</h4>
+<ul class="space-y-2.5">
+<li>
+<a class="text-body-sm font-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:text-secondary dark:hover:text-secondary transition-colors duration-150" href="#casos">Casos de Éxito Chile</a>
+</li>
+<li>
+<a class="text-body-sm font-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:text-secondary dark:hover:text-secondary transition-colors duration-150" href="#servicios">SLA &amp; Seguridad</a>
+</li>
+<li>
+<a class="text-body-sm font-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:text-secondary dark:hover:text-secondary transition-colors duration-150" href="#contacto">Contacto Directo</a>
+</li>
+</ul>
+</div>
+<!-- Legal & Chilean Context -->
+<div>
+<h4 class="text-label-caps font-label-caps text-on-surface uppercase mb-4 tracking-wider">Contacto Oficial</h4>
+<div class="space-y-3 text-body-sm font-body-sm text-on-surface-variant">
+<p class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="email">email</span>
+<a class="hover:text-primary transition-colors" href="mailto:contacto@marketingcloud.cl">contacto@marketingcloud.cl</a>
+</p>
+<p class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary" data-icon="call">call</span>
+<a class="hover:text-tertiary transition-colors" href="https://wa.me/56949438288">+56 9 WhatsApp Mesa Directa</a>
+</p>
+<div class="pt-3 border-t border-white/5">
+<span class="text-[11px] font-label-caps text-on-surface-variant/80 block uppercase">Factura Electrónica SpA</span>
+<span class="text-[12px] text-on-surface-variant block">Rut de Empresa disponible a solicitud de compra</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Copyright Sub-bar -->
+<div class="border-t border-white/5 py-6 px-6 lg:px-12 max-w-[1320px] mx-auto text-center text-body-sm font-body-sm text-on-surface-variant">
+      © 2025 MarketingCloud Chile SpA. Consultoría IT &amp; Transformación B2B. Santiago, Chile. Todos los derechos reservados.
+    </div>
+</footer>
+
+<script>
+(function() {
+  function updateSantiagoTime() {
+    const el = document.getElementById('live-timecode');
+    if (!el) return;
+    el.textContent = new Intl.DateTimeFormat('es-CL', {
+      timeZone: 'America/Santiago', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+    }).format(new Date());
+  }
+  setInterval(updateSantiagoTime, 1000);
+  updateSantiagoTime();
+
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  const spotlight = document.getElementById('mouse-spotlight');
+  let mouseX = -500, mouseY = -500, ringX = -500, ringY = -500;
+
+  window.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX; mouseY = e.clientY;
+    if (dot) dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+    if (spotlight) {
+      spotlight.style.setProperty('--mouse-x', mouseX + 'px');
+      spotlight.style.setProperty('--mouse-y', mouseY + 'px');
+    }
+  });
+
+  function renderRing() {
+    ringX += (mouseX - ringX) * 0.16;
+    ringY += (mouseY - ringY) * 0.16;
+    if (ring) ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+    requestAnimationFrame(renderRing);
+  }
+  requestAnimationFrame(renderRing);
+
+  document.querySelectorAll('a, button, input, [role="button"], div[class*="rounded-xl"]').forEach(function(el) {
+    el.addEventListener('mouseenter', () => ring && ring.classList.add('active'));
+    el.addEventListener('mouseleave', () => ring && ring.classList.remove('active'));
+  });
+})();
+</script>
+
+</body></html>

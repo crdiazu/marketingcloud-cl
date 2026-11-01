@@ -6,7 +6,7 @@
   
   <!-- SEO Principal -->
   <title>MarketingCloud Chile | Marketing Digital, Tecnología y Gestión de Ventas</title>
-  <meta name="description" content="Ecosistema de soluciones para empresas y personas en Chile: Marketing Digital & SEO, Tecnología & Soporte (vía Tecnovoa), y Gestión de Ventas B2B. Conoce nuestros casos de éxito y productos como Menú Inteligente.">
+  <meta name="description" content="Ecosistema de soluciones para empresas y personas en Chile: Marketing Digital & SEO, Tecnología & Soporte (vía Tecnovoa), y Gestión de Ventas B2B. Trato directo con Consultor Senior.">
   <meta name="keywords" content="marketing digital chile, tecnovoa, menu inteligente pyme, gestion de ventas b2b chile, consultoria TI santiago, soporte informatico pyme, seo chile">
   <meta name="author" content="Cristian Díaz - MarketingCloud Chile">
   <link rel="canonical" href="https://marketingcloud.cl/">
@@ -66,43 +66,761 @@
   }
   </script>
 
-  <!-- Tipografías & Estilos -->
+  <!-- Tipografías & Estilos (taste-skill v2 stack) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
-  <style>
-    /* Hero animations & specific layout */
-    .hero{
-      position:relative;min-height:92vh;display:flex;flex-direction:column;justify-content:center;
-      padding:140px 32px 70px;overflow:hidden;
-    }
-    .hero-inner{max-width:920px;margin:0 auto;text-align:center;position:relative;z-index:2;}
-    .hero h1{
-      font-family:var(--display);font-weight:700;font-size:clamp(2.3rem, 5.5vw, 4.3rem);
-      line-height:1.08;letter-spacing:-0.02em;margin:20px 0 24px;
-    }
-    .hero p{font-size:1.1rem;color:var(--text-muted);max-width:680px;margin:0 auto 34px;}
-    .cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
-    .badge{
-      position:absolute;width:60px;height:60px;border-radius:50%;
-      background:var(--bg-alt);border:1px solid var(--line);
-      display:flex;align-items:center;justify-content:center;font-size:1.5rem;z-index:1;opacity:0;
-    }
-    .b1{top:15%;left:8%;}.b2{top:22%;right:10%;}.b3{top:58%;left:5%;}.b4{bottom:15%;right:8%;}.b5{bottom:20%;left:15%;}.b6{top:12%;right:26%;}
-    @media(max-width:768px){.badge{width:44px;height:44px;font-size:1.1rem;}.b3, .b6{display:none;}}
-    .statement{text-align:center;max-width:820px;margin:0 auto;}
-    .statement h2{font-family:var(--display);font-weight:500;font-size:clamp(1.7rem, 4vw, 2.7rem);line-height:1.25;}
-    .divider{width:64px;height:2px;background:var(--accent);margin:28px auto;}
-    .reveal{opacity:0;transform:translateY(24px);}
-    @media (prefers-reduced-motion: reduce){.badge, .reveal{opacity:1 !important;transform:none !important;}}
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+<style>
+/* ==========================================================================
+   MARKETINGCLOUD CHILE · DESIGN SYSTEM (taste-skill v2)
+   Direction: The Well-Kept Board (dense-tiles)
+   ========================================================================== */
+
+:root {
+  /* Colors */
+  --bg: #090A0D;
+  --bg-alt: #101216;
+  --surface: #14161C;
+  --surface-hover: #191C24;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(255, 255, 255, 0.18);
+  
+  --text: #F3F4F6;
+  --text-muted: #9496A1;
+  --text-dim: #646775;
+  
+  --accent: #F59E0B;
+  --accent-hover: #D97706;
+  --accent-subtle: rgba(245, 158, 11, 0.12);
+  
+  --tecnovoa-accent: #38BDF8;
+  --tecnovoa-subtle: rgba(56, 189, 248, 0.12);
+  
+  --sales-accent: #34D399;
+  --sales-subtle: rgba(52, 211, 153, 0.12);
+
+  /* Typography */
+  --font-display: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
+
+  --step-small: clamp(0.8125rem, 0.8rem + 0.1vw, 0.875rem);
+  --step-body: clamp(0.95rem, 0.92rem + 0.2vw, 1.05rem);
+  --step-lead: clamp(1.15rem, 1.05rem + 0.5vw, 1.35rem);
+  --step-title: clamp(1.4rem, 1.25rem + 1vw, 2rem);
+  --step-head: clamp(2.2rem, 1.8rem + 2.5vw, 3.8rem);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  --gap: 16px;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ==========================================================================
+   NAVIGATION
+   ========================================================================== */
+nav {
+  position: fixed;
+  top: 33px;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  background: rgba(9, 10, 13, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.nav-links a {
+  transition: color 0.2s ease;
+  padding: 4px 0;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text);
+}
+
+.nav-links a.active {
+  font-weight: 600;
+}
+
+.nav-cta {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  color: var(--text);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-cta .pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10B981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.nav-cta:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-focus);
+  color: #FFFFFF;
+}
+
+@media (max-width: 960px) {
+  .nav-links {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   BUTTONS & ACTION CONTROLS
+   ========================================================================== */
+.btn-primary {
+  background: var(--text);
+  color: #090A0D;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 13px 24px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s ease, transform 0.15s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding: 13px 24px;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-focus);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: #090A0D;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 13px 24px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.btn-accent:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   THE BOARD (DENSE-TILES SYSTEM)
+   ========================================================================== */
+.board {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--gap);
+  margin: var(--gap) 0;
+}
+
+.tile {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.tile:hover {
+  border-color: var(--border-focus);
+}
+
+/* Tile Column Spans */
+.col-12 { grid-column: span 12; }
+.col-8  { grid-column: span 8; }
+.col-7  { grid-column: span 7; }
+.col-6  { grid-column: span 6; }
+.col-5  { grid-column: span 5; }
+.col-4  { grid-column: span 4; }
+.col-3  { grid-column: span 3; }
+
+@media (max-width: 980px) {
+  .col-8, .col-7, .col-6, .col-5, .col-4, .col-3 {
+    grid-column: span 12;
+  }
+}
+
+/* Tag / Category Badge without slop */
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin-bottom: 16px;
+}
+
+.chip-neutral {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.chip-accent {
+  background: var(--accent-subtle);
+  color: var(--accent);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.chip-tecnovoa {
+  background: var(--tecnovoa-subtle);
+  color: var(--tecnovoa-accent);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.chip-sales {
+  background: var(--sales-subtle);
+  color: var(--sales-accent);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+}
+
+/* Typography elements */
+.headline {
+  font-family: var(--font-display);
+  font-size: var(--step-head);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.headline-sub {
+  font-size: var(--step-lead);
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 680px;
+  margin-bottom: 30px;
+}
+
+.tile-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.tile-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 20px;
+}
+
+.tile-link {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.tile-link:hover {
+  transform: translateX(3px);
+}
+
+/* Metric / Stat display */
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   CASE STUDIES & PORTFOLIO ITEMS
+   ========================================================================== */
+.case-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.case-card:hover {
+  border-color: var(--border-focus);
+  transform: translateY(-2px);
+}
+
+.case-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.case-card p {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.case-bullets {
+  list-style: none;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.case-bullets li {
+  font-size: 0.88rem;
+  color: var(--text);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.case-bullets li::before {
+  content: "—";
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* Backward compatibility for subpages */
+.page-header {
+  padding: 140px 24px 60px;
+  text-align: left;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.page-header h1 {
+  font-family: var(--font-display);
+  font-size: var(--step-head);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.page-header p {
+  color: var(--text-muted);
+  font-size: var(--step-lead);
+  max-width: 720px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+
+@media (max-width: 860px) {
+  .grid-2, .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  transition: border-color 0.2s ease;
+}
+
+.port-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.2s;
+}
+
+.port-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--accent-subtle);
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.port-results {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.port-results li {
+  font-size: 0.88rem;
+  color: var(--text);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.port-results li::before {
+  content: "—";
+  color: var(--accent);
+}
+
+.port-link {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 60px 24px 36px;
+  background: #060709;
+  margin-top: 60px;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-col h5 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: var(--text);
+}
+
+.footer-col p,
+.footer-col a {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  display: block;
+}
+
+.footer-col a:hover {
+  color: var(--text);
+}
+
+.foot-bottom {
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+/* ==========================================================================
+   LAYERS OF TIME / STUDIO INTERACTIVE EFFECTS
+   - Custom Magnetic Physics Cursor
+   - Dynamic Ambient Mouse Spotlight
+   - Architectural Grid Backdrop
+   - Technical Timecode Bar
+   ========================================================================== */
+
+/* Subtle architectural grid */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Mouse spotlight torch */
+.mouse-spotlight {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(800px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(245, 158, 11, 0.06), transparent 70%);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Cursor physics & trailing ring */
+@media (pointer: fine) {
+  body {
+    /* cursor: none; */
+  }
+  a, button, input, .tile, .case-card, .port-card, .nav-cta, .btn-primary, .btn-secondary, .btn-accent {
+    /* cursor: none; */
+  }
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 38px;
+  height: 38px;
+  border: 1.5px solid rgba(245, 158, 11, 0.45);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease,
+              background-color 0.2s ease;
+}
+
+.cursor-ring.active {
+  width: 64px;
+  height: 64px;
+  border-color: rgba(245, 158, 11, 0.85);
+  background-color: rgba(245, 158, 11, 0.08);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+/* Top Studio Timecode Bar */
+.studio-bar {
+  background: rgba(9, 10, 13, 0.95);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 24px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 101;
+}
+
+.studio-bar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timecode-live {
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+</style>
 </head>
 <body>
 
+  <!-- EFECTOS VISUALES: GRID & SPOTLIGHT (Layers of Time Style) -->
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="mouse-spotlight" id="mouse-spotlight" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- STUDIO SHOW CLOCK & STATUS BAR -->
+  <aside class="studio-bar" aria-label="Información de estado">
+    <div class="studio-bar-inner">
+      <div style="display: flex; gap: 18px; align-items: center;">
+        <span style="display: inline-flex; align-items: center; gap: 6px;">
+          <span style="width: 6px; height: 6px; border-radius: 50%; background: #10B981; box-shadow: 0 0 8px #10B981;"></span>
+          SANTIAGO DE CHILE [UTC-3]
+        </span>
+        <span class="timecode-live" id="live-timecode">00:00:00</span>
+      </div>
+      <div style="display: flex; gap: 20px;">
+        <span style="color: var(--text-muted);">CONSULTORÍA ACTIVA</span>
+        <span style="color: var(--accent);">Q4 2026</span>
+      </div>
+    </div>
+  </aside>
+
   <!-- NAVEGACIÓN -->
   <nav>
-    <div class="logo"><a href="/">Marketing<span>Cloud</span></a></div>
+    <div class="logo">
+      <a href="/">Marketing<span>Cloud</span></a>
+    </div>
     <div class="nav-links">
       <a href="/" class="active">Inicio</a>
       <a href="/servicios">Servicios</a>
@@ -113,213 +831,275 @@
       <a href="/contacto">Contacto</a>
     </div>
     <a class="nav-cta" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20gustar%C3%ADa%20conversar%20sobre%20los%20servicios%20de%20MarketingCloud" target="_blank" rel="noopener">
-      <span>💬</span> WhatsApp Directo
+      <span class="pulse-dot"></span>
+      <span>WhatsApp Directo</span>
     </a>
   </nav>
 
-  <!-- HERO SECTION -->
-  <header class="hero" id="inicio">
-    <div class="badge b1" aria-hidden="true">📈</div>
-    <div class="badge b2" aria-hidden="true">💻</div>
-    <div class="badge b3" aria-hidden="true">🤝</div>
-    <div class="badge b4" aria-hidden="true">🛡️</div>
-    <div class="badge b5" aria-hidden="true">📱</div>
-    <div class="badge b6" aria-hidden="true">🖥️</div>
+  <!-- MAIN WRAPPER / EL TABLERO EJECUTIVO -->
+  <main class="wrap" style="padding-top: 130px; position: relative; z-index: 2;">
 
-    <div class="hero-inner">
-      <div class="eyebrow">Ecosistema Digital · Chile</div>
-      <h1>Tu ventaja competitiva en <span class="accent">ventas, tecnología y marketing.</span></h1>
-      <p>Servicios independientes 'Como Servicio' y productos propios para PyMEs en Chile. Atrae prospectos con Marketing Digital, escala tus ventas B2B y asegura tus sistemas con Tecnovoa. Trato directo con Consultor Senior.</p>
-      <div class="cta-row">
-        <a class="btn-primary" href="/servicios">
-          Ver Servicios a la Carta →
-        </a>
-        <a class="btn-secondary" href="/portafolio">
-          Explorar Casos de Éxito
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <!-- DECLARACIÓN -->
-  <section>
-    <div class="wrap statement reveal">
-      <h2>Experiencia senior, pragmatismo técnico y foco 100% en <span class="accent">resultados comerciales</span>.</h2>
-      <div class="divider"></div>
-      <p style="color:var(--text-muted);font-size:1.05rem;">
-        Sin intermediarios ni cuentas infladas. Servicios independientes que puedes contratar por separado o como un engranaje completo para tu empresa.
-      </p>
-    </div>
-  </section>
-
-  <!-- ECOSISTEMA DE SOLUCIONES (3 PILARES + PRODUCTOS) -->
-  <section id="propuesta" style="padding-top:0;">
-    <div class="wrap">
-      <div class="eyebrow reveal" style="text-align:center;display:block;">Ecosistema MarketingCloud</div>
-      <h2 class="reveal" style="text-align:center;font-family:var(--display);font-weight:600;font-size:clamp(1.6rem,3.5vw,2.3rem);margin-top:14px;">
-        Tres Pilares Especializados & Productos Propios
-      </h2>
-
-      <div class="grid-3" style="margin-top:44px;">
-        <!-- PILAR 1 -->
-        <div class="card reveal">
-          <div class="eyebrow">01 / ATRACCIÓN</div>
-          <h3 style="font-family:var(--display);font-size:1.35rem;margin:12px 0;">Marketing Digital & SEO</h3>
-          <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:20px;">
-            Desarrollo web ultrarrápido, optimización para Google Search Console en Chile y estrategias de contenido que posicionan tu marca frente a compradores listos para cotizar.
-          </p>
-          <a class="port-link" href="/servicios">Ver detalles de Marketing ⇢</a>
-        </div>
-
-        <!-- PILAR 2: TECNOVOA -->
-        <div class="card reveal" style="border-color:rgba(80,176,255,0.4);">
-          <div class="eyebrow" style="color:#50b0ff;">02 / TECNOLOGÍA & TI</div>
-          <h3 style="font-family:var(--display);font-size:1.35rem;margin:12px 0;">Tecnovoa · Soporte & Equipos</h3>
-          <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:20px;">
-            Nuestra división tecnológica especializada. Soporte computacional a empresas y personas, formateo, mantención, ciberseguridad, respaldos y venta de insumos.
-          </p>
-          <a class="port-link" style="color:#50b0ff;" href="/tecnovoa">Conocer Tecnovoa ⇢</a>
-        </div>
-
-        <!-- PILAR 3 -->
-        <div class="card reveal" style="border-color:rgba(88,227,136,0.4);">
-          <div class="eyebrow" style="color:#58e388;">03 / CONVERSIÓN</div>
-          <h3 style="font-family:var(--display);font-size:1.35rem;margin:12px 0;">Gestión de Ventas (VaaS)</h3>
-          <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:20px;">
-            Prospección comercial activa B2B, telemarketing consultivo y calificación de prospectos para abastecer a tu empresa de oportunidades comerciales de calidad.
-          </p>
-          <a class="port-link" style="color:#58e388;" href="/servicios">Ver detalles de Ventas ⇢</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BANNER PRODUCTO PROPIO: MENÚ INTELIGENTE -->
-  <section style="background:var(--bg-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
-    <div class="wrap">
-      <div style="background:linear-gradient(135deg, rgba(255,179,71,0.08), var(--card-bg));border:1px solid var(--accent);border-radius:18px;padding:44px 36px;display:grid;grid-template-columns:1.8fr 1.2fr;gap:36px;align-items:center;">
+    <!-- TOP BOARD: HERO & METRICS -->
+    <section class="board" id="inicio">
+      <!-- Main Statement Tile -->
+      <div class="tile col-8">
         <div>
-          <span class="port-badge" style="background:var(--accent);color:#101012;font-weight:700;">Producto Propio para Pequeñas Empresas</span>
-          <h2 style="font-family:var(--display);font-size:clamp(1.8rem, 3.5vw, 2.4rem);margin:12px 0;">
-            Menú Inteligente: Cartas Digitales QR sin comisiones
-          </h2>
-          <p style="color:var(--text-muted);font-size:1.02rem;margin-bottom:24px;">
-            ¿Tienes un restaurante, cafetería o local de comida en Chile? Elimina las cartas de papel sucias y las comisiones del 30% de las apps de delivery. Tus comensales escanean el QR en la mesa y te envían sus pedidos formateados directamente a tu WhatsApp.
+          <span class="chip chip-accent">Consultoría Senior Directa · Santiago, Chile</span>
+          <h1 class="headline">
+            Ecosistema de soluciones en ventas, tecnología y marketing.
+          </h1>
+          <p class="headline-sub">
+            Servicios independientes 'Como Servicio' y productos propios para PyMEs. Atrae clientes con Marketing Digital y SEO, escala tu gestión comercial B2B y asegura tu infraestructura con Tecnovoa.
           </p>
-          <div style="display:flex;gap:14px;flex-wrap:wrap;">
-            <a class="btn-primary" href="/menu-inteligente">Descubre Menú Inteligente →</a>
-            <a class="btn-secondary" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20gustar%C3%ADa%20ver%20un%20demo%20de%20Men%C3%BA%20Inteligente" target="_blank" rel="noopener">Pedir Demo en Vivo</a>
+        </div>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px;">
+          <a class="btn-primary" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20gustar%C3%ADa%20conversar%20sobre%20mi%20empresa" target="_blank" rel="noopener">
+            Hablar por WhatsApp (+569 4943 8288) →
+          </a>
+          <a class="btn-secondary" href="/servicios">
+            Ver Servicios a la Carta
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Tile -->
+      <div class="tile col-4" style="background: var(--bg-alt);">
+        <div>
+          <span class="chip chip-neutral">Garantía de Entrega</span>
+          <h2 class="tile-title" style="margin-top: 6px;">Pragmatismo técnico</h2>
+          <p class="tile-desc">
+            Sin intermediarios ni cuentas infladas. Trato directo con Cristian Díaz para ejecutar soluciones reales y medibles.
+          </p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
+          <div class="stat-item">
+            <span class="stat-number">+10</span>
+            <span class="stat-label">Años de experiencia</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Trato directo senior</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">0%</span>
+            <span class="stat-label">Comisiones en Menú QR</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">CL</span>
+            <span class="stat-label">Cobertura nacional</span>
           </div>
         </div>
-        <div style="text-align:center;">
-          <div style="font-size:4.5rem;margin-bottom:8px;">📱 🍽️</div>
-          <p style="font-family:var(--mono);color:var(--text-muted);font-size:0.85rem;">0% Comisiones · WhatsApp Directo · QR en mesas</p>
-        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- PORTAFOLIO RESUMIDO / CASOS DESTACADOS -->
-  <section id="portafolio">
-    <div class="wrap">
-      <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:36px;">
-        <div>
-          <div class="eyebrow reveal">Casos de Éxito Reales</div>
-          <h2 class="reveal" style="font-family:var(--display);font-weight:600;font-size:clamp(1.6rem,3.2vw,2.2rem);margin-top:8px;">
-            Respaldando a diversas industrias en Chile
-          </h2>
-        </div>
-        <a class="btn-secondary reveal" href="/portafolio">Ver Portafolio Completo (9 Casos) →</a>
+    <!-- SECTION: LOS TRES PILARES DEL ECOSISTEMA -->
+    <section style="margin-top: 32px;">
+      <div style="margin-bottom: 20px;">
+        <h2 style="font-family: var(--font-display); font-size: var(--step-title); letter-spacing: -0.02em;">
+          Tres divisiones especializadas
+        </h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          Contrátalas de forma independiente o integradas como un motor comercial completo.
+        </p>
       </div>
 
-      <div class="grid-2">
-        <!-- Caso ISM Educación -->
-        <div class="port-card reveal">
+      <div class="board">
+        <!-- Pilar 1: Marketing & SEO -->
+        <div class="tile col-4">
           <div>
-            <span class="port-badge">Sector Educación</span>
+            <span class="chip chip-accent">01 / Atracción</span>
+            <h3 class="tile-title">Marketing Digital & SEO</h3>
+            <p class="tile-desc">
+              Desarrollo web ultrarrápido, optimización técnica para Google Search Console en Chile y contenido estratégico para posicionar tu marca frente a compradores listos para cotizar.
+            </p>
+          </div>
+          <a class="tile-link" style="color: var(--accent);" href="/servicios">
+            Ver servicios de Marketing <span>→</span>
+          </a>
+        </div>
+
+        <!-- Pilar 2: Tecnovoa TI -->
+        <div class="tile col-4">
+          <div>
+            <span class="chip chip-tecnovoa">02 / Tecnología & Soporte</span>
+            <h3 class="tile-title">Tecnovoa · TI & Equipos</h3>
+            <p class="tile-desc">
+              División tecnológica especializada: soporte informático integral a empresas y personas, mantención preventiva, formateo, ciberseguridad, respaldos y venta de insumos.
+            </p>
+          </div>
+          <a class="tile-link" style="color: var(--tecnovoa-accent);" href="/tecnovoa">
+            Conocer Tecnovoa <span>→</span>
+          </a>
+        </div>
+
+        <!-- Pilar 3: Gestión de Ventas (VaaS) -->
+        <div class="tile col-4">
+          <div>
+            <span class="chip chip-sales">03 / Conversión</span>
+            <h3 class="tile-title">Gestión de Ventas (VaaS)</h3>
+            <p class="tile-desc">
+              Prospección comercial activa B2B, telemarketing consultivo y calificación exhaustiva de prospectos para abastecer a tu empresa de oportunidades comerciales calificadas.
+            </p>
+          </div>
+          <a class="tile-link" style="color: var(--sales-accent);" href="/servicios">
+            Ver gestión de Ventas <span>→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: PRODUCTO PROPIO (MENÚ INTELIGENTE) -->
+    <section class="board" style="margin-top: 32px;">
+      <div class="tile col-12" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, var(--surface) 100%); border-color: rgba(245, 158, 11, 0.3);">
+        <div style="display: grid; grid-template-columns: 1.8fr 1.2fr; gap: 36px; align-items: center;">
+          <div>
+            <span class="chip chip-accent">Producto Propio para Gastronomía & Comercio</span>
+            <h2 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem); letter-spacing: -0.02em; margin: 10px 0 16px;">
+              Menú Inteligente: Cartas digitales QR sin comisiones
+            </h2>
+            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 24px;">
+              Elimina las cartas de papel deterioradas y el cobro de hasta 30% en apps de delivery. Tus comensales escanean el código QR en la mesa, seleccionan sus platos y envían su pedido detallado y formateado directamente a tu WhatsApp oficial.
+            </p>
+            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+              <a class="btn-accent" href="/menu-inteligente">
+                Descubrir Menú Inteligente →
+              </a>
+              <a class="btn-secondary" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20gustar%C3%ADa%20ver%20un%20demo%20de%20Men%C3%BA%20Inteligente" target="_blank" rel="noopener">
+                Solicitar Demo en Vivo
+              </a>
+            </div>
+          </div>
+
+          <div style="background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 24px;">
+            <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); margin-bottom: 12px;">VENTAJAS DIRECTAS</p>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem;">
+              <li style="display: flex; gap: 10px; align-items: flex-start;">
+                <span style="color: var(--accent);">✓</span>
+                <span><strong>0% comisiones</strong> por venta o pedido</span>
+              </li>
+              <li style="display: flex; gap: 10px; align-items: flex-start;">
+                <span style="color: var(--accent);">✓</span>
+                <span><strong>Pedidos a WhatsApp</strong> sin apps intermediarias</span>
+              </li>
+              <li style="display: flex; gap: 10px; align-items: flex-start;">
+                <span style="color: var(--accent);">✓</span>
+                <span><strong>Actualización inmediata</strong> de precios y menú</span>
+              </li>
+              <li style="display: flex; gap: 10px; align-items: flex-start;">
+                <span style="color: var(--accent);">✓</span>
+                <span><strong>Diseño a medida</strong> con tu identidad corporativa</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: CASOS DE ÉXITO REALES -->
+    <section id="portafolio" style="margin-top: 48px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+        <div>
+          <h2 style="font-family: var(--font-display); font-size: var(--step-title); letter-spacing: -0.02em;">
+            Casos de éxito reales en Chile
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 4px;">
+            Estrategias implementadas y resultados comerciales comprobados.
+          </p>
+        </div>
+        <a class="btn-secondary" href="/portafolio">Ver Portafolio Completo (9 Casos) →</a>
+      </div>
+
+      <div class="board">
+        <!-- Caso ISM Educación -->
+        <div class="case-card col-6">
+          <div>
+            <span class="chip chip-neutral">Sector Educación</span>
             <h3>ISM (Educación Escolar & Técnico-Profesional)</h3>
             <p>Estrategia digital institucional y canales de contacto escolar para comunidad educativa, apoderados y docentes.</p>
-            <ul class="port-results">
+            <ul class="case-bullets">
               <li>Digitalización de vías de comunicación para la comunidad escolar</li>
-              <li>Presencia institucional sólida y recursos en línea</li>
+              <li>Presencia institucional sólida y recursos accesibles en línea</li>
             </ul>
           </div>
           <div>
-            <a class="port-link" href="/portafolio">Ver detalles del caso ⇢</a>
+            <a class="tile-link" style="color: var(--accent);" href="/portafolio">Ver detalles del caso →</a>
           </div>
         </div>
 
         <!-- Caso Mi-Enfermera Salud -->
-        <div class="port-card reveal">
+        <div class="case-card col-6">
           <div>
-            <span class="port-badge">Salud & Servicios Clínicos</span>
+            <span class="chip chip-neutral">Salud & Servicios Clínicos</span>
             <h3>Mi-Enfermera .cl</h3>
             <p>Plataforma para conectar atenciones de enfermería a domicilio con pacientes y familias en Chile.</p>
-            <ul class="port-results">
-              <li>Interfaz amigable y ágil para cotización de atenciones</li>
-              <li>Posicionamiento orgánico en Google Chile</li>
+            <ul class="case-bullets">
+              <li>Interfaz amigable y ágil para cotización de atenciones domiciliarias</li>
+              <li>Posicionamiento orgánico en Google Chile para servicios clínicos</li>
             </ul>
           </div>
           <div>
-            <a class="port-link" href="/portafolio">Ver detalles del caso ⇢</a>
+            <a class="tile-link" style="color: var(--accent);" href="/portafolio">Ver detalles del caso →</a>
           </div>
         </div>
 
         <!-- Caso Contadores en Línea -->
-        <div class="port-card reveal">
+        <div class="case-card col-6">
           <div>
-            <span class="port-badge">Servicios Contables</span>
+            <span class="chip chip-neutral">Servicios Contables</span>
             <h3>Contadores en Línea .cl</h3>
             <p>Portal web y posicionamiento digital de servicios contables orientados a emprendedores y PyMEs.</p>
-            <ul class="port-results">
+            <ul class="case-bullets">
               <li>Posicionamiento SEO orgánico en Google Chile</li>
-              <li>Generación continua de nuevos clientes contables</li>
+              <li>Generación continua de nuevos clientes y cotizaciones</li>
             </ul>
           </div>
           <div>
-            <a class="port-link" href="https://contadoresenlinea.cl" target="_blank" rel="noopener">Visitar contadoresenlinea.cl ⇢</a>
+            <a class="tile-link" style="color: var(--accent);" href="https://contadoresenlinea.cl" target="_blank" rel="noopener">Visitar contadoresenlinea.cl →</a>
           </div>
         </div>
 
         <!-- Caso Line Clean Industrial -->
-        <div class="port-card reveal">
+        <div class="case-card col-6">
           <div>
-            <span class="port-badge">Servicios Industriales</span>
+            <span class="chip chip-neutral">Servicios Industriales</span>
             <h3>Line Clean STP / FBV</h3>
             <p>Plataforma corporativa para empresa de limpieza profesional, sanitización y control ambiental.</p>
-            <ul class="port-results">
+            <ul class="case-bullets">
               <li>Diseño institucional enfocado en licitaciones y contratos B2B</li>
-              <li>Punto de contacto y cotización directa para empresas</li>
+              <li>Punto de contacto y cotización directa para clientes corporativos</li>
             </ul>
           </div>
           <div>
-            <a class="port-link" href="https://linecleanstp.cl" target="_blank" rel="noopener">Visitar linecleanstp.cl ⇢</a>
+            <a class="tile-link" style="color: var(--accent);" href="https://linecleanstp.cl" target="_blank" rel="noopener">Visitar linecleanstp.cl →</a>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- CTA CONTACTO -->
-  <section style="background:var(--bg-alt);border-top:1px solid var(--line);">
-    <div class="wrap" style="text-align:center;max-width:760px;">
-      <div class="eyebrow" style="margin-bottom:12px;">Hablemos hoy mismo</div>
-      <h2 style="font-family:var(--display);font-size:clamp(1.8rem, 4vw, 2.6rem);margin-bottom:16px;">
-        ¿Tienes un desafío de ventas o una necesidad tecnológica?
-      </h2>
-      <p style="color:var(--text-muted);font-size:1.05rem;margin-bottom:28px;">
-        Conversemos 15 minutos por WhatsApp y definamos qué solución se adapta mejor a tu momento actual.
-      </p>
-      <div class="cta-row">
-        <a class="btn-primary" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20gustar%C3%ADa%20conversar%20sobre%20mi%20empresa" target="_blank" rel="noopener">
-          Escribir por WhatsApp (+569 4943 8288) →
-        </a>
-        <a class="btn-secondary" href="/contacto">
-          Ver Canales de Contacto
-        </a>
+    <!-- SECTION: CTA FINAL DE CONTACTO -->
+    <section class="board" style="margin-top: 48px;">
+      <div class="tile col-12" style="text-align: center; padding: 48px 24px; background: var(--bg-alt);">
+        <div style="max-width: 680px; margin: 0 auto;">
+          <span class="chip chip-accent">Contacto Directo</span>
+          <h2 style="font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.5rem); letter-spacing: -0.02em; margin: 12px 0 16px;">
+            ¿Tienes un desafío comercial o una necesidad tecnológica?
+          </h2>
+          <p style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 28px;">
+            Conversemos 15 minutos por WhatsApp y definamos la solución exacta para tu etapa actual, sin compromisos.
+          </p>
+          <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+            <a class="btn-primary" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20gustar%C3%ADa%20conversar%20sobre%20mi%20empresa" target="_blank" rel="noopener">
+              Escribir por WhatsApp (+569 4943 8288) →
+            </a>
+            <a class="btn-secondary" href="/contacto">
+              Ver Otros Canales
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+  </main>
 
   <!-- FOOTER -->
   <footer>
@@ -327,11 +1107,11 @@
       <div class="footer-col">
         <h5>MarketingCloud Chile</h5>
         <p>Ecosistema de soluciones digitales: Marketing Digital, Tecnología (Tecnovoa) y Gestión de Ventas por Cristian Díaz.</p>
-        <p style="margin-top:14px;color:var(--text);font-family:var(--mono);font-size:0.8rem;">📍 Santiago, Chile</p>
+        <p style="margin-top: 14px; color: var(--text); font-family: var(--font-mono); font-size: 0.8rem;">📍 Santiago, Región Metropolitana, Chile</p>
       </div>
 
       <div class="footer-col">
-        <h5>Páginas</h5>
+        <h5>Navegación</h5>
         <a href="/">Inicio</a>
         <a href="/servicios">Servicios a la Carta</a>
         <a href="/portafolio">Portafolio & Casos</a>
@@ -342,39 +1122,90 @@
       </div>
 
       <div class="footer-col">
-        <h5>Canales Directos</h5>
+        <h5>Contacto Directo</h5>
         <a href="https://wa.me/56949438288" target="_blank" rel="noopener">WhatsApp: +569 4943 8288</a>
         <a href="mailto:contacto@marketingcloud.cl">Email: contacto@marketingcloud.cl</a>
         <a href="https://web.facebook.com/MarketingcloudChile/" target="_blank" rel="noopener">Facebook: @MarketingcloudChile</a>
       </div>
     </div>
+    
     <div class="foot-bottom">
-      © 2026 MarketingCloud Chile. Dominio registrado en NIC Chile.
+      <div>© 2026 MarketingCloud Chile. Dominio registrado en NIC Chile.</div>
+      <div>Trato directo con Consultor Senior</div>
     </div>
   </footer>
 
-  <!-- GSAP Animaciones -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- SCRIPT: INTERACCIONES ESTILO LAYERS OF TIME & IMPECCABLE -->
   <script>
-    gsap.registerPlugin(ScrollTrigger);
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(!reduceMotion){
-      const tl = gsap.timeline({defaults:{ease:"power3.out"}});
-      tl.to(".badge", {opacity:1, duration:0.8, stagger:0.08})
-        .fromTo(".hero h1", {opacity:0, y:20}, {opacity:1, y:0, duration:0.8}, "-=0.6")
-        .fromTo(".hero p", {opacity:0, y:20}, {opacity:1, y:0, duration:0.7}, "-=0.5")
-        .fromTo(".cta-row", {opacity:0, y:20}, {opacity:1, y:0, duration:0.6}, "-=0.4");
 
-      gsap.utils.toArray(".badge").forEach((el, i)=>{
-        gsap.to(el, {y: "+=12", duration: 3 + (i % 3), ease: "sine.inOut", repeat: -1, yoyo: true, delay: i * 0.2});
+    (function() {
+      // 1. Reloj de estudio / Timecode en vivo de Santiago de Chile (UTC-3)
+      function updateSantiagoTime() {
+        const timeEl = document.getElementById('live-timecode');
+        if (!timeEl) return;
+        const now = new Date();
+        const santiagoTime = new Intl.DateTimeFormat('es-CL', {
+          timeZone: 'America/Santiago',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        }).format(now);
+        timeEl.textContent = santiagoTime;
+      }
+      setInterval(updateSantiagoTime, 1000);
+      updateSantiagoTime();
+
+      const dot = document.getElementById('cursor-dot');
+      const ring = document.getElementById('cursor-ring');
+      const spotlight = document.getElementById('mouse-spotlight');
+
+      let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+      let ringX = mouseX, ringY = mouseY;
+      let isVisible = false;
+
+      window.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        if (!isVisible) {
+          isVisible = true;
+          if (dot) dot.style.opacity = '1';
+          if (ring) ring.style.opacity = '1';
+          if (spotlight) spotlight.style.opacity = '1';
+        }
+
+        if (dot) {
+          dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+        }
+
+        if (spotlight) {
+          spotlight.style.setProperty('--mouse-x', mouseX + 'px');
+          spotlight.style.setProperty('--mouse-y', mouseY + 'px');
+        }
       });
-      gsap.utils.toArray(".reveal").forEach(el=>{
-        gsap.to(el, {opacity:1, y:0, duration:0.7, ease:"power2.out", scrollTrigger:{ trigger: el, start: "top 85%" }});
+
+      function renderCursorRing() {
+        ringX += (mouseX - ringX) * 0.16;
+        ringY += (mouseY - ringY) * 0.16;
+
+        if (ring) {
+          ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+        }
+        requestAnimationFrame(renderCursorRing);
+      }
+      requestAnimationFrame(renderCursorRing);
+
+      document.querySelectorAll('a, button, .tile, .case-card, .port-card, input, [role="button"]').forEach(function(el) {
+        el.addEventListener('mouseenter', function() {
+          if (ring) ring.classList.add('active');
+        });
+        el.addEventListener('mouseleave', function() {
+          if (ring) ring.classList.remove('active');
+        });
       });
-    } else {
-      document.querySelectorAll(".badge, .reveal").forEach(el=>{ el.style.opacity = 1; el.style.transform = "none"; });
-    }
+    })();
+
   </script>
 </body>
 </html>
