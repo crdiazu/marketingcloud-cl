@@ -46,19 +46,19 @@
   var particles = [];
   var ambientStars = [];
 
-  // Crear 45 estrellas de fondo sutiles que flotan lentamente
-  for (var s = 0; s < 45; s++) {
+  // Crear 50 estrellas de fondo sutiles que flotan lentamente
+  for (var s = 0; s < 50; s++) {
     ambientStars.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 1.5 + 0.5,
+      radius: Math.random() * 1.6 + 0.4,
       alpha: Math.random() * 0.4 + 0.1,
       speedY: (Math.random() - 0.5) * 0.15,
       speedX: (Math.random() - 0.5) * 0.15
     });
   }
 
-  // Paleta cósmica: Ámbar estelar, Cyan hiperespacial, Púrpura nebulosa
+  // Paleta cósmica: Ámbar estelar, Cyan hiperespacial, Púrpura nebulosa, Esmeralda
   var nebulaPalettes = [
     { r: 245, g: 158, b: 11 },   // Ámbar
     { r: 56,  g: 189, b: 248 },  // Cyan
@@ -80,21 +80,21 @@
       dot.style.transform = 'translate(' + targetMouseX + 'px, ' + targetMouseY + 'px) translate(-50%, -50%)';
     }
 
-    // Generar bocanadas de nube cósmica
+    // Generar bocanadas de nube cósmica con disipación etérea prolongada
     for (var i = 0; i < 3; i++) {
       var col = nebulaPalettes[Math.floor(Math.random() * nebulaPalettes.length)];
       particles.push({
-        x: targetMouseX + (Math.random() - 0.5) * 12,
-        y: targetMouseY + (Math.random() - 0.5) * 12,
-        radius: Math.random() * 26 + 18,
+        x: targetMouseX + (Math.random() - 0.5) * 14,
+        y: targetMouseY + (Math.random() - 0.5) * 14,
+        radius: Math.random() * 24 + 16,
         r: col.r,
         g: col.g,
         b: col.b,
-        alpha: 0.45,
-        decay: Math.random() * 0.015 + 0.018,
-        grow: Math.random() * 0.6 + 0.4,
-        vx: (Math.random() - 0.5) * 0.8,
-        vy: (Math.random() - 0.5) * 0.8
+        alpha: 0.58,
+        decay: Math.random() * 0.005 + 0.004, // Desvanecimiento suave y lento
+        grow: Math.random() * 0.5 + 0.35,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6
       });
     }
   });
@@ -151,8 +151,8 @@
       }
 
       var grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
-      grad.addColorStop(0, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + (p.alpha * 0.8) + ')');
-      grad.addColorStop(0.5, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + (p.alpha * 0.3) + ')');
+      grad.addColorStop(0, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + (p.alpha * 0.85) + ')');
+      grad.addColorStop(0.45, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + (p.alpha * 0.35) + ')');
       grad.addColorStop(1, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ', 0)');
 
       ctx.fillStyle = grad;
@@ -167,7 +167,7 @@
   }
   requestAnimationFrame(render);
 
-  // 3. Efectos de Alto Contraste en Hover (CERO desenfoque en textos)
+  // 3. Efectos de Alto Contraste en Hover (CERO desenfoque en textos al apuntar)
   var hoverElements = document.querySelectorAll('a, button, .service-card, .tile, .project-giant-item, h1, h2, h3, .chip');
   hoverElements.forEach(function(el) {
     el.addEventListener('mouseenter', function() {
@@ -180,7 +180,7 @@
     });
   });
 
-  // 4. Efecto de Inclinación 3D en Tarjetas de Servicios y Proyectos
+  // 4. Inclinación 3D en Tarjetas
   var tiltCards = document.querySelectorAll('.service-card, .tile');
   tiltCards.forEach(function(card) {
     card.addEventListener('mousemove', function(e) {
@@ -193,5 +193,45 @@
       card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)';
     });
   });
+
+  // 5. ENFOQUE SPOTLIGHT: Atenúa y difumina todas las demás tarjetas al enfocar una
+  var allCards = document.querySelectorAll('.service-card, .tile, .project-giant-item');
+  allCards.forEach(function(card) {
+    card.addEventListener('mouseenter', function() {
+      document.body.classList.add('spotlight-active');
+      card.classList.add('is-focused');
+    });
+    card.addEventListener('mouseleave', function() {
+      card.classList.remove('is-focused');
+      document.body.classList.remove('spotlight-active');
+    });
+  });
+
+  // 6. ASIGNACIÓN ALEATORIA: Efecto Glitch y Desfase Z-Index (Texto pasa atrás de partículas)
+  function applyRandomGlitchModes() {
+    var serviceCards = Array.from(document.querySelectorAll('.service-card'));
+    var projectCards = Array.from(document.querySelectorAll('.project-giant-item'));
+
+    // Limpiar clases previas
+    serviceCards.forEach(function(c) { c.classList.remove('glitch-depth-mode'); });
+    projectCards.forEach(function(c) { c.classList.remove('glitch-depth-mode'); });
+
+    // Elegir aleatoriamente 2 servicios y 2 proyectos
+    function pickRandom(arr, count) {
+      var shuffled = arr.slice().sort(function() { return 0.5 - Math.random(); });
+      return shuffled.slice(0, count);
+    }
+
+    var selectedServices = pickRandom(serviceCards, 2);
+    selectedServices.forEach(function(c) { c.classList.add('glitch-depth-mode'); });
+
+    var selectedProjects = pickRandom(projectCards, 2);
+    selectedProjects.forEach(function(c) { c.classList.add('glitch-depth-mode'); });
+  }
+
+  applyRandomGlitchModes();
+
+  // Rotar aleatoriamente los modos glitch cada 45 segundos para mantener la web viva
+  setInterval(applyRandomGlitchModes, 45000);
 
 })();

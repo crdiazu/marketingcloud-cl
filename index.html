@@ -135,7 +135,8 @@ img {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 1;
+  z-index: 5;
+  mix-blend-mode: screen;
 }
 
 .grid-bg {
@@ -472,7 +473,12 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              background-color 0.3s ease,
+              box-shadow 0.3s ease;
   overflow: hidden;
 }
 
@@ -491,8 +497,96 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
   position: relative;
+}
+
+/* ==========================================================================
+   SPOTLIGHT FOCUS EFFECT (Difumina y desvanece todo lo demás)
+   ========================================================================== */
+body.spotlight-active .service-card:not(.is-focused),
+body.spotlight-active .tile:not(.is-focused),
+body.spotlight-active .project-giant-item:not(.is-focused) {
+  opacity: 0.16 !important;
+  filter: blur(3px) grayscale(50%) !important;
+  transform: scale(0.985);
+  pointer-events: auto;
+}
+
+.service-card.is-focused,
+.tile.is-focused {
+  opacity: 1 !important;
+  filter: none !important;
+  z-index: 10;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(245, 158, 11, 0.22);
+}
+
+.project-giant-item.is-focused {
+  opacity: 1 !important;
+  filter: none !important;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* ==========================================================================
+   GLITCH & Z-INDEX DEPTH EFFECT (Texto pasa atrás de partículas)
+   ========================================================================== */
+.glitch-depth-mode {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.glitch-depth-mode .service-desc,
+.glitch-depth-mode .service-list,
+.glitch-depth-mode .project-desc {
+  transition: transform 0.4s ease, opacity 0.4s ease, text-shadow 0.4s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.glitch-depth-mode.is-focused .service-desc,
+.glitch-depth-mode.is-focused .service-list,
+.glitch-depth-mode.is-focused .project-desc {
+  transform: translateZ(-35px) scale(0.96);
+  opacity: 0.7;
+  text-shadow: -2.5px 0 rgba(56, 189, 248, 0.75), 2.5px 0 rgba(245, 158, 11, 0.75);
+  animation: glitchJitter 2.5s infinite ease-in-out alternate;
+}
+
+/* Rejilla de scanlines translúcida para sensación de profundidad */
+.glitch-depth-mode::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+  transition: opacity 0.35s ease;
+}
+
+.glitch-depth-mode.is-focused::before {
+  opacity: 0.65;
+}
+
+@keyframes glitchJitter {
+  0%   { transform: translateZ(-35px) translateX(0px); }
+  25%  { transform: translateZ(-35px) translateX(-2px); }
+  50%  { transform: translateZ(-35px) translateX(2px); }
+  75%  { transform: translateZ(-35px) translateX(-1px); }
+  100% { transform: translateZ(-35px) translateX(0px); }
 }
 
 .service-card:hover {
@@ -627,7 +721,11 @@ nav {
   grid-template-columns: 2fr 1fr;
   gap: 30px;
   align-items: center;
-  transition: all 0.3s ease;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.3s ease,
+              padding 0.3s ease;
   position: relative;
 }
 
@@ -1172,6 +1270,7 @@ footer {
 
   <!-- SCRIPT: RELOJ EN VIVO + ESTELA DE NUBE CÓSMICA + CURSOR ESPACIAL DE ALTO CONTRASTE -->
   <script src="js/engine.js"></script>
+  <script src="js/engine.js"></script>
   <script>
 // MarketingCloud Studio - Interactive Engine
 (function() {
@@ -1221,19 +1320,19 @@ footer {
   var particles = [];
   var ambientStars = [];
 
-  // Crear 45 estrellas de fondo sutiles que flotan lentamente
-  for (var s = 0; s < 45; s++) {
+  // Crear 50 estrellas de fondo sutiles que flotan lentamente
+  for (var s = 0; s < 50; s++) {
     ambientStars.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 1.5 + 0.5,
+      radius: Math.random() * 1.6 + 0.4,
       alpha: Math.random() * 0.4 + 0.1,
       speedY: (Math.random() - 0.5) * 0.15,
       speedX: (Math.random() - 0.5) * 0.15
     });
   }
 
-  // Paleta cósmica: Ámbar estelar, Cyan hiperespacial, Púrpura nebulosa
+  // Paleta cósmica: Ámbar estelar, Cyan hiperespacial, Púrpura nebulosa, Esmeralda
   var nebulaPalettes = [
     { r: 245, g: 158, b: 11 },   // Ámbar
     { r: 56,  g: 189, b: 248 },  // Cyan
@@ -1255,21 +1354,21 @@ footer {
       dot.style.transform = 'translate(' + targetMouseX + 'px, ' + targetMouseY + 'px) translate(-50%, -50%)';
     }
 
-    // Generar bocanadas de nube cósmica
+    // Generar bocanadas de nube cósmica con disipación etérea prolongada
     for (var i = 0; i < 3; i++) {
       var col = nebulaPalettes[Math.floor(Math.random() * nebulaPalettes.length)];
       particles.push({
-        x: targetMouseX + (Math.random() - 0.5) * 12,
-        y: targetMouseY + (Math.random() - 0.5) * 12,
-        radius: Math.random() * 26 + 18,
+        x: targetMouseX + (Math.random() - 0.5) * 14,
+        y: targetMouseY + (Math.random() - 0.5) * 14,
+        radius: Math.random() * 24 + 16,
         r: col.r,
         g: col.g,
         b: col.b,
-        alpha: 0.45,
-        decay: Math.random() * 0.015 + 0.018,
-        grow: Math.random() * 0.6 + 0.4,
-        vx: (Math.random() - 0.5) * 0.8,
-        vy: (Math.random() - 0.5) * 0.8
+        alpha: 0.58,
+        decay: Math.random() * 0.005 + 0.004, // Desvanecimiento suave y lento
+        grow: Math.random() * 0.5 + 0.35,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6
       });
     }
   });
@@ -1326,8 +1425,8 @@ footer {
       }
 
       var grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
-      grad.addColorStop(0, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + (p.alpha * 0.8) + ')');
-      grad.addColorStop(0.5, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + (p.alpha * 0.3) + ')');
+      grad.addColorStop(0, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + (p.alpha * 0.85) + ')');
+      grad.addColorStop(0.45, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + (p.alpha * 0.35) + ')');
       grad.addColorStop(1, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ', 0)');
 
       ctx.fillStyle = grad;
@@ -1342,7 +1441,7 @@ footer {
   }
   requestAnimationFrame(render);
 
-  // 3. Efectos de Alto Contraste en Hover (CERO desenfoque en textos)
+  // 3. Efectos de Alto Contraste en Hover (CERO desenfoque en textos al apuntar)
   var hoverElements = document.querySelectorAll('a, button, .service-card, .tile, .project-giant-item, h1, h2, h3, .chip');
   hoverElements.forEach(function(el) {
     el.addEventListener('mouseenter', function() {
@@ -1355,7 +1454,7 @@ footer {
     });
   });
 
-  // 4. Efecto de Inclinación 3D en Tarjetas de Servicios y Proyectos
+  // 4. Inclinación 3D en Tarjetas
   var tiltCards = document.querySelectorAll('.service-card, .tile');
   tiltCards.forEach(function(card) {
     card.addEventListener('mousemove', function(e) {
@@ -1368,6 +1467,46 @@ footer {
       card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)';
     });
   });
+
+  // 5. ENFOQUE SPOTLIGHT: Atenúa y difumina todas las demás tarjetas al enfocar una
+  var allCards = document.querySelectorAll('.service-card, .tile, .project-giant-item');
+  allCards.forEach(function(card) {
+    card.addEventListener('mouseenter', function() {
+      document.body.classList.add('spotlight-active');
+      card.classList.add('is-focused');
+    });
+    card.addEventListener('mouseleave', function() {
+      card.classList.remove('is-focused');
+      document.body.classList.remove('spotlight-active');
+    });
+  });
+
+  // 6. ASIGNACIÓN ALEATORIA: Efecto Glitch y Desfase Z-Index (Texto pasa atrás de partículas)
+  function applyRandomGlitchModes() {
+    var serviceCards = Array.from(document.querySelectorAll('.service-card'));
+    var projectCards = Array.from(document.querySelectorAll('.project-giant-item'));
+
+    // Limpiar clases previas
+    serviceCards.forEach(function(c) { c.classList.remove('glitch-depth-mode'); });
+    projectCards.forEach(function(c) { c.classList.remove('glitch-depth-mode'); });
+
+    // Elegir aleatoriamente 2 servicios y 2 proyectos
+    function pickRandom(arr, count) {
+      var shuffled = arr.slice().sort(function() { return 0.5 - Math.random(); });
+      return shuffled.slice(0, count);
+    }
+
+    var selectedServices = pickRandom(serviceCards, 2);
+    selectedServices.forEach(function(c) { c.classList.add('glitch-depth-mode'); });
+
+    var selectedProjects = pickRandom(projectCards, 2);
+    selectedProjects.forEach(function(c) { c.classList.add('glitch-depth-mode'); });
+  }
+
+  applyRandomGlitchModes();
+
+  // Rotar aleatoriamente los modos glitch cada 45 segundos para mantener la web viva
+  setInterval(applyRandomGlitchModes, 45000);
 
 })();
   </script>

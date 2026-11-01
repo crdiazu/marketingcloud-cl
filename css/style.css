@@ -99,7 +99,8 @@ img {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 1;
+  z-index: 5;
+  mix-blend-mode: screen;
 }
 
 .grid-bg {
@@ -436,7 +437,12 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              background-color 0.3s ease,
+              box-shadow 0.3s ease;
   overflow: hidden;
 }
 
@@ -455,8 +461,96 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
   position: relative;
+}
+
+/* ==========================================================================
+   SPOTLIGHT FOCUS EFFECT (Difumina y desvanece todo lo demás)
+   ========================================================================== */
+body.spotlight-active .service-card:not(.is-focused),
+body.spotlight-active .tile:not(.is-focused),
+body.spotlight-active .project-giant-item:not(.is-focused) {
+  opacity: 0.16 !important;
+  filter: blur(3px) grayscale(50%) !important;
+  transform: scale(0.985);
+  pointer-events: auto;
+}
+
+.service-card.is-focused,
+.tile.is-focused {
+  opacity: 1 !important;
+  filter: none !important;
+  z-index: 10;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(245, 158, 11, 0.22);
+}
+
+.project-giant-item.is-focused {
+  opacity: 1 !important;
+  filter: none !important;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* ==========================================================================
+   GLITCH & Z-INDEX DEPTH EFFECT (Texto pasa atrás de partículas)
+   ========================================================================== */
+.glitch-depth-mode {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.glitch-depth-mode .service-desc,
+.glitch-depth-mode .service-list,
+.glitch-depth-mode .project-desc {
+  transition: transform 0.4s ease, opacity 0.4s ease, text-shadow 0.4s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.glitch-depth-mode.is-focused .service-desc,
+.glitch-depth-mode.is-focused .service-list,
+.glitch-depth-mode.is-focused .project-desc {
+  transform: translateZ(-35px) scale(0.96);
+  opacity: 0.7;
+  text-shadow: -2.5px 0 rgba(56, 189, 248, 0.75), 2.5px 0 rgba(245, 158, 11, 0.75);
+  animation: glitchJitter 2.5s infinite ease-in-out alternate;
+}
+
+/* Rejilla de scanlines translúcida para sensación de profundidad */
+.glitch-depth-mode::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+  transition: opacity 0.35s ease;
+}
+
+.glitch-depth-mode.is-focused::before {
+  opacity: 0.65;
+}
+
+@keyframes glitchJitter {
+  0%   { transform: translateZ(-35px) translateX(0px); }
+  25%  { transform: translateZ(-35px) translateX(-2px); }
+  50%  { transform: translateZ(-35px) translateX(2px); }
+  75%  { transform: translateZ(-35px) translateX(-1px); }
+  100% { transform: translateZ(-35px) translateX(0px); }
 }
 
 .service-card:hover {
@@ -591,7 +685,11 @@ nav {
   grid-template-columns: 2fr 1fr;
   gap: 30px;
   align-items: center;
-  transition: all 0.3s ease;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.3s ease,
+              padding 0.3s ease;
   position: relative;
 }
 
