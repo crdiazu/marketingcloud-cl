@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    MARKETINGCLOUD CHILE · DESIGN SYSTEM (Layers of Time + Impeccable)
    Direction: The Cosmic Show Board & High-Contrast Chroma
    ========================================================================== */
@@ -1122,4 +1122,574 @@ footer {
   .scroll-rail {
     display: none;
   }
+}
+
+
+/* ==========================================================================
+   CIUDAD CÓSMICA PARALLAX TRASERA (Activision H.E.R.O. Style Monoliths)
+   Letras colosales en la base como edificios espaciales por detrás
+   ========================================================================== */
+.bg-kinetic-stream {
+  position: fixed;
+  bottom: 0;
+  top: auto;
+  left: 0;
+  width: 100vw;
+  transform: translateY(20px);
+  pointer-events: none;
+  z-index: 1; /* Detrás de .wrap (z-index: 2) */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.65s;
+  overflow: hidden;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.bg-kinetic-stream.is-active {
+  opacity: 0.45; /* Claramente visible en la base como ciudad espacial detrás de tarjetas */
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.bg-kinetic-rail {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 75px;
+  will-change: transform;
+  padding-bottom: 0;
+}
+
+.bg-kinetic-phrase {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 32px;
+  font-family: var(--font-display);
+  font-size: clamp(6.2rem, 16vw, 14.5rem); /* Rascacielos monolíticos colosales */
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  line-height: 0.85;
+  filter: drop-shadow(0 0 35px rgba(245, 158, 11, 0.15)) drop-shadow(0 0 60px rgba(56, 189, 248, 0.15));
+}
+
+.bg-k-solid {
+  color: #FFFFFF;
+  text-shadow: 0 0 45px rgba(255, 255, 255, 0.4);
+  position: relative;
+}
+
+/* Baliza luminosa en la cima del edificio VENTAJA */
+.bg-k-solid::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 25%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #EF4444;
+  box-shadow: 0 0 10px #EF4444, 0 0 20px #EF4444;
+  animation: beaconPulse 1.6s infinite ease-in-out;
+}
+
+.bg-k-outline {
+  color: transparent;
+  -webkit-text-stroke: 2.8px rgba(255, 255, 255, 0.9);
+  position: relative;
+}
+
+/* Antena espacial en la cima de COMPETITIVA */
+.bg-k-outline::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 30%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #38BDF8;
+  box-shadow: 0 0 12px #38BDF8, 0 0 24px #38BDF8;
+  animation: beaconPulse 1.2s infinite ease-in-out alternate;
+}
+
+@keyframes beaconPulse {
+  0% { opacity: 0.25; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.35); }
+}
+
+.bg-k-grad {
+  background: linear-gradient(90deg, #F59E0B 0%, #38BDF8 35%, #A78BFA 70%, #F59E0B 100%);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: chromaticShift 6s linear infinite;
+  text-shadow: 0 0 35px rgba(56, 189, 248, 0.3);
+}
+
+/* ==========================================================================
+   PHYSICS QUANTUM HUD (Activado con [Shift])
+   ========================================================================== */
+.physics-shift-badge {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 3px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.2s ease;
+}
+
+.physics-shift-badge:hover,
+.physics-shift-badge:focus-visible {
+  background: rgba(245, 158, 11, 0.14);
+  border-color: var(--accent);
+  outline: none;
+}
+
+.shift-key-tag {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--accent);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  letter-spacing: 0.05em;
+}
+
+/* Modal Overlay HUD */
+.physics-hud-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 8, 10, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 10005;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.physics-hud-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.physics-hud-panel {
+  background: #0E1017;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-md);
+  padding: 26px 30px;
+  max-width: 560px;
+  width: 100%;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(245, 158, 11, 0.12);
+  transform: scale(0.95) translateY(12px);
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.physics-hud-overlay.is-open .physics-hud-panel {
+  transform: scale(1) translateY(0);
+}
+
+.physics-hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+}
+
+.physics-hud-title {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.physics-hud-close {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.physics-hud-close:hover {
+  color: #FFFFFF;
+  border-color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.physics-hud-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.physics-hud-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-body);
+  text-align: left;
+  width: 100%;
+}
+
+.physics-hud-option:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateX(4px);
+}
+
+.physics-hud-option.active {
+  background: var(--accent-subtle);
+  border-color: var(--accent);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.15);
+}
+
+.physics-hud-option.active .hud-opt-name {
+  color: #FFFFFF;
+}
+
+.hud-opt-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hud-opt-icon {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.hud-opt-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hud-opt-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.hud-opt-desc {
+  font-size: 0.74rem;
+  color: var(--text-dim);
+}
+
+.hud-opt-num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 2px 7px;
+  border-radius: 3px;
+  color: var(--text-muted);
+}
+
+.physics-hud-footer {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.physics-hud-footer strong {
+  color: var(--accent);
+}
+
+/* Toast flotante de confirmación */
+.physics-hud-toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: rgba(14, 16, 23, 0.94);
+  border: 1px solid var(--accent);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 24px rgba(245, 158, 11, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10006;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.physics-hud-toast.is-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* La ciudad de letras y los astronautas se renderizan 100% unificados en la Segunda Capa (Canvas) */
+.bg-kinetic-stream { display: none !important; }
+
+
+/* ==========================================================================
+   PRIMERA CAPA: CONTENIDO 100% NÍTIDO, SIN DIFUMINADO Y DE ALTO CONTRASTE
+   ========================================================================== */
+.service-card,
+.tile,
+.brutalist-grid-meta > div:last-child {
+  background: #0D0F15 !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.card-ambient-bg {
+  opacity: 0.14 !important;
+  filter: blur(25px) brightness(0.20) !important;
+}
+
+.service-title {
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.service-desc {
+  color: #D1D5DB !important;
+  font-size: 0.96rem !important;
+  line-height: 1.65 !important;
+}
+
+.service-list li {
+  color: #E2E8F0 !important;
+  font-size: 0.88rem !important;
+}
+
+
+/* ==========================================================================
+   SELECTORES DE PLANETAS POR TECLA (E, T, M, A, P, C)
+   ========================================================================== */
+.gravity-selector-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gravity-label {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-right: 2px;
+  letter-spacing: 0.06em;
+  font-family: var(--font-mono);
+}
+
+.gravity-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.70rem;
+  padding: 2px 7px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.gravity-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.gravity-btn[data-mode="espacio"].active {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #FFFFFF;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
+}
+
+.gravity-btn[data-mode="tierra"].active {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: #10B981;
+  color: #34D399;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+.gravity-btn[data-mode="marte"].active {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: #EF4444;
+  color: #F87171;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+.gravity-btn[data-mode="agua"].active {
+  background: rgba(56, 189, 248, 0.18);
+  border-color: #38BDF8;
+  color: #7DD3FC;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+}
+
+.gravity-btn[data-mode="plasma"].active {
+  background: rgba(74, 222, 128, 0.18);
+  border-color: #4ADE80;
+  color: #86EFAC;
+  font-weight: 700;
+  box-shadow: 0 0 12px rgba(74, 222, 128, 0.35);
+}
+
+.gravity-btn[data-mode="cuantico"].active {
+  background: rgba(192, 132, 252, 0.22);
+  border-color: #C084FC;
+  color: #E9D5FF;
+  font-weight: 700;
+  box-shadow: 0 0 12px rgba(192, 132, 252, 0.4);
+}
+
+.k-tag {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0 4px;
+  border-radius: 2px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   TRANSFORMACIÃ“N TOTAL DE COLOR POR PLANETA
+   ========================================================================== */
+body {
+  transition: background 0.8s ease, color 0.4s ease;
+  background: radial-gradient(ellipse at 50% 25%, #050508 0%, #030305 60%, #000000 100%) !important;
+}
+
+/* 1. ESPACIO = NEGRO (Zero-G) */
+body.mode-espacio {
+  background: radial-gradient(ellipse at 50% 25%, #08080C 0%, #040406 60%, #000000 100%) !important;
+}
+
+/* 2. TIERRA = VERDE (1.0g) */
+body.mode-tierra {
+  background: radial-gradient(ellipse at 50% 25%, #032115 0%, #01120B 60%, #000704 100%) !important;
+}
+body.mode-tierra .service-card,
+body.mode-tierra .tile {
+  border-color: rgba(16, 185, 129, 0.28) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(16, 185, 129, 0.08) !important;
+}
+body.mode-tierra .cursor-dot {
+  background-color: #10B981 !important;
+  box-shadow: 0 0 12px #10B981, 0 0 24px rgba(16, 185, 129, 0.6) !important;
+}
+
+/* 3. MARTE = ROJO (0.38g Gravedad Menor) */
+body.mode-marte {
+  background: radial-gradient(ellipse at 50% 25%, #250705 0%, #130302 60%, #060101 100%) !important;
+}
+body.mode-marte .service-card,
+body.mode-marte .tile {
+  border-color: rgba(239, 68, 68, 0.28) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(239, 68, 68, 0.08) !important;
+}
+body.mode-marte .cursor-dot {
+  background-color: #EF4444 !important;
+  box-shadow: 0 0 12px #EF4444, 0 0 24px rgba(239, 68, 68, 0.6) !important;
+}
+
+/* 4. AGUA = AZUL (Oleaje y Viscosidad) */
+body.mode-agua {
+  background: radial-gradient(ellipse at 50% 25%, #031E35 0%, #011120 60%, #00060F 100%) !important;
+}
+body.mode-agua .service-card,
+body.mode-agua .tile {
+  border-color: rgba(56, 189, 248, 0.28) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.08) !important;
+}
+body.mode-agua .cursor-dot {
+  background-color: #38BDF8 !important;
+  box-shadow: 0 0 12px #38BDF8, 0 0 24px rgba(56, 189, 248, 0.6) !important;
+}
+
+/* 5. PLASMA = VERDE NEÃ“N (AmortiguaciÃ³n MagnÃ©tica) */
+body.mode-plasma {
+  background: radial-gradient(ellipse at 50% 25%, #032A0F 0%, #011808 60%, #000A03 100%) !important;
+}
+body.mode-plasma .service-card,
+body.mode-plasma .tile {
+  border-color: rgba(74, 222, 128, 0.35) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(74, 222, 128, 0.12) !important;
+}
+body.mode-plasma .cursor-dot {
+  background-color: #4ADE80 !important;
+  box-shadow: 0 0 14px #4ADE80, 0 0 28px rgba(74, 222, 128, 0.7) !important;
+}
+
+/* 6. CUÃNTICO = PÃšRPURA IRIDISCENTE (FÃ­sica Entretenida Oscilante) */
+body.mode-cuantico {
+  background: radial-gradient(ellipse at 50% 25%, #220638 0%, #120320 60%, #05010C 100%) !important;
+}
+body.mode-cuantico .service-card,
+body.mode-cuantico .tile {
+  border-color: rgba(192, 132, 252, 0.35) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(192, 132, 252, 0.14) !important;
+}
+body.mode-cuantico .cursor-dot {
+  background-color: #C084FC !important;
+  box-shadow: 0 0 14px #C084FC, 0 0 28px rgba(192, 132, 252, 0.7) !important;
 }
