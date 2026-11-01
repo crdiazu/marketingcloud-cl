@@ -392,6 +392,20 @@ nav {
 }
 
 /* ==========================================================================
+   ANIMATIONS & KEYFRAMES (Layers of Time Studio)
+   ========================================================================== */
+@keyframes chromaticShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulseNeon {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.8)); }
+}
+
+/* ==========================================================================
    CHROMATIC GRADIENT HEADLINES (Layers of Time Giant Typography)
    ========================================================================== */
 .chroma-title {
@@ -400,9 +414,11 @@ nav {
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: -0.04em;
-  background: linear-gradient(135deg, #FFFFFF 0%, #F59E0B 45%, #38BDF8 80%, #A78BFA 100%);
+  background: linear-gradient(90deg, #FFFFFF 0%, #F59E0B 25%, #38BDF8 55%, #A78BFA 80%, #FFFFFF 100%);
+  background-size: 250% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: chromaticShift 7s linear infinite;
   display: inline-block;
   margin-bottom: 24px;
 }
@@ -418,9 +434,11 @@ nav {
 }
 
 .hero-statement .gradient-text {
-  background: linear-gradient(120deg, #F59E0B 0%, #38BDF8 60%, #A78BFA 100%);
+  background: linear-gradient(90deg, #F59E0B 0%, #38BDF8 35%, #A78BFA 70%, #F59E0B 100%);
+  background-size: 250% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: chromaticShift 6s linear infinite;
 }
 
 /* ==========================================================================
@@ -629,19 +647,26 @@ nav {
 
 .project-giant-name {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 4.5vw, 4.2rem);
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
   font-weight: 800;
   line-height: 1.02;
   letter-spacing: -0.035em;
-  color: #FFFFFF;
-  transition: all 0.3s ease;
+  background: linear-gradient(90deg, #FFFFFF 0%, #E2E8F0 40%, #94A3B8 70%, #FFFFFF 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
 }
 
 .project-giant-item:hover .project-giant-name {
-  background: linear-gradient(90deg, #FFFFFF 0%, #F59E0B 40%, #38BDF8 80%, #A78BFA 100%);
+  background: linear-gradient(90deg, #FFFFFF 0%, #F59E0B 25%, #38BDF8 55%, #A78BFA 80%, #F59E0B 100%);
+  background-size: 250% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  transform: translateX(8px);
+  animation: chromaticShift 3.5s linear infinite;
+  transform: translateX(12px) scale(1.02);
+  filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.35));
 }
 
 .project-desc {
@@ -1146,134 +1171,205 @@ footer {
   </footer>
 
   <!-- SCRIPT: RELOJ EN VIVO + ESTELA DE NUBE CÓSMICA + CURSOR ESPACIAL DE ALTO CONTRASTE -->
+  <script src="js/engine.js"></script>
   <script>
-    (function() {
-      // 1. Reloj de Estudio / Timecode oficial de Santiago de Chile (UTC-3)
-      function updateSantiagoTime() {
-        const timeEl = document.getElementById('live-timecode');
-        if (!timeEl) return;
-        const now = new Date();
-        const santiagoTime = new Intl.DateTimeFormat('es-CL', {
-          timeZone: 'America/Santiago',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: false
-        }).format(now);
-        timeEl.textContent = santiagoTime;
+// MarketingCloud Studio - Interactive Engine
+(function() {
+  'use strict';
+
+  // 1. Timecode de Santiago de Chile (UTC-3)
+  function updateSantiagoTime() {
+    var timeEl = document.getElementById('live-timecode');
+    if (!timeEl) return;
+    var now = new Date();
+    var santiagoTime = new Intl.DateTimeFormat('es-CL', {
+      timeZone: 'America/Santiago',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    }).format(now);
+    timeEl.textContent = santiagoTime;
+  }
+  setInterval(updateSantiagoTime, 1000);
+  updateSantiagoTime();
+
+  // 2. Cursor Reticular Espacial + Canvas de Nebulosa Cósmica
+  var dot = document.getElementById('cursor-dot');
+  var ring = document.getElementById('cursor-ring');
+  var canvas = document.getElementById('nebula-canvas');
+  if (!canvas) return;
+
+  var ctx = canvas.getContext('2d');
+  var width = (canvas.width = window.innerWidth);
+  var height = (canvas.height = window.innerHeight);
+
+  window.addEventListener('resize', function() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  var mouseX = width / 2;
+  var mouseY = height / 2;
+  var targetMouseX = mouseX;
+  var targetMouseY = mouseY;
+  var ringX = mouseX;
+  var ringY = mouseY;
+  var isVisible = false;
+
+  // Partículas de estela de ratón y estrellas de fondo
+  var particles = [];
+  var ambientStars = [];
+
+  // Crear 45 estrellas de fondo sutiles que flotan lentamente
+  for (var s = 0; s < 45; s++) {
+    ambientStars.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: Math.random() * 1.5 + 0.5,
+      alpha: Math.random() * 0.4 + 0.1,
+      speedY: (Math.random() - 0.5) * 0.15,
+      speedX: (Math.random() - 0.5) * 0.15
+    });
+  }
+
+  // Paleta cósmica: Ámbar estelar, Cyan hiperespacial, Púrpura nebulosa
+  var nebulaPalettes = [
+    { r: 245, g: 158, b: 11 },   // Ámbar
+    { r: 56,  g: 189, b: 248 },  // Cyan
+    { r: 167, g: 139, b: 250 },  // Púrpura
+    { r: 16,  g: 185, b: 129 }   // Esmeralda
+  ];
+
+  window.addEventListener('mousemove', function(e) {
+    targetMouseX = e.clientX;
+    targetMouseY = e.clientY;
+
+    if (!isVisible) {
+      isVisible = true;
+      if (dot) dot.style.opacity = '1';
+      if (ring) ring.style.opacity = '1';
+    }
+
+    if (dot) {
+      dot.style.transform = 'translate(' + targetMouseX + 'px, ' + targetMouseY + 'px) translate(-50%, -50%)';
+    }
+
+    // Generar bocanadas de nube cósmica
+    for (var i = 0; i < 3; i++) {
+      var col = nebulaPalettes[Math.floor(Math.random() * nebulaPalettes.length)];
+      particles.push({
+        x: targetMouseX + (Math.random() - 0.5) * 12,
+        y: targetMouseY + (Math.random() - 0.5) * 12,
+        radius: Math.random() * 26 + 18,
+        r: col.r,
+        g: col.g,
+        b: col.b,
+        alpha: 0.45,
+        decay: Math.random() * 0.015 + 0.018,
+        grow: Math.random() * 0.6 + 0.4,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8
+      });
+    }
+  });
+
+  document.addEventListener('mouseleave', function() {
+    isVisible = false;
+    if (dot) dot.style.opacity = '0';
+    if (ring) ring.style.opacity = '0';
+  });
+
+  // Animación interactiva en Loop
+  function render() {
+    mouseX += (targetMouseX - mouseX) * 0.35;
+    mouseY += (targetMouseY - mouseY) * 0.35;
+    ringX += (targetMouseX - ringX) * 0.18;
+    ringY += (targetMouseY - ringY) * 0.18;
+
+    if (ring && isVisible) {
+      ring.style.transform = 'translate(' + ringX + 'px, ' + ringY + 'px) translate(-50%, -50%)';
+    }
+
+    // Limpiar canvas
+    ctx.clearRect(0, 0, width, height);
+
+    // 1. Dibujar polvo estelar ambiental suave
+    for (var a = 0; a < ambientStars.length; a++) {
+      var st = ambientStars[a];
+      st.x += st.speedX;
+      st.y += st.speedY;
+      if (st.x < 0) st.x = width;
+      if (st.x > width) st.x = 0;
+      if (st.y < 0) st.y = height;
+      if (st.y > height) st.y = 0;
+
+      ctx.beginPath();
+      ctx.arc(st.x, st.y, st.radius, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, ' + st.alpha + ')';
+      ctx.fill();
+    }
+
+    // 2. Dibujar estela de nube de ratón con mezcla aditiva
+    ctx.globalCompositeOperation = 'lighter';
+
+    for (var j = particles.length - 1; j >= 0; j--) {
+      var p = particles[j];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.radius += p.grow;
+      p.alpha -= p.decay;
+
+      if (p.alpha <= 0.01) {
+        particles.splice(j, 1);
+        continue;
       }
-      setInterval(updateSantiagoTime, 1000);
-      updateSantiagoTime();
 
-      // Solo activamos efectos visuales avanzados si hay un puntero fino (mouse)
-      if (!window.matchMedia('(pointer: fine)').matches) return;
+      var grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
+      grad.addColorStop(0, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + (p.alpha * 0.8) + ')');
+      grad.addColorStop(0.5, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + (p.alpha * 0.3) + ')');
+      grad.addColorStop(1, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ', 0)');
 
-      // 2. Cursor Reticular Espacial de Alto Contraste (CERO DESENFOQUE)
-      const dot = document.getElementById('cursor-dot');
-      const ring = document.getElementById('cursor-ring');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
 
-      let mouseX = window.innerWidth / 2;
-      let mouseY = window.innerHeight / 2;
-      let ringX = mouseX;
-      let ringY = mouseY;
-      let isVisible = false;
+    ctx.globalCompositeOperation = 'source-over';
 
-      // 3. Canvas de Estela Cósmica / Nube Espacial que se desvanece suavemente
-      const canvas = document.getElementById('nebula-canvas');
-      const ctx = canvas.getContext('2d');
-      let width = (canvas.width = window.innerWidth);
-      let height = (canvas.height = window.innerHeight);
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
 
-      window.addEventListener('resize', function() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-      });
+  // 3. Efectos de Alto Contraste en Hover (CERO desenfoque en textos)
+  var hoverElements = document.querySelectorAll('a, button, .service-card, .tile, .project-giant-item, h1, h2, h3, .chip');
+  hoverElements.forEach(function(el) {
+    el.addEventListener('mouseenter', function() {
+      if (ring) ring.classList.add('active');
+      if (dot) dot.classList.add('active');
+    });
+    el.addEventListener('mouseleave', function() {
+      if (ring) ring.classList.remove('active');
+      if (dot) dot.classList.remove('active');
+    });
+  });
 
-      let particles = [];
-      const colors = [
-        'rgba(245, 158, 11, ',  // Ámbar estelar
-        'rgba(56, 189, 248, ',  // Cyan cósmico
-        'rgba(167, 139, 250, '  // Púrpura nebulosa
-      ];
+  // 4. Efecto de Inclinación 3D en Tarjetas de Servicios y Proyectos
+  var tiltCards = document.querySelectorAll('.service-card, .tile');
+  tiltCards.forEach(function(card) {
+    card.addEventListener('mousemove', function(e) {
+      var rect = card.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = 'perspective(900px) rotateX(' + (-y * 6) + 'deg) rotateY(' + (x * 6) + 'deg) translateY(-4px)';
+    });
+    card.addEventListener('mouseleave', function() {
+      card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)';
+    });
+  });
 
-      window.addEventListener('mousemove', function(e) {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-
-        if (!isVisible) {
-          isVisible = true;
-          if (dot) dot.style.opacity = '1';
-          if (ring) ring.style.opacity = '1';
-        }
-
-        // Posicionar punto al instante
-        if (dot) {
-          dot.style.transform = `translate(${{mouseX}}px, ${{mouseY}}px) translate(-50%, -50%)`;
-        }
-
-        // Generar 2 bocanadas de nube espacial por movimiento
-        for (let i = 0; i < 2; i++) {
-          particles.push({{
-            x: mouseX + (Math.random() - 0.5) * 8,
-            y: mouseY + (Math.random() - 0.5) * 8,
-            radius: Math.random() * 24 + 18,
-            color: colors[Math.floor(Math.random() * colors.length)],
-            alpha: 0.38,
-            vx: (Math.random() - 0.5) * 0.6,
-            vy: (Math.random() - 0.5) * 0.6
-          }});
-        }
-      });
-
-      // Loop de renderizado para el aro seguidor y las partículas de la nube
-      function loop() {
-        // Aro con física de inercia
-        ringX += (mouseX - ringX) * 0.18;
-        ringY += (mouseY - ringY) * 0.18;
-
-        if (ring) {
-          ring.style.transform = `translate(${{ringX}}px, ${{ringY}}px) translate(-50%, -50%)`;
-        }
-
-        // Renderizado de la nube cósmica
-        ctx.clearRect(0, 0, width, height);
-
-        for (let i = 0; i < particles.length; i++) {
-          const p = particles[i];
-          const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
-          grad.addColorStop(0, p.color + (p.alpha * 0.75) + ')');
-          grad.addColorStop(0.45, p.color + (p.alpha * 0.25) + ')');
-          grad.addColorStop(1, p.color + '0)');
-
-          ctx.fillStyle = grad;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fill();
-
-          p.x += p.vx;
-          p.y += p.vy;
-          p.radius += 0.35;
-          p.alpha *= 0.945; // Desvanecimiento suave
-        }
-
-        // Limpiar partículas ya desvanecidas
-        particles = particles.filter(p => p.alpha > 0.01);
-
-        requestAnimationFrame(loop);
-      }
-      requestAnimationFrame(loop);
-
-      // Efecto de alto contraste en hover sobre textos, tarjetas y enlaces (CERO BLUR)
-      const hoverTargets = document.querySelectorAll('a, button, .tile, .service-card, .project-giant-item, h1, h2, h3, .chip, [role="button"]');
-      hoverTargets.forEach(function(el) {
-        el.addEventListener('mouseenter', function() {
-          if (ring) ring.classList.add('active');
-        });
-        el.addEventListener('mouseleave', function() {
-          if (ring) ring.classList.remove('active');
-        });
-      });
-    })();
+})();
   </script>
 </body>
 </html>
