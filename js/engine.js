@@ -165,10 +165,8 @@
 
   var currentPlanetIndex = 0;
   var currentPlanet = PLANETS[0];
-  var isGravitySurge = false; // Activado con [Ctrl], [Espacio] o botón táctil
 
   var hudToast = document.getElementById('physics-hud-toast');
-  var ctrlTip = document.getElementById('ctrl-tip');
   var toastTimer = null;
 
   function showHudToast(text) {
@@ -226,26 +224,7 @@
     else if (k === 'p') setPlanet('plasma');
     else if (k === 'c' || k === 's') setPlanet('cuantico');
 
-    if (e.key === 'Control' || e.ctrlKey || e.code === 'Space') {
-      if (e.code === 'Space') {
-        e.preventDefault();
-      }
-      isGravitySurge = true;
-      if (ctrlTip) {
-        ctrlTip.style.background = 'rgba(245, 158, 11, 0.25)';
-        ctrlTip.style.borderColor = 'var(--accent)';
-      }
-    }
-  });
 
-  window.addEventListener('keyup', function(e) {
-    if (e.key === 'Control' || !e.ctrlKey || e.code === 'Space') {
-      isGravitySurge = false;
-      if (ctrlTip) {
-        ctrlTip.style.background = '';
-        ctrlTip.style.borderColor = 'rgba(245,158,11,0.25)';
-      }
-    }
   });
 
   // Botones de planetas en barra de estudio
@@ -876,10 +855,7 @@
         op.vy += Math.cos(timeTick * 1.6 + op.waveOffset) * 0.04;
       }
 
-      // Si el usuario activa sobrecarga con [Ctrl]/[Espacio], caen por gravedad pesada
-      if (isGravitySurge) {
-        op.vy += 0.48;
-      }
+
 
       // B. ATRACCIÓN MAGNÉTICA CON MOUSE O TOQUE
       if (isVisible) {
