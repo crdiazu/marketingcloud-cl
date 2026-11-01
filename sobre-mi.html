@@ -87,7 +87,7 @@
     </ul>
   </aside>
 
-  <!-- BARRA DE ESTUDIO CON RELOJ, DÓLAR, UF Y SELECTOR DE PLANETAS -->
+    <!-- BARRA DE ESTUDIO CON RELOJ, DÓLAR, UF Y SELECTOR DE ENTORNOS PLANETARIOS -->
   <aside class="studio-bar" aria-label="Información de mercado y controles de física">
     <div class="studio-bar-inner">
       <div class="studio-bar-left">
@@ -107,30 +107,36 @@
       </div>
 
       <div class="studio-bar-right">
-        <!-- BOTONES DIRECTOS DE PLANETAS CON ATAJO POR TECLA -->
+        <!-- SELECTOR DE ENTORNOS PLANETARIOS CON ESFERAS 3D -->
         <div class="gravity-selector-bar">
           <span class="gravity-label">Planetas:</span>
-          <button class="gravity-btn active" data-mode="espacio" title="Atajo: Tecla [E]">
-            <span class="k-tag">E</span> Espacio
+          <button class="gravity-btn active" data-mode="espacio" title="Espacio: Zero-G cósmico [Tecla E]">
+            <span class="planet-sphere sphere-espacio"></span>
+            <span>Espacio</span>
           </button>
-          <button class="gravity-btn" data-mode="tierra" title="Atajo: Tecla [T]">
-            <span class="k-tag">T</span> Tierra
+          <button class="gravity-btn" data-mode="tierra" title="Tierra: 1.0g y atmósfera verde [Tecla T]">
+            <span class="planet-sphere sphere-tierra"></span>
+            <span>Tierra</span>
           </button>
-          <button class="gravity-btn" data-mode="marte" title="Atajo: Tecla [M]">
-            <span class="k-tag">M</span> Marte
+          <button class="gravity-btn" data-mode="marte" title="Marte: Viento rojo y 0.38g [Tecla M]">
+            <span class="planet-sphere sphere-marte"></span>
+            <span>Marte</span>
           </button>
-          <button class="gravity-btn" data-mode="agua" title="Atajo: Tecla [A]">
-            <span class="k-tag">A</span> Agua
+          <button class="gravity-btn" data-mode="agua" title="Agua: Oleaje abisal y plantas marinas [Tecla A]">
+            <span class="planet-sphere sphere-agua"></span>
+            <span>Agua</span>
           </button>
-          <button class="gravity-btn" data-mode="plasma" title="Atajo: Tecla [P]">
-            <span class="k-tag">P</span> Plasma
+          <button class="gravity-btn" data-mode="plasma" title="Plasma: Arcos eléctricos y verde neón [Tecla P]">
+            <span class="planet-sphere sphere-plasma"></span>
+            <span>Plasma</span>
           </button>
-          <button class="gravity-btn" data-mode="cuantico" title="Atajo: Tecla [C]">
-            <span class="k-tag">C</span> Cu&aacute;ntico &#10022;
+          <button class="gravity-btn" data-mode="cuantico" title="Cuántico: Púrpura iridiscente oscilante [Tecla C]">
+            <span class="planet-sphere sphere-cuantico"></span>
+            <span>Cuántico</span>
           </button>
         </div>
 
-        <span class="finance-badge" id="ctrl-tip" style="color: var(--accent); border-color: rgba(245,158,11,0.25);" title="Mant&eacute;n pulsado Control o Barra Espaciadora para activar gravedad">
+        <span class="finance-badge" id="ctrl-tip" style="color: var(--accent); border-color: rgba(245,158,11,0.25);" title="Mantén pulsado Control o Barra Espaciadora para activar gravedad">
           Mant&eacute;n [Ctrl] / [Espacio]: Gravedad Activa
         </span>
       </div>

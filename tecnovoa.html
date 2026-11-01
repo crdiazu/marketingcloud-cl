@@ -50,7 +50,69 @@
 </head>
 <body>
 
+  <!-- CANVAS ESPACIAL DE FONDO -->
+  <canvas id="nebula-canvas"></canvas>
+  <div class="grid-bg" aria-hidden="true"></div>
+
+
+
   <!-- CABECERA SUPERIOR MÓVIL (LIVIANA, COMPACTA, CERO COLISIÓN) -->
+    <!-- BARRA DE ESTUDIO CON RELOJ, DÓLAR, UF Y SELECTOR DE ENTORNOS PLANETARIOS -->
+  <aside class="studio-bar" aria-label="Información de mercado y controles de física">
+    <div class="studio-bar-inner">
+      <div class="studio-bar-left">
+        <span style="display: inline-flex; align-items: center; gap: 6px; color: #FFFFFF; font-weight: 600;">
+          <span style="width: 6px; height: 6px; border-radius: 50%; background: #10B981; box-shadow: 0 0 8px #10B981;"></span>
+          SCL [UTC-3]
+        </span>
+        <span class="timecode-live" id="live-timecode">00:00:00</span>
+        
+        <!-- INDICADORES ECONÓMICOS CHILE EN VIVO -->
+        <span class="finance-badge" title="Valor oficial Dólar Observado en Chile">
+          USD: <strong id="val-dolar">$972,60</strong>
+        </span>
+        <span class="finance-badge" title="Valor oficial Unidad de Fomento">
+          UF: <strong id="val-uf">$41.252,94</strong>
+        </span>
+      </div>
+
+      <div class="studio-bar-right">
+        <!-- SELECTOR DE ENTORNOS PLANETARIOS CON ESFERAS 3D -->
+        <div class="gravity-selector-bar">
+          <span class="gravity-label">Planetas:</span>
+          <button class="gravity-btn active" data-mode="espacio" title="Espacio: Zero-G cósmico [Tecla E]">
+            <span class="planet-sphere sphere-espacio"></span>
+            <span>Espacio</span>
+          </button>
+          <button class="gravity-btn" data-mode="tierra" title="Tierra: 1.0g y atmósfera verde [Tecla T]">
+            <span class="planet-sphere sphere-tierra"></span>
+            <span>Tierra</span>
+          </button>
+          <button class="gravity-btn" data-mode="marte" title="Marte: Viento rojo y 0.38g [Tecla M]">
+            <span class="planet-sphere sphere-marte"></span>
+            <span>Marte</span>
+          </button>
+          <button class="gravity-btn" data-mode="agua" title="Agua: Oleaje abisal y plantas marinas [Tecla A]">
+            <span class="planet-sphere sphere-agua"></span>
+            <span>Agua</span>
+          </button>
+          <button class="gravity-btn" data-mode="plasma" title="Plasma: Arcos eléctricos y verde neón [Tecla P]">
+            <span class="planet-sphere sphere-plasma"></span>
+            <span>Plasma</span>
+          </button>
+          <button class="gravity-btn" data-mode="cuantico" title="Cuántico: Púrpura iridiscente oscilante [Tecla C]">
+            <span class="planet-sphere sphere-cuantico"></span>
+            <span>Cuántico</span>
+          </button>
+        </div>
+
+        <span class="finance-badge" id="ctrl-tip" style="color: var(--accent); border-color: rgba(245,158,11,0.25);" title="Mantén pulsado Control o Barra Espaciadora para activar gravedad">
+          Mant&eacute;n [Ctrl] / [Espacio]: Gravedad Activa
+        </span>
+      </div>
+    </div>
+  </aside>
+
   <header class="mobile-top-bar" aria-label="Identidad móvil y selector de entorno">
     <a href="index.html" class="mobile-logo">Marketing<span>Cloud</span></a>
     <div class="mobile-top-actions">
@@ -249,6 +311,8 @@
       <strong>¿Hablamos por WhatsApp?</strong>
     </span>
   </a>
+  <!-- TOAST FLOTANTE DE CONFIRMACIÓN -->
+  <div class="physics-hud-toast" id="physics-hud-toast" aria-live="polite"></div>
 </body>
 </html>
 

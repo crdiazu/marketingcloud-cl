@@ -93,7 +93,7 @@
     </ul>
   </aside>
 
-  <!-- BARRA DE ESTUDIO CON RELOJ, DÓLAR, UF Y SELECTOR DE GRAVEDAD/LÍQUIDOS -->
+    <!-- BARRA DE ESTUDIO CON RELOJ, DÓLAR, UF Y SELECTOR DE ENTORNOS PLANETARIOS -->
   <aside class="studio-bar" aria-label="Información de mercado y controles de física">
     <div class="studio-bar-inner">
       <div class="studio-bar-left">
@@ -113,20 +113,37 @@
       </div>
 
       <div class="studio-bar-right">
-        <!-- SWITCH DE GRAVEDAD Y MEDIOS LÍQUIDOS -->
-        <div style="display: inline-flex; align-items: center; gap: 6px;">
-          <label for="gravity-fluid-switch" style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase;">Física:</label>
-          <select id="gravity-fluid-switch" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: #FFFFFF; font-family: var(--font-mono); font-size: 0.7rem; border-radius: 4px; padding: 2px 6px; cursor: pointer;">
-            <option value="space">🌌 Zero-G Espacial</option>
-            <option value="moon">🪐 Gravedad Lunar</option>
-            <option value="water">💧 Viscosidad Líquida</option>
-            <option value="plasma">🍯 Plasma Denso</option>
-            <option value="antigravity">⚡ Antigravedad</option>
-          </select>
+        <!-- SELECTOR DE ENTORNOS PLANETARIOS CON ESFERAS 3D -->
+        <div class="gravity-selector-bar">
+          <span class="gravity-label">Planetas:</span>
+          <button class="gravity-btn active" data-mode="espacio" title="Espacio: Zero-G cósmico [Tecla E]">
+            <span class="planet-sphere sphere-espacio"></span>
+            <span>Espacio</span>
+          </button>
+          <button class="gravity-btn" data-mode="tierra" title="Tierra: 1.0g y atmósfera verde [Tecla T]">
+            <span class="planet-sphere sphere-tierra"></span>
+            <span>Tierra</span>
+          </button>
+          <button class="gravity-btn" data-mode="marte" title="Marte: Viento rojo y 0.38g [Tecla M]">
+            <span class="planet-sphere sphere-marte"></span>
+            <span>Marte</span>
+          </button>
+          <button class="gravity-btn" data-mode="agua" title="Agua: Oleaje abisal y plantas marinas [Tecla A]">
+            <span class="planet-sphere sphere-agua"></span>
+            <span>Agua</span>
+          </button>
+          <button class="gravity-btn" data-mode="plasma" title="Plasma: Arcos eléctricos y verde neón [Tecla P]">
+            <span class="planet-sphere sphere-plasma"></span>
+            <span>Plasma</span>
+          </button>
+          <button class="gravity-btn" data-mode="cuantico" title="Cuántico: Púrpura iridiscente oscilante [Tecla C]">
+            <span class="planet-sphere sphere-cuantico"></span>
+            <span>Cuántico</span>
+          </button>
         </div>
 
-        <span class="finance-badge" id="ctrl-tip" style="color: var(--accent); border-color: rgba(245,158,11,0.25);" title="Mantén pulsado Control en tu teclado">
-          Mantén [Ctrl]: Caída Libre
+        <span class="finance-badge" id="ctrl-tip" style="color: var(--accent); border-color: rgba(245,158,11,0.25);" title="Mantén pulsado Control o Barra Espaciadora para activar gravedad">
+          Mant&eacute;n [Ctrl] / [Espacio]: Gravedad Activa
         </span>
       </div>
     </div>
@@ -226,43 +243,63 @@
       </div>
     </article>
 
-    <!-- PROYECTO 3: TECNOVOA (Cliente) -->
+    <!-- PROYECTO 3: TECNOVOA (Cliente: Consultoría TI & Venta como Servicio) -->
     <article class="project-giant-item">
       <div class="project-thumb">
         <img src="https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tecnovoa" loading="lazy">
       </div>
       <div>
-        <span class="project-number" style="color: var(--purple);">03 / BDM · KAM · REDES SOCIALES & VENTA COMO SERVICIO</span>
+        <span class="project-number" style="color: var(--cyan);">03 / CLIENTE ESTRATÉGICO · CONSULTORÍA TI & VENTA COMO SERVICIO</span>
         <h2 class="project-giant-name">TECNOVOA</h2>
         <p class="project-desc">
-          Cliente corporativo de infraestructura y tecnología donde Cristian Díaz lidera la gestión integral de redes sociales, desarrollo de página web corporativa y dirección de cuentas como BDM (Business Development Manager) & KAM mediante Venta como Servicio.
+          Cliente corporativo de tecnología donde Cristian Díaz comercializa y vende sus productos y servicios de equipamiento computacional, hardware corporativo y soporte técnico TI. Liderazgo comercial como BDM & KAM, gestión web y aceleración de ventas B2B.
         </p>
       </div>
       <div class="project-meta-box">
-        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Gestión Comercial</span>
-        <span class="project-stat-num" style="font-size: 1.6rem; color: var(--purple);">BDM + KAM</span>
-        <span style="font-size: 0.85rem; color: var(--text-muted);">Redes Sociales + Web + Ventas</span>
-        <a class="project-link-btn" style="color: var(--purple);" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20interesa%20conocer%20el%20caso%20de%20Tecnovoa" target="_blank" rel="noopener">Consultar Caso ⇢</a>
+        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Comercialización TI</span>
+        <span class="project-stat-num" style="font-size: 1.6rem; color: var(--cyan);">Hardware & TI</span>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">Venta de Equipos + Soporte</span>
+        <a class="project-link-btn" style="color: var(--cyan);" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20interesa%20conocer%20las%20soluciones%20de%20Tecnovoa" target="_blank" rel="noopener">Cotizar con Tecnovoa ⇢</a>
       </div>
     </article>
 
-    <!-- PROYECTO 4: LINCLEAN FBV -->
+    <!-- PROYECTO 4: MECANO SOLUTIONS (Cliente: Venta como Servicio) -->
     <article class="project-giant-item">
       <div class="project-thumb">
-        <img src="https://images.pexels.com/photos/6196238/pexels-photo-6196238.jpeg?auto=compress&cs=tinysrgb&w=800" alt="LinClean FBV" loading="lazy">
+        <img src="https://images.pexels.com/photos/3862632/pexels-photo-3862632.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Mecano Solutions" loading="lazy">
       </div>
       <div>
-        <span class="project-number" style="color: var(--emerald);">04 / MARKETING DIGITAL · SEO · GEO · WEB MODERNA</span>
-        <h2 class="project-giant-name">LINCLEAN FBV</h2>
+        <span class="project-number" style="color: var(--emerald);">04 / CLIENTE ESTRATÉGICO · VENTA COMO SERVICIO & INGENIERÍA B2B</span>
+        <h2 class="project-giant-name">MECANO SOLUTIONS</h2>
         <p class="project-desc">
-          Plataforma digital moderna desplegada sobre infraestructura Vercel: estrategia integral de Marketing Digital, optimización de posicionamiento orgánico SEO local, geolocalización GEO para servicios de limpieza y diseño web ultraligero de alta conversión.
+          Cliente aliado del sector técnico e industrial. Cristian Díaz comercializa y vende sus productos y servicios especializados de ingeniería y soluciones mecánicas industriales, ejecutando prospección B2B de alta intención, apertura de cuentas y cierre consultivo.
         </p>
       </div>
       <div class="project-meta-box">
-        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Infraestructura</span>
-        <span class="project-stat-num" style="font-size: 1.6rem; color: var(--emerald);">SEO + GEO</span>
-        <span style="font-size: 0.85rem; color: var(--text-muted);">Web Moderna en Vercel</span>
-        <a class="project-link-btn" style="color: var(--emerald);" href="https://public-ruby-psi-56.vercel.app/" target="_blank" rel="noopener">Ver Web en Vercel ⇢</a>
+        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Dirección de Ventas</span>
+        <span class="project-stat-num" style="font-size: 1.6rem; color: var(--emerald);">Ingeniería B2B</span>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">Venta de Soluciones Técnicas</span>
+        <a class="project-link-btn" style="color: var(--emerald);" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20interesan%20los%20servicios%20de%20Mecano%20Solutions" target="_blank" rel="noopener">Consultar Alianza ⇢</a>
+      </div>
+    </article>
+
+    <!-- PROYECTO 5: LINE CLEAN (Cliente: Venta como Servicio & Marketing Digital) -->
+    <article class="project-giant-item">
+      <div class="project-thumb">
+        <img src="https://images.pexels.com/photos/6196238/pexels-photo-6196238.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Line Clean" loading="lazy">
+      </div>
+      <div>
+        <span class="project-number" style="color: var(--accent);">05 / CLIENTE ESTRATÉGICO · VENTA COMO SERVICIO & MARKETING DIGITAL</span>
+        <h2 class="project-giant-name">LINE CLEAN (LINCLEAN)</h2>
+        <p class="project-desc">
+          Cliente corporativo especialista en higiene industrial, aseo corporativo y suministros institucionales. Cristian Díaz comercializa y vende sus productos y soluciones corporativas mediante prospección comercial activa B2B, posicionamiento SEO/GEO local y plataforma web moderna.
+        </p>
+      </div>
+      <div class="project-meta-box">
+        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Aceleración Comercial</span>
+        <span class="project-stat-num" style="font-size: 1.6rem; color: var(--accent);">Venta B2B + SEO</span>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">Suministros Corporativos</span>
+        <a class="project-link-btn" style="color: var(--accent);" href="https://public-ruby-psi-56.vercel.app/" target="_blank" rel="noopener">Ver Plataforma en Vercel ⇢</a>
       </div>
     </article>
 
@@ -338,6 +375,9 @@
       <strong>¿Hablamos por WhatsApp?</strong>
     </span>
   </a>
+
+    <!-- TOAST FLOTANTE DE CONFIRMACIÓN -->
+  <div class="physics-hud-toast" id="physics-hud-toast" aria-live="polite"></div>
 
   <script src="js/engine.js"></script>
   <script>

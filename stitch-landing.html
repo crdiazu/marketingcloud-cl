@@ -1226,7 +1226,7 @@ footer {
     </ul>
   </aside>
 
-  <!-- BARRA DE ESTUDIO CON RELOJ, DÓLAR, UF Y SELECTOR DE GRAVEDAD/LÍQUIDOS -->
+    <!-- BARRA DE ESTUDIO CON RELOJ, DÓLAR, UF Y SELECTOR DE ENTORNOS PLANETARIOS -->
   <aside class="studio-bar" aria-label="Información de mercado y controles de física">
     <div class="studio-bar-inner">
       <div class="studio-bar-left">
@@ -1246,20 +1246,37 @@ footer {
       </div>
 
       <div class="studio-bar-right">
-        <!-- SWITCH DE GRAVEDAD Y MEDIOS LÍQUIDOS -->
-        <div style="display: inline-flex; align-items: center; gap: 6px;">
-          <label for="gravity-fluid-switch" style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase;">Física:</label>
-          <select id="gravity-fluid-switch" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: #FFFFFF; font-family: var(--font-mono); font-size: 0.7rem; border-radius: 4px; padding: 2px 6px; cursor: pointer;">
-            <option value="space">🌌 Zero-G Espacial</option>
-            <option value="moon">🪐 Gravedad Lunar</option>
-            <option value="water">💧 Viscosidad Líquida</option>
-            <option value="plasma">🍯 Plasma Denso</option>
-            <option value="antigravity">⚡ Antigravedad</option>
-          </select>
+        <!-- SELECTOR DE ENTORNOS PLANETARIOS CON ESFERAS 3D -->
+        <div class="gravity-selector-bar">
+          <span class="gravity-label">Planetas:</span>
+          <button class="gravity-btn active" data-mode="espacio" title="Espacio: Zero-G cósmico [Tecla E]">
+            <span class="planet-sphere sphere-espacio"></span>
+            <span>Espacio</span>
+          </button>
+          <button class="gravity-btn" data-mode="tierra" title="Tierra: 1.0g y atmósfera verde [Tecla T]">
+            <span class="planet-sphere sphere-tierra"></span>
+            <span>Tierra</span>
+          </button>
+          <button class="gravity-btn" data-mode="marte" title="Marte: Viento rojo y 0.38g [Tecla M]">
+            <span class="planet-sphere sphere-marte"></span>
+            <span>Marte</span>
+          </button>
+          <button class="gravity-btn" data-mode="agua" title="Agua: Oleaje abisal y plantas marinas [Tecla A]">
+            <span class="planet-sphere sphere-agua"></span>
+            <span>Agua</span>
+          </button>
+          <button class="gravity-btn" data-mode="plasma" title="Plasma: Arcos eléctricos y verde neón [Tecla P]">
+            <span class="planet-sphere sphere-plasma"></span>
+            <span>Plasma</span>
+          </button>
+          <button class="gravity-btn" data-mode="cuantico" title="Cuántico: Púrpura iridiscente oscilante [Tecla C]">
+            <span class="planet-sphere sphere-cuantico"></span>
+            <span>Cuántico</span>
+          </button>
         </div>
 
-        <span class="finance-badge" id="ctrl-tip" style="color: var(--accent); border-color: rgba(245,158,11,0.25);" title="Mantén pulsado Control en tu teclado">
-          Mantén [Ctrl]: Caída Libre
+        <span class="finance-badge" id="ctrl-tip" style="color: var(--accent); border-color: rgba(245,158,11,0.25);" title="Mantén pulsado Control o Barra Espaciadora para activar gravedad">
+          Mant&eacute;n [Ctrl] / [Espacio]: Gravedad Activa
         </span>
       </div>
     </div>
@@ -1313,11 +1330,7 @@ footer {
 
     <!-- HERO BRUTALISTA CON TIPOGRAFÍA CINÉTICA PARALLAX -->
     <section class="brutalist-hero" id="inicio">
-      <div class="brutalist-eyebrow">
-        <span>ESTUDIO DIGITAL ESTRATÉGICO · SANTIAGO DE CHILE</span>
-        <span>LAT: -33.4489 / LON: -70.6693</span>
-        <span>CONSULTORÍA SENIOR DIRECTA</span>
-      </div>
+      
 
       <div class="kinetic-text-wrap">
         <div class="kinetic-line-1">DESCUBRE TU</div>
@@ -1709,6 +1722,9 @@ footer {
       <strong>¿Hablamos por WhatsApp?</strong>
     </span>
   </a>
+
+    <!-- TOAST FLOTANTE DE CONFIRMACIÓN -->
+  <div class="physics-hud-toast" id="physics-hud-toast" aria-live="polite"></div>
 
   <script src="js/engine.js"></script>
   <script>

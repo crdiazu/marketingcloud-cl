@@ -557,6 +557,202 @@
   }, { passive: true });
 
   // ==========================================================================
+
+  // ==========================================================================
+  // 5.1 EFECTOS ATMOSFÉRICOS ESPECIALIZADOS POR PLANETA
+  // (Marte con viento, Agua con plantas, Espacio con más estrellas)
+  // ==========================================================================
+  
+  // A. VIENTO Y TORMENTA DE POLVO EN MARTE
+  var martianWinds = [];
+  var WIND_COUNT = isMobile ? 18 : 36;
+  for (var wIdx = 0; wIdx < WIND_COUNT; wIdx++) {
+    martianWinds.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      len: Math.random() * 45 + 25,
+      speed: Math.random() * 4 + 3.5,
+      alpha: Math.random() * 0.35 + 0.15,
+      thick: Math.random() * 1.5 + 0.8
+    });
+  }
+
+  function renderMartianWind(ctx) {
+    if (currentPlanet.id !== 'marte') return;
+    ctx.save();
+    for (var w = 0; w < martianWinds.length; w++) {
+      var wind = martianWinds[w];
+      wind.x -= wind.speed; // Viento sopla de derecha a izquierda
+      wind.y += Math.sin(timeTick * 3 + w) * 0.4;
+      if (wind.x < -60) {
+        wind.x = width + 60;
+        wind.y = Math.random() * height;
+      }
+
+      ctx.strokeStyle = 'rgba(239, 68, 68, ' + wind.alpha + ')';
+      ctx.lineWidth = wind.thick;
+      ctx.beginPath();
+      ctx.moveTo(wind.x, wind.y);
+      ctx.lineTo(wind.x + wind.len, wind.y);
+      ctx.stroke();
+
+      // Partículas pequeñas de polvo carmesí arrastradas por la ráfaga
+      if (w % 3 === 0) {
+        ctx.fillStyle = 'rgba(248, 113, 113, ' + (wind.alpha * 1.2) + ')';
+        ctx.fillRect(wind.x - 4, wind.y - 1, 2, 2);
+      }
+    }
+    ctx.restore();
+  }
+
+  // B. PLANTAS MARINAS Y BURBUJAS EN AGUA
+  var waterPlants = [];
+  var PLANT_COUNT = isMobile ? 5 : 9;
+  for (var pIdx = 0; pIdx < PLANT_COUNT; pIdx++) {
+    waterPlants.push({
+      id: pIdx,
+      baseX: (width / (PLANT_COUNT + 1)) * (pIdx + 1) + (Math.random() - 0.5) * 40,
+      height: Math.random() * 160 + 120,
+      swaySpeed: Math.random() * 0.02 + 0.015,
+      swayAmount: Math.random() * 35 + 25,
+      widthFrond: Math.random() * 4 + 3
+    });
+  }
+
+  var waterBubbles = [];
+  var BUBBLE_COUNT = isMobile ? 12 : 24;
+  for (var bIdx = 0; bIdx < BUBBLE_COUNT; bIdx++) {
+    waterBubbles.push({
+      id: bIdx,
+      x: Math.random() * width,
+      y: height + Math.random() * 100,
+      radius: Math.random() * 3 + 1.5,
+      speed: Math.random() * 1.2 + 0.6,
+      wobbleSpeed: Math.random() * 0.04 + 0.02,
+      alpha: Math.random() * 0.4 + 0.2
+    });
+  }
+
+  function renderWaterEnvironment(ctx) {
+    if (currentPlanet.id !== 'agua') return;
+    ctx.save();
+
+    // 1. Plantas marinas / algas abisales ondulantes
+    for (var p = 0; p < waterPlants.length; p++) {
+      var pl = waterPlants[p];
+      var baseY = height;
+      var tipY = height - pl.height;
+      var tipX = pl.baseX + Math.sin(timeTick * 2.2 + pl.id) * pl.swayAmount;
+      var cp1X = pl.baseX + Math.sin(timeTick * 1.5 + pl.id) * (pl.swayAmount * 0.4);
+      var cp1Y = height - (pl.height * 0.4);
+      var cp2X = pl.baseX + Math.sin(timeTick * 2.0 + pl.id) * (pl.swayAmount * 0.8);
+      var cp2Y = height - (pl.height * 0.75);
+
+      var grad = ctx.createLinearGradient(pl.baseX, baseY, tipX, tipY);
+      grad.addColorStop(0, 'rgba(6, 78, 59, 0.45)');
+      grad.addColorStop(0.5, 'rgba(16, 185, 129, 0.35)');
+      grad.addColorStop(1, 'rgba(56, 189, 248, 0.55)');
+
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = pl.widthFrond;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(pl.baseX, baseY);
+      ctx.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, tipX, tipY);
+      ctx.stroke();
+
+      // Hoja bioluminiscente en la punta
+      ctx.fillStyle = 'rgba(56, 189, 248, 0.6)';
+      ctx.beginPath();
+      ctx.arc(tipX, tipY, 3.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // 2. Burbujas subiendo
+    for (var b = 0; b < waterBubbles.length; b++) {
+      var bub = waterBubbles[b];
+      bub.y -= bub.speed;
+      bub.x += Math.sin(timeTick * 3 + bub.id) * 0.6;
+      if (bub.y < -20) {
+        bub.y = height + 20;
+        bub.x = Math.random() * width;
+      }
+
+      ctx.strokeStyle = 'rgba(125, 211, 252, ' + bub.alpha + ')';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(bub.x, bub.y, bub.radius, 0, Math.PI * 2);
+      ctx.stroke();
+      // Pequeño reflejo
+      ctx.fillStyle = 'rgba(255, 255, 255, ' + (bub.alpha * 0.8) + ')';
+      ctx.fillRect(bub.x - bub.radius * 0.4, bub.y - bub.radius * 0.4, 1.2, 1.2);
+    }
+
+    ctx.restore();
+  }
+
+  // C. MARCAS DE LÁSER Y SOLDADURA EN LAS TARJETAS
+  // "y que los astronautas con su rayo hagan marcas en la tarjetas"
+  var laserMarks = [];
+  var MAX_LASER_MARKS = 40;
+
+  function addLaserMark(x, y) {
+    if (laserMarks.length >= MAX_LASER_MARKS) {
+      laserMarks.shift(); // Quitar la más vieja
+    }
+    laserMarks.push({
+      x: x,
+      y: y,
+      radius: Math.random() * 4 + 3.5,
+      life: 1.0,
+      decay: 0.0035, // Dura varios segundos
+      color: (currentPlanet.id === 'marte') ? '#F87171' :
+             (currentPlanet.id === 'plasma') ? '#4ADE80' :
+             (currentPlanet.id === 'agua') ? '#38BDF8' :
+             (currentPlanet.id === 'cuantico') ? '#C084FC' : '#FFEA00'
+    });
+  }
+
+  function renderLaserMarks(ctx) {
+    for (var mIdx = laserMarks.length - 1; mIdx >= 0; mIdx--) {
+      var mark = laserMarks[mIdx];
+      mark.life -= mark.decay;
+      if (mark.life <= 0) {
+        laserMarks.splice(mIdx, 1);
+        continue;
+      }
+
+      ctx.save();
+      // 1. Halo incandescente
+      var glowRad = mark.radius * (1.5 + mark.life);
+      var grad = ctx.createRadialGradient(mark.x, mark.y, 0, mark.x, mark.y, glowRad);
+      grad.addColorStop(0, mark.color);
+      grad.addColorStop(0.4, 'rgba(255, 234, 0, ' + (mark.life * 0.8) + ')');
+      grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(mark.x, mark.y, glowRad, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 2. Quemadura o cicatriz oscura central
+      ctx.fillStyle = 'rgba(20, 20, 20, ' + (mark.life * 0.9) + ')';
+      ctx.beginPath();
+      ctx.arc(mark.x, mark.y, mark.radius * 0.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 3. Destello ardiente en el centro si es reciente
+      if (mark.life > 0.4) {
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.arc(mark.x, mark.y, mark.radius * 0.25, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.restore();
+    }
+  }
+
   // 9. BUCLE PRINCIPAL DE FÍSICA Y SIMULACIÓN
   // ==========================================================================
   var timeTick = 0;
@@ -596,6 +792,10 @@
       cityOffsetX += 1.0 + (scrollVelocity * 0.4);
     }
 
+    // 1. Estrellas de fondo (densidad aumentada en Espacio)
+    renderMartianWind(ctx);
+    renderWaterEnvironment(ctx);
+    renderLaserMarks(ctx);
     // 1. Estrellas de fondo
     for (var s = 0; s < STAR_COUNT; s++) {
       var st = stars[s];
@@ -927,6 +1127,54 @@
         item.classList.remove('active');
       }
     });
+  }, { passive: true });
+
+  // ==========================================================================
+  // 11. EFECTO DE MOVIMIENTO E INCLINACIÓN 3D DINÁMICA EN TARJETAS Y CONTENEDORES
+  // ==========================================================================
+  var tiltCards = document.querySelectorAll('.service-card, .tile, .price-card, .project-giant-item, .card, .stat-tile');
+  tiltCards.forEach(function(card) {
+    card.addEventListener('mouseenter', function() {
+      card.style.transition = 'transform 0.08s ease-out, box-shadow 0.2s ease, border-color 0.2s ease';
+    });
+
+    card.addEventListener('mousemove', function(e) {
+      var rect = card.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = 'perspective(1000px) rotateX(' + (-y * 12) + 'deg) rotateY(' + (x * 12) + 'deg) translateY(-8px) scale3d(1.025, 1.025, 1.025)';
+      card.style.boxShadow = (-x * 20) + 'px ' + (-y * 20 + 20) + 'px 40px rgba(0, 0, 0, 0.65), 0 0 25px rgba(255, 255, 255, 0.06)';
+      
+      var ambient = card.querySelector('.card-ambient-bg');
+      if (ambient) {
+        ambient.style.transform = 'translate(' + (x * 24) + 'px, ' + (y * 24) + 'px) scale(1.12)';
+        ambient.style.opacity = '0.70';
+      }
+    });
+
+    card.addEventListener('mouseleave', function() {
+      card.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease';
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0) scale3d(1, 1, 1)';
+      card.style.boxShadow = '';
+      var ambient = card.querySelector('.card-ambient-bg');
+      if (ambient) {
+        ambient.style.transform = '';
+        ambient.style.opacity = '';
+      }
+    });
+  });
+
+  // Parallax cinético brutalista en scroll
+  var kLine2 = document.querySelector('.kinetic-line-2');
+  var kLine3 = document.querySelector('.kinetic-line-3');
+  window.addEventListener('scroll', function() {
+    var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+    if (kLine2) {
+      kLine2.style.transform = 'translateX(' + (-scrolled * 0.14) + 'px)';
+    }
+    if (kLine3) {
+      kLine3.style.transform = 'translateX(' + (scrolled * 0.14) + 'px)';
+    }
   }, { passive: true });
 
 })();

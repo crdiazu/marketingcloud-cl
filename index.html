@@ -93,7 +93,7 @@
     </ul>
   </aside>
 
-  <!-- BARRA DE ESTUDIO CON RELOJ, DÓLAR, UF Y SELECTOR DE GRAVEDAD/LÍQUIDOS -->
+    <!-- BARRA DE ESTUDIO CON RELOJ, DÓLAR, UF Y SELECTOR DE ENTORNOS PLANETARIOS -->
   <aside class="studio-bar" aria-label="Información de mercado y controles de física">
     <div class="studio-bar-inner">
       <div class="studio-bar-left">
@@ -113,30 +113,36 @@
       </div>
 
       <div class="studio-bar-right">
-        <!-- BOTONES DIRECTOS DE GRAVEDAD CON ATAJO POR TECLA -->
+        <!-- SELECTOR DE ENTORNOS PLANETARIOS CON ESFERAS 3D -->
         <div class="gravity-selector-bar">
           <span class="gravity-label">Planetas:</span>
-          <button class="gravity-btn active" data-mode="espacio" title="Atajo: Tecla [E]">
-            <span class="k-tag">E</span> Espacio
+          <button class="gravity-btn active" data-mode="espacio" title="Espacio: Zero-G cósmico [Tecla E]">
+            <span class="planet-sphere sphere-espacio"></span>
+            <span>Espacio</span>
           </button>
-          <button class="gravity-btn" data-mode="tierra" title="Atajo: Tecla [T]">
-            <span class="k-tag">T</span> Tierra
+          <button class="gravity-btn" data-mode="tierra" title="Tierra: 1.0g y atmósfera verde [Tecla T]">
+            <span class="planet-sphere sphere-tierra"></span>
+            <span>Tierra</span>
           </button>
-          <button class="gravity-btn" data-mode="marte" title="Atajo: Tecla [M]">
-            <span class="k-tag">M</span> Marte
+          <button class="gravity-btn" data-mode="marte" title="Marte: Viento rojo y 0.38g [Tecla M]">
+            <span class="planet-sphere sphere-marte"></span>
+            <span>Marte</span>
           </button>
-          <button class="gravity-btn" data-mode="agua" title="Atajo: Tecla [A]">
-            <span class="k-tag">A</span> Agua
+          <button class="gravity-btn" data-mode="agua" title="Agua: Oleaje abisal y plantas marinas [Tecla A]">
+            <span class="planet-sphere sphere-agua"></span>
+            <span>Agua</span>
           </button>
-          <button class="gravity-btn" data-mode="plasma" title="Atajo: Tecla [P]">
-            <span class="k-tag">P</span> Plasma
+          <button class="gravity-btn" data-mode="plasma" title="Plasma: Arcos eléctricos y verde neón [Tecla P]">
+            <span class="planet-sphere sphere-plasma"></span>
+            <span>Plasma</span>
           </button>
-          <button class="gravity-btn" data-mode="cuantico" title="Atajo: Tecla [C]">
-            <span class="k-tag">C</span> Cu&aacute;ntico &#10022;
+          <button class="gravity-btn" data-mode="cuantico" title="Cuántico: Púrpura iridiscente oscilante [Tecla C]">
+            <span class="planet-sphere sphere-cuantico"></span>
+            <span>Cuántico</span>
           </button>
         </div>
 
-        <span class="finance-badge" id="ctrl-tip" style="color: var(--accent); border-color: rgba(245,158,11,0.25);" title="Mant&eacute;n pulsado Control o Barra Espaciadora para activar gravedad">
+        <span class="finance-badge" id="ctrl-tip" style="color: var(--accent); border-color: rgba(245,158,11,0.25);" title="Mantén pulsado Control o Barra Espaciadora para activar gravedad">
           Mant&eacute;n [Ctrl] / [Espacio]: Gravedad Activa
         </span>
       </div>
@@ -223,11 +229,7 @@
 
     <!-- HERO BRUTALISTA CON TIPOGRAFÍA CINÉTICA PARALLAX -->
     <section class="brutalist-hero" id="inicio">
-      <div class="brutalist-eyebrow">
-        <span>ESTUDIO DIGITAL ESTRATÉGICO · SANTIAGO DE CHILE</span>
-        <span>LAT: -33.4489 / LON: -70.6693</span>
-        <span>CONSULTORÍA SENIOR DIRECTA</span>
-      </div>
+      
 
       <div class="kinetic-text-wrap">
         <div class="kinetic-line-1">DESCUBRE TU</div>
@@ -300,11 +302,14 @@
             <p class="service-desc">
               Estrategia comercial y atracción continua de prospectos calificados. Diseñamos webs ultrarrápidas, ejecutamos pauta de alta intención y optimizamos tu posicionamiento orgánico en Google Chile para compradores listos para cotizar.
             </p>
+            <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.3); padding: 4px 10px; border-radius: 6px; font-size: 0.78rem; font-family: var(--font-mono); color: var(--accent); margin: 8px 0 14px;">
+              ✨ Producto de la Categoría: Menú Inteligente QR
+            </div>
             <ul class="service-list">
+              <li><span class="dot" style="background: var(--accent);"></span> <strong>Menú Inteligente QR:</strong> Digitalización gastronómica y pedidos a WhatsApp 0% comisiones</li>
               <li><span class="dot" style="background: var(--accent);"></span> SEO técnico y posicionamiento local en Google Search Console</li>
               <li><span class="dot" style="background: var(--accent);"></span> Google Ads & Meta Ads con formularios segmentados B2B</li>
-              <li><span class="dot" style="background: var(--accent);"></span> Desarrollo web ultraligero orientado a conversión</li>
-              <li><span class="dot" style="background: var(--accent);"></span> Embudos de captación con seguimiento comercial</li>
+              <li><span class="dot" style="background: var(--accent);"></span> Desarrollo web ultraligero y embudos de alta conversión</li>
             </ul>
           </div>
           <a class="btn-secondary card-content-layer" style="margin-top: 20px; border-color: rgba(245, 158, 11, 0.3);" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20interesa%20el%20servicio%20de%20Marketing%20Digital" target="_blank" rel="noopener">
@@ -321,11 +326,14 @@
             <p class="service-desc">
               Ingeniería, infraestructura y soporte técnico informático integral para empresas y organizaciones. Garantizamos estabilidad operativa, mantención de puestos, servidores cloud y resolución ágil de incidencias con trato directo senior.
             </p>
+            <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 10px; border-radius: 6px; font-size: 0.78rem; font-family: var(--font-mono); color: var(--cyan); margin: 8px 0 14px;">
+              💻 Solución TI & Equipamiento con Tecnovoa
+            </div>
             <ul class="service-list">
-              <li><span class="dot" style="background: var(--cyan);"></span> Soporte informático corporativo presencial y remoto en Santiago</li>
+              <li><span class="dot" style="background: var(--cyan);"></span> <strong>Equipamiento Corporativo Tecnovoa:</strong> Venta de hardware, computadores y servidores</li>
+              <li><span class="dot" style="background: var(--cyan);"></span> Soporte informático presencial en Santiago y asistencia remota</li>
               <li><span class="dot" style="background: var(--cyan);"></span> Servidores Cloud dedicados y hosting empresarial administrado</li>
-              <li><span class="dot" style="background: var(--cyan);"></span> Mantención preventiva, armado y optimización de equipos</li>
-              <li><span class="dot" style="background: var(--cyan);"></span> Renovación y equipamiento tecnológico corporativo</li>
+              <li><span class="dot" style="background: var(--cyan);"></span> Mantención preventiva, armado y optimización de estaciones de trabajo</li>
             </ul>
           </div>
           <a class="btn-secondary card-content-layer" style="margin-top: 20px; border-color: rgba(56, 189, 248, 0.3);" href="https://wa.me/56949438288?text=Hola%20Cristian,%20necesito%20Consultor%C3%ADa%20TI%20y%20Soporte" target="_blank" rel="noopener">
@@ -359,15 +367,18 @@
           <img class="card-ambient-bg" src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Ventas B2B" loading="lazy">
           <div class="card-content-layer">
             <span class="chip chip-emerald">04 / CONVERSIÓN & VENTAS B2B</span>
-            <h3 class="service-title">Venta como Servicio</h3>
+            <h3 class="service-title">Venta como Servicio (VaaS)</h3>
             <p class="service-desc">
-              Gestión comercial activa (Sales as a Service) para PyMEs y empresas B2B. Asumimos la prospección, telemarketing consultivo y calificación exhaustiva de leads para nutrir a tu equipo con cotizaciones reales listas para cierre.
+              Dirección comercial externa y venta directa de productos para clientes estratégicos. Comercializamos los productos y servicios de marcas líderes como <strong>Tecnovoa</strong> (equipamiento TI), <strong>Mecano Solutions</strong> (ingeniería industrial) y <strong>Line Clean</strong> (suministros institucionales).
             </p>
+            <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 10px; border-radius: 6px; font-size: 0.78rem; font-family: var(--font-mono); color: var(--emerald); margin: 4px 0 12px;">
+              🤝 Clientes Activos: Tecnovoa · Mecano Solutions · Line Clean
+            </div>
             <ul class="service-list">
-              <li><span class="dot" style="background: var(--emerald);"></span> Prospección comercial activa B2B por canales directos</li>
-              <li><span class="dot" style="background: var(--emerald);"></span> Calificación rigurosa de prospectos (metodología BANT)</li>
-              <li><span class="dot" style="background: var(--emerald);"></span> Integración de WhatsApp Business API y automatización</li>
-              <li><span class="dot" style="background: var(--emerald);"></span> Acompañamiento y cierre en CRM comercial</li>
+              <li><span class="dot" style="background: var(--emerald);"></span> <strong>Venta B2B Directa:</strong> Comercialización de productos y servicios de clientes aliados</li>
+              <li><span class="dot" style="background: var(--emerald);"></span> Prospección comercial activa B2B hacia tomadores de decisión</li>
+              <li><span class="dot" style="background: var(--emerald);"></span> Calificación rigurosa (BANT) y apertura de cuentas corporativas</li>
+              <li><span class="dot" style="background: var(--emerald);"></span> Acompañamiento, negociación y cierre consultivo</li>
             </ul>
           </div>
           <a class="btn-secondary card-content-layer" style="margin-top: 20px; border-color: rgba(16, 185, 129, 0.3);" href="https://wa.me/56949438288?text=Hola%20Cristian,%20quiero%20conversar%20sobre%20Venta%20como%20Servicio" target="_blank" rel="noopener">
@@ -383,7 +394,7 @@
         <img class="card-ambient-bg" src="https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Restaurante Menú QR" loading="lazy">
         <div style="display: grid; grid-template-columns: 1.8fr 1.2fr; gap: 36px; align-items: center;" class="card-content-layer">
           <div>
-            <span class="chip chip-accent">Producto Propio para Gastronomía Chilena</span>
+            <span class="chip chip-accent">Categoría Marketing Digital · Producto Propio para Gastronomía</span>
             <h2 style="font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; color: #FFFFFF; margin: 12px 0 16px;">
               Menú Inteligente: Cartas Digitales QR sin comisiones
             </h2>
@@ -475,43 +486,63 @@
         </div>
       </article>
 
-      <!-- PROYECTO 3: TECNOVOA (Cliente) -->
+      <!-- PROYECTO 3: TECNOVOA (Cliente: Venta como Servicio & Consultoría TI) -->
       <article class="project-giant-item">
         <div class="project-thumb">
           <img src="https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tecnovoa" loading="lazy">
         </div>
         <div>
-          <span class="project-number" style="color: var(--purple);">03 / BDM · KAM · REDES SOCIALES & VENTA COMO SERVICIO</span>
+          <span class="project-number" style="color: var(--cyan);">03 / CLIENTE ESTRATÉGICO · CONSULTORÍA TI & VENTA COMO SERVICIO</span>
           <h3 class="project-giant-name">TECNOVOA</h3>
           <p class="project-desc">
-            Cliente corporativo de infraestructura y tecnología donde Cristian Díaz lidera la gestión integral de redes sociales, desarrollo de página web corporativa y dirección de cuentas como BDM (Business Development Manager) & KAM mediante Venta como Servicio.
+            Cliente corporativo de tecnología donde Cristian Díaz comercializa y vende sus productos y servicios de equipamiento computacional, hardware para oficinas y soporte técnico TI. Liderazgo comercial como BDM & KAM, gestión web y aceleración de ventas B2B.
           </p>
         </div>
         <div class="project-meta-box">
-          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Gestión Comercial</span>
-          <span class="project-stat-num" style="font-size: 1.6rem; color: var(--purple);">BDM + KAM</span>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Redes Sociales + Web + Ventas</span>
-          <a class="project-link-btn" style="color: var(--purple);" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20interesa%20conocer%20el%20caso%20de%20Tecnovoa" target="_blank" rel="noopener">Consultar Caso ⇢</a>
+          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Comercialización TI</span>
+          <span class="project-stat-num" style="font-size: 1.6rem; color: var(--cyan);">Hardware & TI</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Venta de Equipos + Soporte</span>
+          <a class="project-link-btn" style="color: var(--cyan);" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20interesa%20conocer%20las%20soluciones%20de%20Tecnovoa" target="_blank" rel="noopener">Cotizar con Tecnovoa ⇢</a>
         </div>
       </article>
 
-      <!-- PROYECTO 4: LINCLEAN FBV -->
+      <!-- PROYECTO 4: MECANO SOLUTIONS (Cliente: Venta como Servicio) -->
       <article class="project-giant-item">
         <div class="project-thumb">
-          <img src="https://images.pexels.com/photos/6196238/pexels-photo-6196238.jpeg?auto=compress&cs=tinysrgb&w=800" alt="LinClean FBV" loading="lazy">
+          <img src="https://images.pexels.com/photos/3862632/pexels-photo-3862632.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Mecano Solutions" loading="lazy">
         </div>
         <div>
-          <span class="project-number" style="color: var(--emerald);">04 / MARKETING DIGITAL · SEO · GEO · WEB MODERNA</span>
-          <h3 class="project-giant-name">LINCLEAN FBV</h3>
+          <span class="project-number" style="color: var(--emerald);">04 / CLIENTE ESTRATÉGICO · VENTA COMO SERVICIO & INGENIERÍA B2B</span>
+          <h3 class="project-giant-name">MECANO SOLUTIONS</h3>
           <p class="project-desc">
-            Plataforma digital moderna desplegada sobre infraestructura Vercel: estrategia integral de Marketing Digital, optimización de posicionamiento orgánico SEO local, geolocalización GEO para servicios de limpieza y diseño web ultraligero de alta conversión.
+            Cliente aliado del sector técnico e industrial. Cristian Díaz comercializa y vende sus productos y servicios especializados de ingeniería y soluciones mecánicas industriales, ejecutando prospección B2B de alta intención, apertura de cuentas y cierre consultivo.
           </p>
         </div>
         <div class="project-meta-box">
-          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Infraestructura</span>
-          <span class="project-stat-num" style="font-size: 1.6rem; color: var(--emerald);">SEO + GEO</span>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Web Moderna en Vercel</span>
-          <a class="project-link-btn" style="color: var(--emerald);" href="https://public-ruby-psi-56.vercel.app/" target="_blank" rel="noopener">Ver Web en Vercel ⇢</a>
+          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Dirección de Ventas</span>
+          <span class="project-stat-num" style="font-size: 1.6rem; color: var(--emerald);">Ingeniería B2B</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Venta de Soluciones Técnicas</span>
+          <a class="project-link-btn" style="color: var(--emerald);" href="https://wa.me/56949438288?text=Hola%20Cristian,%20me%20interesan%20los%20servicios%20de%20Mecano%20Solutions" target="_blank" rel="noopener">Consultar Alianza ⇢</a>
+        </div>
+      </article>
+
+      <!-- PROYECTO 5: LINE CLEAN (Cliente: Venta como Servicio & Marketing Digital) -->
+      <article class="project-giant-item">
+        <div class="project-thumb">
+          <img src="https://images.pexels.com/photos/6196238/pexels-photo-6196238.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Line Clean" loading="lazy">
+        </div>
+        <div>
+          <span class="project-number" style="color: var(--accent);">05 / CLIENTE ESTRATÉGICO · VENTA COMO SERVICIO & MARKETING DIGITAL</span>
+          <h3 class="project-giant-name">LINE CLEAN (LINCLEAN)</h3>
+          <p class="project-desc">
+            Cliente corporativo especialista en higiene industrial, aseo corporativo y suministros institucionales. Cristian Díaz comercializa y vende sus productos y soluciones corporativas mediante prospección comercial activa B2B, posicionamiento SEO/GEO local y plataforma web moderna.
+          </p>
+        </div>
+        <div class="project-meta-box">
+          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Aceleración Comercial</span>
+          <span class="project-stat-num" style="font-size: 1.6rem; color: var(--accent);">Venta B2B + SEO</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Suministros Corporativos</span>
+          <a class="project-link-btn" style="color: var(--accent);" href="https://public-ruby-psi-56.vercel.app/" target="_blank" rel="noopener">Ver Plataforma en Vercel ⇢</a>
         </div>
       </article>
 
