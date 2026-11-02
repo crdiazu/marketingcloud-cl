@@ -2739,127 +2739,199 @@ html, body {
 
 /* ==========================================================================
    FIX DEFINITIVO DE LA BARRA SUPERIOR (.studio-bar) Y CABECERA (nav.main-nav)
-   Evita salto a 2 líneas, superposición con la cabecera y conflicto de z-index
+   Barra de planetas espaciosa, con esferas 3D brillantes y aire visual
    ========================================================================== */
 .studio-bar {
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
   right: 0 !important;
-  height: 36px !important;
-  padding: 0 20px !important;
+  height: 50px !important;
+  padding: 0 28px !important;
   display: flex !important;
   align-items: center !important;
-  background: rgba(6, 8, 12, 0.96) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.09) !important;
+  background: linear-gradient(90deg, rgba(6, 8, 13, 0.98) 0%, rgba(11, 15, 25, 0.98) 50%, rgba(6, 8, 13, 0.98) 100%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
   z-index: 1002 !important;
   overflow: hidden !important;
   transition: transform 0.28s ease, opacity 0.28s ease !important;
 }
 
 .studio-bar-inner {
-  max-width: 1360px !important;
+  max-width: 1400px !important;
   width: 100% !important;
   margin: 0 auto !important;
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
   flex-wrap: nowrap !important;
-  gap: 10px !important;
+  gap: 18px !important;
   white-space: nowrap !important;
 }
 
 .studio-bar-left {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 8px !important;
+  gap: 12px !important;
   flex-wrap: nowrap !important;
   flex-shrink: 0 !important;
+}
+
+.timecode-live {
+  padding: 4px 10px !important;
+  font-size: 0.76rem !important;
+  border-radius: 6px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.finance-badge {
+  padding: 4px 10px !important;
+  font-size: 0.74rem !important;
+  border-radius: 6px !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
 }
 
 .studio-bar-right {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: flex-end !important;
-  gap: 6px !important;
+  gap: 10px !important;
   flex-wrap: nowrap !important;
   flex-shrink: 1 !important;
   min-width: 0 !important;
 }
 
+/* Barra de Planetas Xain'd Sleena con más espacio, mejor respiración y estética arcade premium */
 .gravity-selector-bar {
   display: inline-flex !important;
   align-items: center !important;
   flex-wrap: nowrap !important;
-  gap: 3px !important;
-  background: rgba(15, 19, 29, 0.9) !important;
-  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  gap: 8px !important;
+  background: rgba(13, 17, 26, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
   border-radius: 9999px !important;
-  padding: 2px 6px !important;
+  padding: 4px 12px !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6), 0 0 18px rgba(56, 189, 248, 0.08) !important;
 }
 
 .gravity-label {
   font-family: var(--font-mono) !important;
-  font-size: 0.66rem !important;
-  color: #94A3B8 !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  color: #F59E0B !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.04em !important;
-  margin-right: 2px !important;
+  letter-spacing: 0.06em !important;
+  margin-right: 4px !important;
+  padding-left: 4px !important;
   white-space: nowrap !important;
 }
 
 .gravity-btn {
-  padding: 2px 8px 2px 4px !important;
-  font-size: 0.72rem !important;
-  font-weight: 600 !important;
-  gap: 5px !important;
+  padding: 5px 13px 5px 8px !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  gap: 8px !important;
   border-radius: 9999px !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
+  color: #CBD5E1 !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.gravity-btn:hover {
+  color: #FFFFFF !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  transform: translateY(-1px) !important;
 }
 
 .planet-sphere {
-  width: 13px !important;
-  height: 13px !important;
+  width: 16px !important;
+  height: 16px !important;
 }
 
-/* Color activo para Cleemooth (data-mode="deimos") */
+/* Color activo para cada planeta con halo luminoso */
+.gravity-btn[data-mode="espacio"].active {
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.55) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.28) !important;
+}
+
+.gravity-btn[data-mode="tierra"].active {
+  background: rgba(16, 185, 129, 0.22) !important;
+  border-color: #10B981 !important;
+  color: #6EE7B7 !important;
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.38) !important;
+}
+
 .gravity-btn[data-mode="deimos"].active {
-  background: rgba(239, 68, 68, 0.20) !important;
+  background: rgba(239, 68, 68, 0.22) !important;
   border-color: #EF4444 !important;
   color: #FCA5A5 !important;
-  font-weight: 700 !important;
-  box-shadow: 0 0 10px rgba(239, 68, 68, 0.35) !important;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.38) !important;
 }
 
-/* Cabecera principal justo debajo de los 36px de studio-bar */
+.gravity-btn[data-mode="agua"].active {
+  background: rgba(56, 189, 248, 0.22) !important;
+  border-color: #38BDF8 !important;
+  color: #BAE6FD !important;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.38) !important;
+}
+
+.gravity-btn[data-mode="plasma"].active {
+  background: rgba(74, 222, 128, 0.22) !important;
+  border-color: #4ADE80 !important;
+  color: #BBF7D0 !important;
+  box-shadow: 0 0 14px rgba(74, 222, 128, 0.42) !important;
+}
+
+.gravity-btn[data-mode="cuantico"].active {
+  background: rgba(192, 132, 252, 0.25) !important;
+  border-color: #C084FC !important;
+  color: #F3E8FF !important;
+  box-shadow: 0 0 14px rgba(192, 132, 252, 0.45) !important;
+}
+
+/* Cabecera principal justo debajo de los 50px de studio-bar */
 @media (min-width: 821px) {
   nav.main-nav {
-    top: 36px !important;
+    top: 50px !important;
     z-index: 1001 !important;
+    padding: 13px 28px !important;
   }
   nav.main-nav.is-scrolled {
-    top: 36px !important;
-    padding: 9px 28px !important;
+    top: 50px !important;
+    padding: 10px 28px !important;
     background: rgba(6, 8, 12, 0.97) !important;
+  }
+  main.wrap,
+  main[style*="padding-top"] {
+    padding-top: 142px !important;
   }
 }
 
-@media (max-width: 1220px) {
+@media (max-width: 1320px) {
   .gravity-label {
     display: none !important;
   }
-  .finance-badge {
-    padding: 1px 5px !important;
-    font-size: 0.66rem !important;
+  .gravity-selector-bar {
+    gap: 5px !important;
+    padding: 3px 8px !important;
   }
   .gravity-btn {
-    padding: 2px 6px 2px 4px !important;
-    font-size: 0.68rem !important;
+    padding: 4px 10px 4px 6px !important;
+    font-size: 0.74rem !important;
+    gap: 6px !important;
   }
 }
 
-@media (max-width: 1020px) {
+@media (max-width: 1120px) {
   .finance-badge {
     display: none !important;
   }
