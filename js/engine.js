@@ -748,14 +748,14 @@
       boxUpdateCooldown = 35;
     }
 
-    // Suavizado de cursor en escritorio
-    if (!isMobile && isVisible) {
+    // Suavizado de cursor en escritorio (siempre activo para que los astronautas sigan el mouse)
+    if (!isMobile) {
       mouseX += (targetMouseX - mouseX) * 0.28;
       mouseY += (targetMouseY - mouseY) * 0.28;
       ringX += (targetMouseX - ringX) * 0.14;
       ringY += (targetMouseY - ringY) * 0.14;
 
-      if (ring) {
+      if (ring && isVisible) {
         ring.style.transform = 'translate(' + ringX + 'px, ' + ringY + 'px) translate(-50%, -50%)';
       }
     }
@@ -818,36 +818,66 @@
     var friction = currentPlanet.friction || 0.98;
 
     // ======================================================================
-    // 5. OPERATIVOS MICRO: VUELO LIBRE 2D CONTINUO (NO CAEN AL FONDO)
+    // 5. OPERATIVOS MICRO: SIEMPRE SE ACERCAN AL MOUSE (ENJAMBRE Y ESCOLTA 2D)
+    // "que los astronautas siempre se acerquen al mouse"
     // ======================================================================
+    var curMouseX = isMobile ? targetMouseX : mouseX;
+    var curMouseY = isMobile ? targetMouseY : mouseY;
+
     for (var opIdx = 0; opIdx < OPERATIVE_COUNT; opIdx++) {
       var op = operatives[opIdx];
+
+      // 1. Vector directo hacia la posición del mouse (siempre activo en 2D)
+      var mdx = curMouseX - op.x;
+      var mdy = curMouseY - op.y;
+      var mDist = Math.hypot(mdx, mdy);
+
+      // Mirar siempre de frente hacia el cursor
+      if (Math.abs(mdx) > 3) {
+        op.facingLeft = (mdx < 0);
+      }
+
+      // Formación de escolta dinámica: cada astronauta tiene su propia distancia
+      // y ángulo orbital alrededor del mouse para no solaparse en un solo punto
+      var orbitRadius = 40 + (op.id % 5) * 22; // De 40px a 128px de radio
+      var orbitDirection = (op.id % 2 === 0) ? 1 : -1;
+      var orbitAngle = (op.id / OPERATIVE_COUNT) * Math.PI * 2 + (timeTick * 0.75 * orbitDirection) + op.waveOffset;
+
+      var escortTargetX = curMouseX + Math.cos(orbitAngle) * orbitRadius;
+      var escortTargetY = curMouseY + Math.sin(orbitAngle) * orbitRadius;
+
+      var toTargetX = escortTargetX - op.x;
+      var toTargetY = escortTargetY - op.y;
+      var distToTarget = Math.hypot(toTargetX, toTargetY);
+
+      if (mDist > orbitRadius + 35) {
+        // Lejos del mouse: Vuelo directo acelerado hacia el cursor
+        var approachSpeed = isMobile ? 2.8 : 3.6;
+        var dirX = mdx / (mDist || 1);
+        var dirY = mdy / (mDist || 1);
+        op.targetVx = dirX * approachSpeed + Math.sin(timeTick * 2.6 + op.waveOffset) * 0.4;
+        op.targetVy = dirY * approachSpeed + Math.cos(timeTick * 2.6 + op.waveOffset) * 0.4;
+        op.rotorSpeed = 0.95;
+      } else {
+        // En cercanías del cursor: Órbita ágil y escolta constante alrededor del mouse
+        var escortSpeed = isMobile ? 2.0 : 2.5;
+        op.targetVx = (toTargetX / (distToTarget || 1)) * escortSpeed;
+        op.targetVy = (toTargetY / (distToTarget || 1)) * escortSpeed;
+        op.rotorSpeed = 0.65;
+      }
+
+      // Propulsión activa hacia el objetivo
+      op.vx += (op.targetVx - op.vx) * 0.085;
+      op.vy += (op.targetVy - op.vy) * 0.085;
 
       op.rotorAngle += op.rotorSpeed;
 
       // Inclinación aerodinámica natural
-      var targetTilt = Math.max(-0.35, Math.min(0.35, op.vx * 0.16));
-      op.tilt += (targetTilt - op.tilt) * 0.12;
+      var targetTilt = Math.max(-0.40, Math.min(0.40, op.vx * 0.18));
+      op.tilt += (targetTilt - op.tilt) * 0.15;
 
-      // A. NAVEGACIÓN 2D AUTÓNOMA: VUELO POR TODO EL PLANO
-      op.wanderTimer--;
-      if (op.wanderTimer <= 0) {
-        op.wanderTimer = Math.random() * 110 + 50;
-        // Rumbo 2D equilibrado en los 4 cuadrantes
-        op.targetVx = (Math.random() - 0.5) * (isMobile ? 1.8 : 2.4);
-        op.targetVy = (Math.random() - 0.5) * (isMobile ? 1.5 : 2.0);
-      }
-
-      // Propulsión activa del prop-pack: vuela hacia su objetivo 2D
-      op.vx += (op.targetVx - op.vx) * 0.045;
-      op.vy += (op.targetVy - op.vy) * 0.045;
-
-      // Flotación senoidal de vuelo
-      op.vy += Math.sin(timeTick * 2.8 + op.waveOffset) * 0.07;
-
-      if (Math.abs(op.vx) > 0.15) {
-        op.facingLeft = (op.vx < 0);
-      }
+      // Flotación senoidal micro
+      op.vy += Math.sin(timeTick * 2.8 + op.waveOffset) * 0.05;
 
       // Oleaje en planeta Agua
       if (currentPlanet.fluidWave) {
@@ -855,20 +885,10 @@
         op.vy += Math.cos(timeTick * 1.6 + op.waveOffset) * 0.04;
       }
 
-
-
-      // B. ATRACCIÓN MAGNÉTICA CON MOUSE O TOQUE
-      if (isVisible) {
-        var mdx = (isMobile ? targetMouseX : mouseX) - op.x;
-        var mdy = (isMobile ? targetMouseY : mouseY) - op.y;
-        var mDist = Math.hypot(mdx, mdy);
-
-        if (mDist < (isMobile ? 180 : 240) && mDist > 25) {
-          var pull = Math.min(0.20, ((isMobile ? 180 : 240) - mDist) / 240 * 0.12);
-          op.vx += (mdx / mDist) * pull;
-          op.vy += (mdy / mDist) * pull;
-          op.facingLeft = (mdx < 0);
-        }
+      // Suave repulsión del centro exacto del cursor (para que nunca tapen el clic)
+      if (mDist < 26 && mDist > 0.1) {
+        op.vx -= (mdx / mDist) * 0.55;
+        op.vy -= (mdy / mDist) * 0.55;
       }
 
       // C. INTERACCIÓN ENTRE ELLOS: REBOTES ELÁSTICOS Y VÍNCULOS
