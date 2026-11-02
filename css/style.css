@@ -2436,3 +2436,290 @@ nav.main-nav.is-scrolled {
     max-width: 100vw !important;
   }
 }
+
+
+/* ==========================================================================
+   SISTEMA RESPONSIVO SIMPLE, ROBUSTO Y SIN SOBRECARGA
+   "el modelo responsivo se rompe, hazlo mas simple sin tantos detalles"
+   ========================================================================== */
+
+/* Reglas universales para prevenir cualquier desborde horizontal */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box !important;
+}
+
+.wrap, main.wrap {
+  width: 100% !important;
+  max-width: 1240px !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+}
+
+/* Ocultar el riel lateral de progreso bajo 1240px para que no tape nunca las tarjetas */
+@media (max-width: 1240px) {
+  .scroll-rail {
+    display: none !important;
+  }
+}
+
+/* Ajustes para Tablets y Laptops Pequeñas (769px a 1100px) */
+@media (max-width: 1100px) {
+  .studio-bar-inner {
+    padding: 0 12px;
+  }
+  .finance-badge {
+    display: none !important; /* Oculta USD y UF para no desbordar horizontalmente */
+  }
+  .gravity-selector-bar {
+    gap: 4px;
+    padding: 2px 6px;
+  }
+  .gravity-btn {
+    padding: 2px 6px;
+    font-size: 0.72rem;
+  }
+  .nav-container {
+    gap: 8px !important;
+  }
+  .nav-col-left, .nav-col-right {
+    gap: 10px !important;
+  }
+  .nav-menu-link {
+    font-size: 0.80rem !important;
+    padding: 4px 2px !important;
+  }
+  .nav-cta-btn {
+    padding: 6px 12px !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Ajustes para Móviles y Pantallas Angostas (<= 820px) */
+@media (max-width: 820px) {
+  /* 1. Ocultar la barra pesada de indicadores */
+  .studio-bar {
+    display: none !important;
+  }
+
+  /* 2. Cabecera móvil superior fija (52px de altura) */
+  .mobile-top-bar {
+    display: flex !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 52px !important;
+    background: rgba(7, 9, 14, 0.96) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    z-index: 1000 !important;
+    padding: 0 16px !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  .mobile-top-inner {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+
+  .mobile-top-inner .brand-link {
+    margin: 0 !important;
+  }
+
+  .mobile-top-inner .brand-name {
+    font-size: 1.15rem !important;
+  }
+
+  .mobile-top-inner .brand-badge-icon {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 0.65rem !important;
+  }
+
+  .mobile-planet-pill {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    color: #FFFFFF !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.74rem !important;
+    font-weight: 600 !important;
+    padding: 5px 12px !important;
+    border-radius: 9999px !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+
+  /* 3. Dock de navegación inferior limpio y perfectamente distribuido */
+  nav.main-nav {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px)) 4px !important;
+    background: rgba(10, 14, 22, 0.97) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-bottom: none !important;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.7) !important;
+    z-index: 1000 !important;
+    margin: 0 !important;
+  }
+
+  .nav-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    grid-template-columns: none !important;
+  }
+
+  /* Clave para distribución fluida: display: contents elimina el conflicto de 100% + 100% */
+  .nav-col-left,
+  .nav-col-right {
+    display: contents !important;
+  }
+
+  .nav-col-center,
+  .nav-cta-btn {
+    display: none !important;
+  }
+
+  .nav-menu-link {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 5px 2px !important;
+    border-radius: 8px !important;
+    color: #94A3B8 !important;
+    font-size: 0.64rem !important;
+    font-weight: 600 !important;
+    gap: 3px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    min-width: 0 !important;
+  }
+
+  .nav-menu-link.active::after {
+    display: none !important;
+  }
+
+  .nav-menu-link.active,
+  .nav-menu-link:hover {
+    color: #FFFFFF !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+  }
+
+  .nav-tab-icon {
+    display: block !important;
+    width: 18px !important;
+    height: 18px !important;
+    stroke: currentColor !important;
+  }
+
+  /* 4. Espaciado y fluidez del contenido */
+  main.wrap,
+  main[style*="padding-top"] {
+    padding-top: 68px !important;
+    padding-bottom: calc(85px + env(safe-area-inset-bottom, 0px)) !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  /* 5. Titular Hero y tipografía que NUNCA desborda */
+  .kinetic-text-wrap {
+    overflow: hidden !important;
+    max-width: 100% !important;
+    margin-bottom: 18px !important;
+  }
+
+  .kinetic-line-1 {
+    font-size: clamp(0.9rem, 3.8vw, 1.25rem) !important;
+    letter-spacing: 0.02em !important;
+    margin-bottom: 4px !important;
+  }
+
+  .kinetic-line-2 {
+    font-size: clamp(1.4rem, 6.8vw, 2.5rem) !important;
+    line-height: 0.98 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0 0.2em !important;
+    word-break: break-word !important;
+  }
+
+  .kinetic-line-2 .outline-text {
+    -webkit-text-stroke: 1.2px #FFFFFF !important;
+  }
+
+  .kinetic-line-3 {
+    font-size: clamp(1.9rem, 9vw, 3.4rem) !important;
+    line-height: 0.95 !important;
+    word-break: break-word !important;
+  }
+
+  .chroma-title {
+    font-size: clamp(1.8rem, 7vw, 2.8rem) !important;
+    line-height: 1.05 !important;
+    word-break: break-word !important;
+  }
+
+  /* 6. Grillas y columnas adaptadas a 1 sola columna natural */
+  .col-12, .col-8, .col-6, .col-4, .col-3 {
+    grid-column: span 12 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .tile, .card, .service-card, .price-card, .project-giant-item, .stat-tile {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 20px 16px !important;
+  }
+
+  .project-giant-item {
+    grid-template-columns: 1fr !important;
+  }
+
+  .grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* Botón flotante de WhatsApp situado sobre el dock */
+  .whatsapp-float-bubble {
+    bottom: calc(68px + env(safe-area-inset-bottom, 8px)) !important;
+    right: 12px !important;
+  }
+}
