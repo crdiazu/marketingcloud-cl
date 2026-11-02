@@ -2707,9 +2707,21 @@ html, body {
     grid-template-columns: 1fr !important;
   }
 
-  .grid {
+  .grid,
+  [style*="grid-template-columns"] {
     grid-template-columns: 1fr !important;
-    gap: 16px !important;
+    gap: 18px !important;
+  }
+
+  /* Evitar que botones o contenedores flex se salgan de pantalla en móvil */
+  [style*="display: flex"] {
+    flex-wrap: wrap !important;
+  }
+
+  .btn-primary, .btn-secondary, .btn-accent {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
   }
 
   .footer-inner {
