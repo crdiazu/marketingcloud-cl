@@ -1646,14 +1646,18 @@ body.mode-tierra .cursor-dot {
 }
 
 /* 3. MARTE = ROJO (0.38g Gravedad Menor) */
+body.mode-deimos,
 body.mode-marte {
   background: radial-gradient(ellipse at 50% 25%, #250705 0%, #130302 60%, #060101 100%) !important;
 }
+body.mode-deimos .service-card,
+body.mode-deimos .tile,
 body.mode-marte .service-card,
 body.mode-marte .tile {
   border-color: rgba(239, 68, 68, 0.28) !important;
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(239, 68, 68, 0.08) !important;
 }
+body.mode-deimos .cursor-dot,
 body.mode-marte .cursor-dot {
   background-color: #EF4444 !important;
   box-shadow: 0 0 12px #EF4444, 0 0 24px rgba(239, 68, 68, 0.6) !important;
@@ -2076,6 +2080,7 @@ body.mode-cuantico .cursor-dot {
 }
 
 /* 3. Marte: Ocre rojizo con tormentas de arena */
+.sphere-deimos,
 .sphere-marte {
   background: radial-gradient(circle at 35% 35%, #F87171 20%, #EF4444 60%, #7F1D1D 100%);
   box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.9), 0 0 10px rgba(239, 68, 68, 0.65);

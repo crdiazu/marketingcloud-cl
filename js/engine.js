@@ -1,19 +1,16 @@
-// MarketingCloud Studio - Interactive Engine
+// MarketingCloud Studio - Interactive Engine 3.0
 // 1. Live Santiago Timecode & Chilean Economic Indicators (USD / UF)
 // 2. Micro 80's Astronauts (H.E.R.O. Activision Style):
-//    - VUELAN LIBREMENTE POR TODA LA PANTALLA EN 2D (NO CAEN NI SE QUEDAN EN EL SUELO)
+//    - SIEMPRE SE ACERCAN AL MOUSE (Enjambre y escolta 2D continuo)
 //    - CHOQUE ELÁSTICO CON LETRAS Y TARJETAS con chispas de colores
 //    - PISTOLA MARCIANA MAGNÉTICA: anclaje y tracción hacia tarjetas y títulos
-//    - INTERACCIÓN ENTRE ELLOS: rebotes elásticos y enlaces de escuadrón
-//    - ULTRA LIVIANO EN MODO CELULAR: DPR optimizado, conteo adaptativo (6 en móvil, 14 en PC)
-//    - CERO interferencia con letras de fondo atmosféricas
-// 3. 6 Entornos Planetarios con Cambio Total de Color y Atajos de Teclado:
-//    - [E] Espacio (Negro, Zero-G)
-//    - [T] Tierra (Verde, 1.0g)
-//    - [M] Marte (Rojo, 0.38g)
-//    - [A] Agua (Azul, Oleaje)
-//    - [P] Plasma (Verde Neón, Resistencia)
-//    - [C] Cuántico (Púrpura Iridiscente, Oscilante)
+// 3. 6 Entornos Planetarios con Física y Detalles Visuales Especializados:
+//    - [E] Space: Negro Profundo, Zero-G, planetas lejanos, cometas y estrellas parallax
+//    - [T] Tierra: Verde Jade, 1.0g, montañas Los Andes, árboles, viento y hojas/clima
+//    - [D/M] Deimos: Rojo Carmesí, 0.38g, piedras, rocas flotantes, tormenta y polvo ferroso
+//    - [A] Agua: Azul Abisal, resistencia hidrodinámica, plantas, peces extraños y burbujas
+//    - [P] Plasma: Verde Neón, efecto lisérgico/psicodélico, ondas cromáticas y arcos eléctricos
+//    - [C] Cuántico: Púrpura Iridiscente, partículas prismáticas y astronautas desorientados
 
 (function() {
   'use strict';
@@ -23,52 +20,61 @@
   // ==========================================================================
   // 1. TIMECODE EN VIVO - SANTIAGO DE CHILE (UTC-3)
   // ==========================================================================
-  function updateSantiagoTime() {
-    var timeEl = document.getElementById('live-timecode');
-    var mobileTimeEl = document.getElementById('mobile-live-time');
-    try {
-      var santiagoTime = new Intl.DateTimeFormat('es-CL', {
-        timeZone: 'America/Santiago',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false
-      }).format(new Date());
-      if (timeEl) timeEl.textContent = santiagoTime;
-      if (mobileTimeEl) mobileTimeEl.textContent = santiagoTime;
-    } catch (e) {}
+  function updateSantiagoTimecode() {
+    var el = document.getElementById('live-timecode');
+    if (!el) return;
+
+    var now = new Date();
+    var santiagoString = now.toLocaleTimeString('es-CL', {
+      timeZone: 'America/Santiago',
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+
+    el.textContent = santiagoString;
   }
-  setInterval(updateSantiagoTime, 1000);
-  updateSantiagoTime();
+
+  updateSantiagoTimecode();
+  setInterval(updateSantiagoTimecode, 1000);
 
   // ==========================================================================
-  // 2. INDICADORES ECONÓMICOS DE CHILE (DÓLAR Y UF)
+  // 2. INDICADORES ECONÓMICOS DE CHILE (DÓLAR Y UF EN TIEMPO REAL)
   // ==========================================================================
-  function initEconomicIndicators() {
-    var usdEl = document.getElementById('val-dolar');
-    var ufEl = document.getElementById('val-uf');
+  var valorDolarCache = '$972,60';
+  var valorUfCache = '$41.252,94';
 
-    if (usdEl && !usdEl.textContent.trim()) usdEl.textContent = '$972,60';
-    if (ufEl && !ufEl.textContent.trim()) ufEl.textContent = '$41.252,94';
+  function fetchChileIndicators() {
+    var elDolar = document.getElementById('val-dolar');
+    var elUf = document.getElementById('val-uf');
 
-    try {
-      fetch('https://mindicador.cl/api')
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          if (data && data.dolar && usdEl) {
-            usdEl.textContent = '$' + data.dolar.valor.toLocaleString('es-CL', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
-          }
-          if (data && data.uf && ufEl) {
-            ufEl.textContent = '$' + data.uf.valor.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-          }
-        })
-        .catch(function() {});
-    } catch (e) {}
+    fetch('https://mindicador.cl/api')
+      .then(function(res) {
+        if (!res.ok) throw new Error('Network response not ok');
+        return res.json();
+      })
+      .then(function(data) {
+        if (data.dolar && data.dolar.valor) {
+          valorDolarCache = '$' + data.dolar.valor.toLocaleString('es-CL', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
+          if (elDolar) elDolar.textContent = valorDolarCache;
+        }
+        if (data.uf && data.uf.valor) {
+          valorUfCache = '$' + data.uf.valor.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          if (elUf) elUf.textContent = valorUfCache;
+        }
+      })
+      .catch(function(err) {
+        if (elDolar) elDolar.textContent = valorDolarCache;
+        if (elUf) elUf.textContent = valorUfCache;
+      });
   }
-  initEconomicIndicators();
+
+  fetchChileIndicators();
+  setInterval(fetchChileIndicators, 300000); // Actualiza cada 5 minutos
 
   // ==========================================================================
-  // 3. CANVAS CÓSMICO Y ADAPTACIÓN LIVIANA MÓVIL
+  // 3. CANVAS CÓSMICO Y CURSOR RETICULAR
   // ==========================================================================
   var dot = document.getElementById('cursor-dot');
   var ring = document.getElementById('cursor-ring');
@@ -76,35 +82,30 @@
   if (!canvas) return;
 
   var ctx = canvas.getContext('2d');
-  // En móvil limitamos el DPR a 1.0 para que la GPU rinda a 60 FPS estables sin calentar el teléfono
-  var dpr = isMobile ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.75);
+  var dpr = isMobile ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.5);
   var width = window.innerWidth;
   var height = window.innerHeight;
 
   function resizeCanvas() {
-    isMobile = (window.innerWidth <= 768) || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    dpr = isMobile ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.75);
     width = window.innerWidth;
     height = window.innerHeight;
     canvas.width = Math.round(width * dpr);
     canvas.height = Math.round(height * dpr);
     canvas.style.width = width + 'px';
     canvas.style.height = height + 'px';
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.scale(dpr, dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
   var mouseX = width / 2;
-  var mouseY = height / 2;
+  var mouseY = height * 0.45;
   var targetMouseX = mouseX;
   var targetMouseY = mouseY;
   var ringX = mouseX;
   var ringY = mouseY;
   var isVisible = false;
 
-  // Interacción de mouse (solo activa en escritorio o cuando hay cursor)
   if (!isMobile) {
     window.addEventListener('mousemove', function(e) {
       targetMouseX = e.clientX;
@@ -122,13 +123,12 @@
     });
 
     document.addEventListener('mouseleave', function() {
-      isVisible = false;
       if (dot) dot.style.opacity = '0';
       if (ring) ring.style.opacity = '0';
     });
   }
 
-  // Interacción táctil en celular (Toque suave atrae al astronauta más cercano)
+  // Interacción táctil en celular
   window.addEventListener('touchstart', function(e) {
     if (e.touches && e.touches[0]) {
       targetMouseX = e.touches[0].clientX;
@@ -147,20 +147,40 @@
     }
   }, { passive: true });
 
-  window.addEventListener('touchend', function() {
-    setTimeout(function() { isVisible = false; }, 800);
-  }, { passive: true });
-
   // ==========================================================================
-  // 4. PLANETAS Y MEDIOS FÍSICOS (ATAJOS E, T, M, A, P, C)
+  // 4. PLANETAS Y MEDIOS FÍSICOS (6 ENTORNOS ESPECIALIZADOS)
   // ==========================================================================
   var PLANETS = [
-    { id: 'espacio', key: 'e', name: 'Espacio', color: 'Negro', icon: '🌌', gravityY: 0.0, friction: 0.985, desc: 'Zero-G cósmico y navegación libre' },
-    { id: 'tierra', key: 't', name: 'Tierra', color: 'Verde', icon: '🌍', gravityY: 0.08, friction: 0.98, desc: 'Gravedad terrestre con sustentación activa' },
-    { id: 'marte', key: 'm', name: 'Marte', color: 'Rojo', icon: '🪐', gravityY: 0.04, friction: 0.985, desc: 'Gravedad reducida 0.38g y polvo carmesí' },
-    { id: 'agua', key: 'a', name: 'Agua', color: 'Azul', icon: '💧', gravityY: 0.02, friction: 0.92, fluidWave: true, desc: 'Viscosidad hidrodinámica y oleaje abisal' },
-    { id: 'plasma', key: 'p', name: 'Plasma', color: 'Verde Neón', icon: '⚡', gravityY: 0.015, friction: 0.88, plasma: true, desc: 'Amortiguación magnética y alta fricción' },
-    { id: 'cuantico', key: 'c', name: 'Cuántico', color: 'Púrpura', icon: '✦', surreal: true, friction: 0.96, desc: 'Gravedad multidireccional oscilante y destellos' }
+    { 
+      id: 'espacio', key: 'e', name: 'Space', color: 'Negro Profundo', icon: '🌌', 
+      gravityY: 0.0, friction: 0.985, 
+      desc: 'Zero-G cósmico, planetas, cometas y estrellas en scroll' 
+    },
+    { 
+      id: 'tierra', key: 't', name: 'Tierra', color: 'Verde Jade', icon: '🌍', 
+      gravityY: 0.08, friction: 0.98, 
+      desc: 'Gravedad estándar 1.0g, montañas, árboles, viento y clima' 
+    },
+    { 
+      id: 'deimos', altId: 'marte', key: 'd', altKey: 'm', name: 'Deimos', color: 'Rojo Carmesí', icon: '🪐', 
+      gravityY: 0.04, friction: 0.985, 
+      desc: 'Gravedad reducida 0.38g, piedras, rocas y polvo ferroso' 
+    },
+    { 
+      id: 'agua', key: 'a', name: 'Agua', color: 'Azul Abisal', icon: '💧', 
+      gravityY: 0.02, friction: 0.91, fluidWave: true, 
+      desc: 'Resistencia hidrodinámica, plantas y peces extraños' 
+    },
+    { 
+      id: 'plasma', key: 'p', name: 'Plasma', color: 'Verde Neón', icon: '⚡', 
+      gravityY: 0.015, friction: 0.88, plasma: true, psychedelic: true, 
+      desc: 'Densidad electromagnética y efecto lisérgico' 
+    },
+    { 
+      id: 'cuantico', key: 'c', name: 'Cuántico', color: 'Púrpura Iridiscente', icon: '✦', 
+      surreal: true, quantum: true, friction: 0.96, 
+      desc: 'Gravedad cuántica oscilante, partículas prismáticas y astronautas desorientados' 
+    }
   ];
 
   var currentPlanetIndex = 0;
@@ -176,7 +196,7 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function() {
       hudToast.classList.remove('is-show');
-    }, 2200);
+    }, 2800);
   }
 
   function setPlanet(indexOrId) {
@@ -185,7 +205,8 @@
       foundIndex = (indexOrId + PLANETS.length) % PLANETS.length;
     } else {
       for (var i = 0; i < PLANETS.length; i++) {
-        if (PLANETS[i].id === indexOrId || PLANETS[i].key === indexOrId) {
+        var p = PLANETS[i];
+        if (p.id === indexOrId || p.key === indexOrId || (p.altId && p.altId === indexOrId) || (p.altKey && p.altKey === indexOrId)) {
           foundIndex = i;
           break;
         }
@@ -195,11 +216,12 @@
     currentPlanetIndex = foundIndex;
     currentPlanet = PLANETS[currentPlanetIndex];
 
-    document.body.className = 'mode-' + currentPlanet.id;
+    document.body.className = 'mode-' + currentPlanet.id + (currentPlanet.altId ? ' mode-' + currentPlanet.altId : '');
 
     var btns = document.querySelectorAll('.gravity-btn');
     btns.forEach(function(b) {
-      if (b.getAttribute('data-mode') === currentPlanet.id) {
+      var bMode = b.getAttribute('data-mode');
+      if (bMode === currentPlanet.id || (currentPlanet.altId && bMode === currentPlanet.altId)) {
         b.classList.add('active');
       } else {
         b.classList.remove('active');
@@ -211,93 +233,85 @@
       mobilePlanetBtn.innerHTML = currentPlanet.icon + ' ' + currentPlanet.name;
     }
 
-    showHudToast('<strong>' + currentPlanet.icon + ' ' + currentPlanet.name + ' (' + currentPlanet.color + ')</strong> &nbsp;·&nbsp; ' + currentPlanet.desc.toUpperCase());
+    showHudToast('<strong>' + currentPlanet.icon + ' ' + currentPlanet.name + ' (' + currentPlanet.color + ')</strong><br>' + currentPlanet.desc);
   }
 
-  // Atajos de teclado: [E], [T], [M], [A], [P], [C] y [Ctrl]/[Espacio]
-  window.addEventListener('keydown', function(e) {
-    var k = e.key.toLowerCase();
-    if (k === 'e') setPlanet('espacio');
-    else if (k === 't') setPlanet('tierra');
-    else if (k === 'm') setPlanet('marte');
-    else if (k === 'a') setPlanet('agua');
-    else if (k === 'p') setPlanet('plasma');
-    else if (k === 'c' || k === 's') setPlanet('cuantico');
-
-
-  });
-
-  // Botones de planetas en barra de estudio
-  var planetButtons = document.querySelectorAll('.gravity-btn');
-  planetButtons.forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
+  // Delegación de clics en selector de planetas
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.gravity-btn');
+    if (btn) {
       var mode = btn.getAttribute('data-mode');
-      if (mode) setPlanet(mode);
-    });
+      setPlanet(mode);
+      return;
+    }
+
+    var mobBtn = e.target.closest('#mobile-planet-btn');
+    if (mobBtn) {
+      setPlanet(currentPlanetIndex + 1);
+    }
   });
 
-  // Botón ciclar planetas en cabecera móvil
-  var mobilePlanetBtn = document.getElementById('mobile-planet-btn');
-  if (mobilePlanetBtn) {
-    mobilePlanetBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      setPlanet(currentPlanetIndex + 1);
-    });
-  }
+  // Atajos de teclado: [E] Space, [T] Tierra, [D]/[M] Deimos, [A] Agua, [P] Plasma, [C] Cuántico
+  window.addEventListener('keydown', function(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    var k = e.key.toLowerCase();
+    for (var i = 0; i < PLANETS.length; i++) {
+      var p = PLANETS[i];
+      if (k === p.key || (p.altKey && k === p.altKey)) {
+        setPlanet(p.id);
+        break;
+      }
+    }
+  });
 
   // ==========================================================================
-  // 5. ESTRELLAS DE FONDO (ADAPTATIVO)
+  // 5. ESTRELLAS DE FONDO CON PARALLAX
   // ==========================================================================
-  var STAR_COUNT = isMobile ? 32 : 80;
+  var STAR_COUNT = isMobile ? 60 : 130;
   var stars = [];
-  for (var s = 0; s < STAR_COUNT; s++) {
+  for (var i = 0; i < STAR_COUNT; i++) {
     stars.push({
       x: Math.random() * width,
+      baseY: Math.random() * height,
       y: Math.random() * height,
-      radius: Math.random() * 1.2 + 0.35,
-      alpha: Math.random() * 0.45 + 0.15,
-      twinkleSpeed: Math.random() * 0.03 + 0.01
+      radius: Math.random() < 0.2 ? (Math.random() * 1.6 + 1.2) : (Math.random() * 1.0 + 0.4),
+      alpha: Math.random() * 0.7 + 0.25,
+      twinkleSpeed: Math.random() * 0.03 + 0.015,
+      layer: (i % 3) + 1 // 1: lejana, 2: media, 3: cercana con parallax
     });
   }
 
-  var sparks = [];
-
   // ==========================================================================
-  // 6. OPERATIVOS MICRO 80's: VUELO LIBRE 2D (NUNCA CAEN AL FONDO)
+  // 6. OPERATIVOS MICRO 80's: VUELO LIBRE 2D CONTINUO HACIA EL MOUSE
   // ==========================================================================
-  var OPERATIVE_COUNT = isMobile ? 6 : 14;
+  var OPERATIVE_COUNT = isMobile ? 5 : 12;
   var operatives = [];
 
   for (var i = 0; i < OPERATIVE_COUNT; i++) {
     operatives.push({
       id: i,
-      // Distribuidos naturalmente por toda la pantalla (entre el 10% y el 80% de la altura)
       x: Math.random() * (width - 100) + 50,
-      y: Math.random() * (height * 0.70) + 70,
+      y: Math.random() * (height * 0.65) + 70,
 
-      // Velocidades 2D equilibradas de crucero
       vx: (Math.random() - 0.5) * 1.8,
       vy: (Math.random() - 0.5) * 1.4,
-      targetVx: (Math.random() - 0.5) * 2.0,
-      targetVy: (Math.random() - 0.5) * 1.6,
-      wanderTimer: Math.random() * 90 + 30,
+      targetVx: 0,
+      targetVy: 0,
 
       facingLeft: Math.random() < 0.5,
       tilt: 0,
+      quantumAngle: Math.random() * Math.PI * 2,
+      quantumSpinSpeed: (Math.random() - 0.5) * 0.12,
 
-      // Hélice propulsora chiquita
       rotorAngle: Math.random() * 10,
       rotorSpeed: 0.55,
 
-      // PISTOLA MARCIANA MAGNÉTICA
       magneticBeamActive: false,
       magneticTargetX: 0,
       magneticTargetY: 0,
       magneticBeamTimer: 0,
       magneticCooldown: Math.random() * 80 + 30,
 
-      // INTERACCIÓN ENTRE ELLOS (SQUAD BEAM)
       peerBeamActive: false,
       peerTargetOp: null,
       peerBeamTimer: 0,
@@ -316,11 +330,31 @@
     ctx.save();
     ctx.translate(Math.round(op.x), Math.round(op.y));
 
-    // Inclinación aerodinámica natural
-    ctx.rotate(op.tilt);
+    // En Cuántico: astronautas desorientados girando alegremente en 360°
+    if (currentPlanet.id === 'cuantico') {
+      ctx.rotate(op.quantumAngle);
+    } else {
+      ctx.rotate(op.tilt);
+    }
+
     ctx.scale(op.facingLeft ? -1 : 1, 1);
 
     var p = 1.15; // Escala micro arcade
+
+    // Si está en Cuántico, efecto de fantasma / superposición cuántica
+    if (currentPlanet.id === 'cuantico') {
+      ctx.save();
+      ctx.globalAlpha = 0.35;
+      ctx.translate(2.5, -2);
+      drawPixelRect(ctx, -2 * p, -5.5 * p, 4.5 * p, 3.5 * p, '#38BDF8');
+      ctx.restore();
+
+      ctx.save();
+      ctx.globalAlpha = 0.35;
+      ctx.translate(-2.5, 2);
+      drawPixelRect(ctx, -2 * p, -5.5 * p, 4.5 * p, 3.5 * p, '#F43F5E');
+      ctx.restore();
+    }
 
     // 1. PISTOLA MARCIANA MAGNÉTICA
     var gunX = 3 * p;
@@ -336,7 +370,7 @@
     drawPixelRect(ctx, mastX, mastY, 1.2 * p, 2.5 * p, '#CBD5E1');
 
     var rFrame = Math.floor(op.rotorAngle) % 4;
-    var bladeColor = '#FFEA00';
+    var bladeColor = (currentPlanet.id === 'plasma') ? '#86EFAC' : '#FFEA00';
     var hubColor = '#DC2626';
 
     if (rFrame === 0) {
@@ -357,14 +391,14 @@
 
     // 3. MOCHILA ROJA PROP-PACK
     drawPixelRect(ctx, -4 * p, -4 * p, 2.5 * p, 5 * p, '#DC2626');
-    drawPixelRect(ctx, -4.5 * p, -2.5 * p, 1 * p, 2 * p, '#FFEA00');
+    drawPixelRect(ctx, -4.5 * p, -2.5 * p, 1 * p, 2 * p, bladeColor);
 
     // 4. CASCO CON LENTES AMARILLOS Y BANDA ROJA
     drawPixelRect(ctx, -2 * p, -5.5 * p, 4.5 * p, 3.5 * p, '#FFFFFF');
     drawPixelRect(ctx, -2 * p, -4 * p, 4.5 * p, 1 * p, '#DC2626');
-    drawPixelRect(ctx, 0.8 * p, -4.2 * p, 1.8 * p, 1.8 * p, '#FFEA00');
+    drawPixelRect(ctx, 0.8 * p, -4.2 * p, 1.8 * p, 1.8 * p, bladeColor);
 
-    // 5. CUERPO BLANCO CON CINTURÓN AZUL
+    // 5. CUERPO BLANCO CON CINTURÓN
     drawPixelRect(ctx, -2 * p, -2 * p, 4.5 * p, 4 * p, '#FFFFFF');
     drawPixelRect(ctx, -2 * p, 0.2 * p, 4.5 * p, 0.9 * p, '#0284C7');
 
@@ -377,7 +411,7 @@
     ctx.restore();
   }
 
-  // Dibujar el rayo magnético con anillos pulsantes hacia tarjetas o letras
+  // Dibujar rayo magnético con anillos pulsantes hacia tarjetas o letras
   function drawMartianMagneticRay(ctx, op, timeTick) {
     if (!op.magneticBeamActive) return;
 
@@ -386,12 +420,12 @@
     var targetX = op.magneticTargetX;
     var targetY = op.magneticTargetY;
 
-    var beamColor = (currentPlanet.id === 'marte') ? '#F87171' :
-                    (currentPlanet.id === 'tierra' || currentPlanet.id === 'plasma') ? '#34D399' :
+    var beamColor = (currentPlanet.id === 'deimos' || currentPlanet.id === 'marte') ? '#F87171' :
+                    (currentPlanet.id === 'tierra') ? '#34D399' :
+                    (currentPlanet.id === 'plasma') ? '#22C55E' :
                     (currentPlanet.id === 'agua') ? '#38BDF8' :
-                    (currentPlanet.id === 'cuantico') ? '#C084FC' : '#38BDF8';
+                    (currentPlanet.id === 'cuantico') ? '#C084FC' : '#F59E0B';
 
-    // Línea base del rayo tractor
     ctx.save();
     ctx.strokeStyle = beamColor;
     ctx.lineWidth = 1.8;
@@ -400,7 +434,6 @@
     ctx.lineTo(targetX, targetY);
     ctx.stroke();
 
-    // Anillos magnéticos pulsantes concéntricos a lo largo del rayo
     for (var rStep = 0.25; rStep <= 0.85; rStep += 0.3) {
       var pulseOffset = (timeTick * 4 + rStep * 2) % 1;
       var ringT = Math.min(0.95, rStep + pulseOffset * 0.15);
@@ -415,7 +448,6 @@
       ctx.stroke();
     }
 
-    // Chispa de impacto en el destino
     ctx.beginPath();
     ctx.arc(targetX, targetY, 3 + Math.sin(timeTick * 12) * 1.5, 0, Math.PI * 2);
     ctx.fillStyle = '#FFEA00';
@@ -427,7 +459,7 @@
   // Rayo de interacción entre compañeros de escuadrón
   function drawPeerInteractionRay(ctx, op1, op2, timeTick) {
     ctx.save();
-    ctx.strokeStyle = (currentPlanet.id === 'plasma') ? 'rgba(52, 211, 153, 0.7)' : 'rgba(56, 189, 248, 0.7)';
+    ctx.strokeStyle = (currentPlanet.id === 'plasma') ? 'rgba(34, 197, 94, 0.7)' : 'rgba(56, 189, 248, 0.7)';
     ctx.lineWidth = 1.2;
     ctx.setLineDash([3, 3]);
     ctx.lineDashOffset = -timeTick * 20;
@@ -440,13 +472,13 @@
   }
 
   // ==========================================================================
-  // 7. LETRAS ATMOSFÉRICAS TRASERAS (SEGUNDA CAPA, CERO COLISIÓN)
+  // 7. LETRAS ATMOSFÉRICAS TRASERAS
   // ==========================================================================
-  var cityOffsetX = 0;
-  var cityOpacity = 0.20;
-  var currentScrollY = window.pageYOffset || 0;
-  var lastScrollY = currentScrollY;
+  var currentScrollY = 0;
+  var lastScrollY = 0;
   var scrollVelocity = 0;
+  var cityOffsetX = 0;
+  var cityOpacity = 0;
 
   window.addEventListener('scroll', function() {
     currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
@@ -499,9 +531,8 @@
   }
 
   // ==========================================================================
-  // 8. CACHÉ INTELIGENTE DE OBSTÁCULOS (TARJETAS Y LETRAS DESTACADAS)
+  // 8. CACHÉ INTELIGENTE DE OBSTÁCULOS & MARCAS DE LÁSER
   // ==========================================================================
-  // "Y QUE CHOQUEN CON LAS LETRAS, LAS TARJETAS SOLIDAS CON IMAGEN DIFUMINADA ESTA PERFECT"
   var contentBoxes = [];
   var boxUpdateCooldown = 0;
 
@@ -512,7 +543,6 @@
 
     for (var i = 0; i < elements.length; i++) {
       var rect = elements[i].getBoundingClientRect();
-      // Solo consideramos elementos actualmente visibles en el viewport
       if (rect.bottom > 20 && rect.top < height - 20 && rect.width > 30 && rect.height > 20) {
         contentBoxes.push({
           left: rect.left,
@@ -535,158 +565,21 @@
     }
   }, { passive: true });
 
-  // ==========================================================================
-
-  // ==========================================================================
-  // 5.1 EFECTOS ATMOSFÉRICOS ESPECIALIZADOS POR PLANETA
-  // (Marte con viento, Agua con plantas, Espacio con más estrellas)
-  // ==========================================================================
-  
-  // A. VIENTO Y TORMENTA DE POLVO EN MARTE
-  var martianWinds = [];
-  var WIND_COUNT = isMobile ? 18 : 36;
-  for (var wIdx = 0; wIdx < WIND_COUNT; wIdx++) {
-    martianWinds.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      len: Math.random() * 45 + 25,
-      speed: Math.random() * 4 + 3.5,
-      alpha: Math.random() * 0.35 + 0.15,
-      thick: Math.random() * 1.5 + 0.8
-    });
-  }
-
-  function renderMartianWind(ctx) {
-    if (currentPlanet.id !== 'marte') return;
-    ctx.save();
-    for (var w = 0; w < martianWinds.length; w++) {
-      var wind = martianWinds[w];
-      wind.x -= wind.speed; // Viento sopla de derecha a izquierda
-      wind.y += Math.sin(timeTick * 3 + w) * 0.4;
-      if (wind.x < -60) {
-        wind.x = width + 60;
-        wind.y = Math.random() * height;
-      }
-
-      ctx.strokeStyle = 'rgba(239, 68, 68, ' + wind.alpha + ')';
-      ctx.lineWidth = wind.thick;
-      ctx.beginPath();
-      ctx.moveTo(wind.x, wind.y);
-      ctx.lineTo(wind.x + wind.len, wind.y);
-      ctx.stroke();
-
-      // Partículas pequeñas de polvo carmesí arrastradas por la ráfaga
-      if (w % 3 === 0) {
-        ctx.fillStyle = 'rgba(248, 113, 113, ' + (wind.alpha * 1.2) + ')';
-        ctx.fillRect(wind.x - 4, wind.y - 1, 2, 2);
-      }
-    }
-    ctx.restore();
-  }
-
-  // B. PLANTAS MARINAS Y BURBUJAS EN AGUA
-  var waterPlants = [];
-  var PLANT_COUNT = isMobile ? 5 : 9;
-  for (var pIdx = 0; pIdx < PLANT_COUNT; pIdx++) {
-    waterPlants.push({
-      id: pIdx,
-      baseX: (width / (PLANT_COUNT + 1)) * (pIdx + 1) + (Math.random() - 0.5) * 40,
-      height: Math.random() * 160 + 120,
-      swaySpeed: Math.random() * 0.02 + 0.015,
-      swayAmount: Math.random() * 35 + 25,
-      widthFrond: Math.random() * 4 + 3
-    });
-  }
-
-  var waterBubbles = [];
-  var BUBBLE_COUNT = isMobile ? 12 : 24;
-  for (var bIdx = 0; bIdx < BUBBLE_COUNT; bIdx++) {
-    waterBubbles.push({
-      id: bIdx,
-      x: Math.random() * width,
-      y: height + Math.random() * 100,
-      radius: Math.random() * 3 + 1.5,
-      speed: Math.random() * 1.2 + 0.6,
-      wobbleSpeed: Math.random() * 0.04 + 0.02,
-      alpha: Math.random() * 0.4 + 0.2
-    });
-  }
-
-  function renderWaterEnvironment(ctx) {
-    if (currentPlanet.id !== 'agua') return;
-    ctx.save();
-
-    // 1. Plantas marinas / algas abisales ondulantes
-    for (var p = 0; p < waterPlants.length; p++) {
-      var pl = waterPlants[p];
-      var baseY = height;
-      var tipY = height - pl.height;
-      var tipX = pl.baseX + Math.sin(timeTick * 2.2 + pl.id) * pl.swayAmount;
-      var cp1X = pl.baseX + Math.sin(timeTick * 1.5 + pl.id) * (pl.swayAmount * 0.4);
-      var cp1Y = height - (pl.height * 0.4);
-      var cp2X = pl.baseX + Math.sin(timeTick * 2.0 + pl.id) * (pl.swayAmount * 0.8);
-      var cp2Y = height - (pl.height * 0.75);
-
-      var grad = ctx.createLinearGradient(pl.baseX, baseY, tipX, tipY);
-      grad.addColorStop(0, 'rgba(6, 78, 59, 0.45)');
-      grad.addColorStop(0.5, 'rgba(16, 185, 129, 0.35)');
-      grad.addColorStop(1, 'rgba(56, 189, 248, 0.55)');
-
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = pl.widthFrond;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(pl.baseX, baseY);
-      ctx.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, tipX, tipY);
-      ctx.stroke();
-
-      // Hoja bioluminiscente en la punta
-      ctx.fillStyle = 'rgba(56, 189, 248, 0.6)';
-      ctx.beginPath();
-      ctx.arc(tipX, tipY, 3.5, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    // 2. Burbujas subiendo
-    for (var b = 0; b < waterBubbles.length; b++) {
-      var bub = waterBubbles[b];
-      bub.y -= bub.speed;
-      bub.x += Math.sin(timeTick * 3 + bub.id) * 0.6;
-      if (bub.y < -20) {
-        bub.y = height + 20;
-        bub.x = Math.random() * width;
-      }
-
-      ctx.strokeStyle = 'rgba(125, 211, 252, ' + bub.alpha + ')';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.arc(bub.x, bub.y, bub.radius, 0, Math.PI * 2);
-      ctx.stroke();
-      // Pequeño reflejo
-      ctx.fillStyle = 'rgba(255, 255, 255, ' + (bub.alpha * 0.8) + ')';
-      ctx.fillRect(bub.x - bub.radius * 0.4, bub.y - bub.radius * 0.4, 1.2, 1.2);
-    }
-
-    ctx.restore();
-  }
-
-  // C. MARCAS DE LÁSER Y SOLDADURA EN LAS TARJETAS
-  // "y que los astronautas con su rayo hagan marcas en la tarjetas"
   var laserMarks = [];
-  var MAX_LASER_MARKS = 40;
+  var MAX_LASER_MARKS = isMobile ? 12 : 25;
 
   function addLaserMark(x, y) {
     if (laserMarks.length >= MAX_LASER_MARKS) {
-      laserMarks.shift(); // Quitar la más vieja
+      laserMarks.shift();
     }
     laserMarks.push({
       x: x,
       y: y,
-      radius: Math.random() * 4 + 3.5,
+      radius: Math.random() * 3 + 3.5,
       life: 1.0,
-      decay: 0.0035, // Dura varios segundos
-      color: (currentPlanet.id === 'marte') ? '#F87171' :
-             (currentPlanet.id === 'plasma') ? '#4ADE80' :
+      decay: 0.0035,
+      color: (currentPlanet.id === 'deimos' || currentPlanet.id === 'marte') ? '#F87171' :
+             (currentPlanet.id === 'plasma') ? '#22C55E' :
              (currentPlanet.id === 'agua') ? '#38BDF8' :
              (currentPlanet.id === 'cuantico') ? '#C084FC' : '#FFEA00'
     });
@@ -702,53 +595,647 @@
       }
 
       ctx.save();
-      // 1. Halo incandescente
-      var glowRad = mark.radius * (1.5 + mark.life);
-      var grad = ctx.createRadialGradient(mark.x, mark.y, 0, mark.x, mark.y, glowRad);
-      grad.addColorStop(0, mark.color);
-      grad.addColorStop(0.4, 'rgba(255, 234, 0, ' + (mark.life * 0.8) + ')');
-      grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-      ctx.fillStyle = grad;
       ctx.beginPath();
-      ctx.arc(mark.x, mark.y, glowRad, 0, Math.PI * 2);
+      ctx.arc(mark.x, mark.y, mark.radius * 2.2, 0, Math.PI * 2);
+      ctx.fillStyle = mark.color;
+      ctx.globalAlpha = mark.life * 0.45;
       ctx.fill();
 
-      // 2. Quemadura o cicatriz oscura central
-      ctx.fillStyle = 'rgba(20, 20, 20, ' + (mark.life * 0.9) + ')';
       ctx.beginPath();
-      ctx.arc(mark.x, mark.y, mark.radius * 0.5, 0, Math.PI * 2);
+      ctx.arc(mark.x, mark.y, mark.radius * 0.7, 0, Math.PI * 2);
+      ctx.fillStyle = '#0F172A';
+      ctx.globalAlpha = mark.life * 0.85;
       ctx.fill();
-
-      // 3. Destello ardiente en el centro si es reciente
-      if (mark.life > 0.4) {
-        ctx.fillStyle = '#FFFFFF';
-        ctx.beginPath();
-        ctx.arc(mark.x, mark.y, mark.radius * 0.25, 0, Math.PI * 2);
-        ctx.fill();
-      }
 
       ctx.restore();
     }
   }
 
-  // 9. BUCLE PRINCIPAL DE FÍSICA Y SIMULACIÓN
+  // ==========================================================================
+  // 9. ENTORNOS PLANETARIOS ESPECIALIZADOS (DETALLES Y FÍSICA)
+  // ==========================================================================
+
+  // --- A. SPACE: PLANETAS DISTANTES Y COMETAS FUGACES ---
+  var spaceComets = [];
+  var cometCooldown = 120;
+
+  function renderSpaceDetails(ctx, timeTick) {
+    if (currentPlanet.id !== 'espacio') return;
+
+    ctx.save();
+
+    // 1. Planeta anillado distante (Saturno estilizado con scroll parallax)
+    var satX = width * 0.84;
+    var satY = (160 - (currentScrollY * 0.06)) % (height + 300);
+    if (satY < -100) satY += height + 400;
+
+    // Halo suave
+    var satGlow = ctx.createRadialGradient(satX, satY, 15, satX, satY, 65);
+    satGlow.addColorStop(0, 'rgba(245, 158, 11, 0.18)');
+    satGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = satGlow;
+    ctx.beginPath();
+    ctx.arc(satX, satY, 65, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Esfera del planeta
+    var satSphere = ctx.createRadialGradient(satX - 10, satY - 10, 4, satX, satY, 32);
+    satSphere.addColorStop(0, '#334155');
+    satSphere.addColorStop(0.7, '#1E293B');
+    satSphere.addColorStop(1, '#0B0F19');
+    ctx.fillStyle = satSphere;
+    ctx.beginPath();
+    ctx.arc(satX, satY, 32, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Anillo exterior inclinado
+    ctx.save();
+    ctx.translate(satX, satY);
+    ctx.rotate(0.38);
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 68, 16, 0, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.55)';
+    ctx.lineWidth = 3.5;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 56, 12, 0, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.40)';
+    ctx.lineWidth = 1.8;
+    ctx.stroke();
+    ctx.restore();
+
+    // 2. Luna / planetoide azulado flotante a la izquierda
+    var moonX = width * 0.12;
+    var moonY = (height * 0.72 - (currentScrollY * 0.04)) % (height + 300);
+    if (moonY < -80) moonY += height + 400;
+
+    var moonGlow = ctx.createRadialGradient(moonX, moonY, 8, moonX, moonY, 35);
+    moonGlow.addColorStop(0, 'rgba(56, 189, 248, 0.22)');
+    moonGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = moonGlow;
+    ctx.beginPath();
+    ctx.arc(moonX, moonY, 35, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#0F172A';
+    ctx.beginPath();
+    ctx.arc(moonX, moonY, 16, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.strokeStyle = '#38BDF8';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(moonX, moonY, 16, 0.8, 3.2);
+    ctx.stroke();
+
+    // 3. Cometas fugaces periódicos
+    cometCooldown--;
+    if ((cometCooldown <= 0 || scrollVelocity > 8) && spaceComets.length < 2) {
+      spaceComets.push({
+        x: Math.random() * width + 250,
+        y: Math.random() * (height * 0.45) - 50,
+        vx: -(Math.random() * 4 + 7.5),
+        vy: Math.random() * 2.5 + 3.2,
+        length: Math.random() * 60 + 80,
+        life: 1.0,
+        decay: 0.016
+      });
+      cometCooldown = Math.random() * 220 + 150;
+    }
+
+    for (var cIdx = spaceComets.length - 1; cIdx >= 0; cIdx--) {
+      var c = spaceComets[cIdx];
+      c.x += c.vx;
+      c.y += c.vy;
+      c.life -= c.decay;
+
+      if (c.life <= 0 || c.x < -150 || c.y > height + 150) {
+        spaceComets.splice(cIdx, 1);
+        continue;
+      }
+
+      var tailX = c.x - (c.vx / Math.hypot(c.vx, c.vy)) * c.length;
+      var tailY = c.y - (c.vy / Math.hypot(c.vx, c.vy)) * c.length;
+
+      var cometGrad = ctx.createLinearGradient(c.x, c.y, tailX, tailY);
+      cometGrad.addColorStop(0, 'rgba(255, 255, 255, ' + (c.life * 0.9) + ')');
+      cometGrad.addColorStop(0.3, 'rgba(253, 224, 71, ' + (c.life * 0.6) + ')');
+      cometGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
+
+      ctx.strokeStyle = cometGrad;
+      ctx.lineWidth = 2.4;
+      ctx.beginPath();
+      ctx.moveTo(c.x, c.y);
+      ctx.lineTo(tailX, tailY);
+      ctx.stroke();
+
+      // Cabeza resplandeciente
+      ctx.fillStyle = '#FFFFFF';
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.restore();
+  }
+
+  // --- B. TIERRA: MONTAÑAS, ÁRBOLES Y VIENTO/HOJAS JADE ---
+  var earthLeaves = [];
+  var LEAF_COUNT = isMobile ? 12 : 24;
+  for (var lIdx = 0; lIdx < LEAF_COUNT; lIdx++) {
+    earthLeaves.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      speedX: Math.random() * 2.2 + 1.2,
+      swaySpeed: Math.random() * 0.03 + 0.015,
+      size: Math.random() * 3 + 2,
+      angle: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.08
+    });
+  }
+
+  function renderEarthDetails(ctx, timeTick) {
+    if (currentPlanet.id !== 'tierra') return;
+
+    ctx.save();
+
+    // 1. Silueta de Montañas / Los Andes en el horizonte
+    var baseY = height;
+    var mParallax = (currentScrollY * 0.04) % 30;
+
+    // Capa lejana
+    ctx.fillStyle = 'rgba(6, 78, 59, 0.28)';
+    ctx.beginPath();
+    ctx.moveTo(0, baseY);
+    ctx.lineTo(0, baseY - 120 + mParallax);
+    ctx.lineTo(width * 0.22, baseY - 165 + mParallax);
+    ctx.lineTo(width * 0.45, baseY - 110 + mParallax);
+    ctx.lineTo(width * 0.68, baseY - 180 + mParallax);
+    ctx.lineTo(width * 0.88, baseY - 130 + mParallax);
+    ctx.lineTo(width, baseY - 150 + mParallax);
+    ctx.lineTo(width, baseY);
+    ctx.closePath();
+    ctx.fill();
+
+    // Capa cercana de colinas
+    ctx.fillStyle = 'rgba(16, 185, 129, 0.16)';
+    ctx.beginPath();
+    ctx.moveTo(0, baseY);
+    ctx.lineTo(0, baseY - 70);
+    ctx.lineTo(width * 0.35, baseY - 105);
+    ctx.lineTo(width * 0.70, baseY - 65);
+    ctx.lineTo(width, baseY - 95);
+    ctx.lineTo(width, baseY);
+    ctx.closePath();
+    ctx.fill();
+
+    // 2. Siluetas de árboles y coníferas en la base
+    var treeSpacing = width / (isMobile ? 8 : 16);
+    ctx.fillStyle = 'rgba(6, 44, 34, 0.75)';
+    for (var t = 0; t <= (isMobile ? 8 : 16); t++) {
+      var tx = t * treeSpacing + 15;
+      var ty = height - 15;
+      var tHeight = 35 + ((t * 7) % 25);
+      var sway = Math.sin(timeTick * 1.8 + t) * 3;
+
+      // Tronco y cono
+      ctx.beginPath();
+      ctx.moveTo(tx, ty);
+      ctx.lineTo(tx + sway, ty - tHeight);
+      ctx.lineTo(tx + 12, ty);
+      ctx.closePath();
+      ctx.fill();
+
+      // Segundo nivel follaje
+      ctx.beginPath();
+      ctx.moveTo(tx - 6, ty - 8);
+      ctx.lineTo(tx + sway, ty - tHeight - 6);
+      ctx.lineTo(tx + 16, ty - 8);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // 3. Viento y hojas verdes flotando por la pantalla
+    for (var l = 0; l < earthLeaves.length; l++) {
+      var lf = earthLeaves[l];
+      lf.x += lf.speedX;
+      lf.y += Math.sin(timeTick * 2.5 + l) * 0.8;
+      lf.angle += lf.rotSpeed;
+
+      if (lf.x > width + 20) {
+        lf.x = -20;
+        lf.y = Math.random() * height;
+      }
+
+      ctx.save();
+      ctx.translate(lf.x, lf.y);
+      ctx.rotate(lf.angle);
+      ctx.fillStyle = 'rgba(52, 211, 153, 0.65)';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, lf.size * 1.5, lf.size * 0.7, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    ctx.restore();
+  }
+
+  // --- C. DEIMOS (ROJO CARMESÍ): ROCAS, PIEDRAS Y POLVO FERROSO ---
+  var deimosWinds = [];
+  var WIND_COUNT = isMobile ? 18 : 34;
+  for (var dw = 0; dw < WIND_COUNT; dw++) {
+    deimosWinds.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      len: Math.random() * 55 + 25,
+      speed: Math.random() * 4.5 + 3.2,
+      alpha: Math.random() * 0.35 + 0.15,
+      thick: Math.random() * 1.5 + 0.8
+    });
+  }
+
+  var deimosFloatingRocks = [];
+  var ROCK_COUNT = isMobile ? 5 : 9;
+  for (var rk = 0; rk < ROCK_COUNT; rk++) {
+    deimosFloatingRocks.push({
+      id: rk,
+      x: (width / (ROCK_COUNT + 1)) * (rk + 1) + (Math.random() - 0.5) * 50,
+      baseY: height * 0.60 + Math.random() * (height * 0.28),
+      size: Math.random() * 8 + 6,
+      rot: Math.random() * Math.PI,
+      rotSpeed: (Math.random() - 0.5) * 0.02
+    });
+  }
+
+  function renderDeimosDetails(ctx, timeTick) {
+    if (currentPlanet.id !== 'deimos' && currentPlanet.id !== 'marte') return;
+
+    ctx.save();
+
+    // 1. Cordillera y cráteres rocosos en el suelo
+    ctx.fillStyle = 'rgba(127, 29, 29, 0.30)';
+    ctx.beginPath();
+    ctx.moveTo(0, height);
+    ctx.lineTo(0, height - 90);
+    ctx.lineTo(width * 0.25, height - 130);
+    ctx.lineTo(width * 0.55, height - 85);
+    ctx.lineTo(width * 0.80, height - 140);
+    ctx.lineTo(width, height - 95);
+    ctx.lineTo(width, height);
+    ctx.closePath();
+    ctx.fill();
+
+    // 2. Piedras y rocas flotando en gravedad reducida (0.38g)
+    for (var r = 0; r < deimosFloatingRocks.length; r++) {
+      var rock = deimosFloatingRocks[r];
+      rock.rot += rock.rotSpeed;
+      var ry = rock.baseY + Math.sin(timeTick * 1.5 + rock.id) * 8;
+
+      ctx.save();
+      ctx.translate(rock.x, ry);
+      ctx.rotate(rock.rot);
+
+      ctx.fillStyle = 'rgba(239, 68, 68, 0.50)';
+      ctx.strokeStyle = 'rgba(248, 113, 113, 0.70)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(-rock.size, -rock.size * 0.5);
+      ctx.lineTo(rock.size * 0.8, -rock.size * 0.8);
+      ctx.lineTo(rock.size, rock.size * 0.5);
+      ctx.lineTo(0, rock.size * 0.9);
+      ctx.lineTo(-rock.size * 0.9, rock.size * 0.4);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    // 3. Ráfagas de viento y polvo ferroso
+    for (var w = 0; w < deimosWinds.length; w++) {
+      var wind = deimosWinds[w];
+      wind.x -= wind.speed;
+      wind.y += Math.sin(timeTick * 3 + w) * 0.35;
+      if (wind.x < -60) {
+        wind.x = width + 60;
+        wind.y = Math.random() * height;
+      }
+
+      ctx.strokeStyle = 'rgba(239, 68, 68, ' + wind.alpha + ')';
+      ctx.lineWidth = wind.thick;
+      ctx.beginPath();
+      ctx.moveTo(wind.x, wind.y);
+      ctx.lineTo(wind.x + wind.len, wind.y);
+      ctx.stroke();
+
+      if (w % 3 === 0) {
+        ctx.fillStyle = 'rgba(248, 113, 113, ' + (wind.alpha * 1.4) + ')';
+        ctx.fillRect(wind.x - 4, wind.y - 1, 2.5, 2.5);
+      }
+    }
+
+    ctx.restore();
+  }
+
+  // --- D. AGUA (AZUL ABISAL): PECES EXTRAÑOS BIOLUMINISCENTES, PLANTAS Y BURBUJAS ---
+  var waterPlants = [];
+  var PLANT_COUNT = isMobile ? 5 : 9;
+  for (var pIdx = 0; pIdx < PLANT_COUNT; pIdx++) {
+    waterPlants.push({
+      id: pIdx,
+      baseX: (width / (PLANT_COUNT + 1)) * (pIdx + 1) + (Math.random() - 0.5) * 40,
+      height: Math.random() * 160 + 130,
+      swayAmount: Math.random() * 35 + 25,
+      widthFrond: Math.random() * 4 + 3
+    });
+  }
+
+  var waterBubbles = [];
+  var BUBBLE_COUNT = isMobile ? 14 : 26;
+  for (var bIdx = 0; bIdx < BUBBLE_COUNT; bIdx++) {
+    waterBubbles.push({
+      id: bIdx,
+      x: Math.random() * width,
+      y: height + Math.random() * 100,
+      radius: Math.random() * 3 + 1.5,
+      speed: Math.random() * 1.2 + 0.6,
+      wobbleSpeed: Math.random() * 0.04 + 0.02,
+      wobbleOffset: Math.random() * Math.PI * 2
+    });
+  }
+
+  // Peces extraños abisales bioluminiscentes
+  var abyssalFish = [];
+  var FISH_COUNT = isMobile ? 3 : 5;
+  for (var f = 0; f < FISH_COUNT; f++) {
+    abyssalFish.push({
+      id: f,
+      x: Math.random() * width,
+      y: height * 0.35 + Math.random() * (height * 0.5),
+      speed: Math.random() * 1.2 + 0.8,
+      facingLeft: Math.random() < 0.5,
+      bodyLength: Math.random() * 10 + 18,
+      swimOffset: Math.random() * Math.PI * 2
+    });
+  }
+
+  function renderWaterDetails(ctx, timeTick) {
+    if (currentPlanet.id !== 'agua') return;
+
+    ctx.save();
+
+    // 1. Rayos de luz abisales (God Rays)
+    for (var r = 0; r < 4; r++) {
+      var rx = (width * 0.25) * r + Math.sin(timeTick * 0.8 + r) * 30;
+      var rayGrad = ctx.createLinearGradient(rx, 0, rx + 80, height);
+      rayGrad.addColorStop(0, 'rgba(56, 189, 248, 0.08)');
+      rayGrad.addColorStop(1, 'rgba(56, 189, 248, 0.0)');
+
+      ctx.fillStyle = rayGrad;
+      ctx.beginPath();
+      ctx.moveTo(rx, 0);
+      ctx.lineTo(rx + 60, 0);
+      ctx.lineTo(rx + 160, height);
+      ctx.lineTo(rx - 40, height);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // 2. Algas marinas abisales ondulantes
+    for (var p = 0; p < waterPlants.length; p++) {
+      var pl = waterPlants[p];
+      var baseY = height;
+      var tipY = height - pl.height;
+      var tipX = pl.baseX + Math.sin(timeTick * 2.2 + pl.id) * pl.swayAmount;
+      var cp1X = pl.baseX + Math.sin(timeTick * 1.5 + pl.id) * (pl.swayAmount * 0.4);
+      var cp1Y = height - (pl.height * 0.4);
+
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
+      ctx.lineWidth = pl.widthFrond;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(pl.baseX, baseY);
+      ctx.quadraticCurveTo(cp1X, cp1Y, tipX, tipY);
+      ctx.stroke();
+
+      // Fronda bioluminiscente superior
+      ctx.fillStyle = '#38BDF8';
+      ctx.beginPath();
+      ctx.arc(tipX, tipY, 3.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // 3. Peces extraños bioluminiscentes nadando
+    for (var fi = 0; fi < abyssalFish.length; fi++) {
+      var fish = abyssalFish[fi];
+
+      // Nadar horizontalmente
+      fish.x += (fish.facingLeft ? -1 : 1) * fish.speed;
+      fish.y += Math.sin(timeTick * 2.2 + fish.swimOffset) * 0.4;
+
+      if (fish.facingLeft && fish.x < -60) {
+        fish.x = width + 60;
+        fish.y = height * 0.35 + Math.random() * (height * 0.5);
+      } else if (!fish.facingLeft && fish.x > width + 60) {
+        fish.x = -60;
+        fish.y = height * 0.35 + Math.random() * (height * 0.5);
+      }
+
+      ctx.save();
+      ctx.translate(fish.x, fish.y);
+      ctx.scale(fish.facingLeft ? -1 : 1, 1);
+
+      // Cuerpo pez
+      ctx.fillStyle = 'rgba(56, 189, 248, 0.75)';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, fish.bodyLength, fish.bodyLength * 0.45, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Cola ondulante
+      var tailWiggle = Math.sin(timeTick * 6 + fish.swimOffset) * 5;
+      ctx.beginPath();
+      ctx.moveTo(-fish.bodyLength, 0);
+      ctx.lineTo(-fish.bodyLength - 12, -8 + tailWiggle);
+      ctx.lineTo(-fish.bodyLength - 12, 8 + tailWiggle);
+      ctx.closePath();
+      ctx.fill();
+
+      // Señuelo / Antena bioluminiscente sobre la cabeza (iluminación abisal)
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.7)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(fish.bodyLength * 0.5, -4);
+      ctx.quadraticCurveTo(fish.bodyLength * 0.8, -14, fish.bodyLength + 6, -10);
+      ctx.stroke();
+
+      ctx.fillStyle = '#FFEA00';
+      ctx.beginPath();
+      ctx.arc(fish.bodyLength + 6, -10, 2.5 + Math.sin(timeTick * 8 + fish.id) * 0.8, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    // 4. Burbujas ascendentes
+    for (var b = 0; b < waterBubbles.length; b++) {
+      var bb = waterBubbles[b];
+      bb.y -= bb.speed;
+      bb.x += Math.sin(timeTick * 3 + bb.wobbleOffset) * 0.5;
+
+      if (bb.y < -20) {
+        bb.y = height + Math.random() * 60;
+        bb.x = Math.random() * width;
+      }
+
+      ctx.strokeStyle = 'rgba(186, 230, 253, 0.65)';
+      ctx.fillStyle = 'rgba(56, 189, 248, 0.15)';
+      ctx.lineWidth = 1.0;
+      ctx.beginPath();
+      ctx.arc(bb.x, bb.y, bb.radius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // Brillo interior burbuja
+      ctx.fillStyle = '#FFFFFF';
+      ctx.beginPath();
+      ctx.arc(bb.x - bb.radius * 0.35, bb.y - bb.radius * 0.35, bb.radius * 0.35, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.restore();
+  }
+
+  // --- E. PLASMA: EFECTO LISÉRGICO / PSICODÉLICO & ARCOS ELÉCTRICOS ---
+  function renderPlasmaDetails(ctx, timeTick) {
+    if (currentPlanet.id !== 'plasma') return;
+
+    ctx.save();
+
+    // 1. Ondas caleidoscópicas psicodélicas respirantes
+    var centerX = width * 0.5;
+    var centerY = height * 0.5;
+
+    for (var ring = 1; ring <= 4; ring++) {
+      var ringRadius = ((timeTick * 25 + ring * 90) % (Math.max(width, height) * 0.75));
+      var hue = (timeTick * 45 + ring * 40) % 360;
+      var ringAlpha = Math.max(0, 0.22 - (ringRadius / (Math.max(width, height) * 0.75)) * 0.22);
+
+      ctx.strokeStyle = 'hsla(' + hue + ', 95%, 65%, ' + ringAlpha + ')';
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+
+      // Deformación sinuosa lisérgica
+      for (var angle = 0; angle <= Math.PI * 2; angle += 0.2) {
+        var warp = Math.sin(angle * 6 + timeTick * 3) * 12;
+        var rx = centerX + Math.cos(angle) * (ringRadius + warp);
+        var ry = centerY + Math.sin(angle) * (ringRadius + warp);
+        if (angle === 0) ctx.moveTo(rx, ry);
+        else ctx.lineTo(rx, ry);
+      }
+      ctx.closePath();
+      ctx.stroke();
+    }
+
+    // 2. Arcos eléctricos de plasma entre astronautas
+    for (var a = 0; a < operatives.length; a++) {
+      var op = operatives[a];
+      if (Math.random() < 0.08) {
+        var targetOp = operatives[(a + 1) % operatives.length];
+        var d = Math.hypot(targetOp.x - op.x, targetOp.y - op.y);
+        if (d < 180) {
+          ctx.strokeStyle = '#22C55E';
+          ctx.lineWidth = 1.4;
+          ctx.beginPath();
+          ctx.moveTo(op.x, op.y);
+          var midX = (op.x + targetOp.x) / 2 + (Math.random() - 0.5) * 20;
+          var midY = (op.y + targetOp.y) / 2 + (Math.random() - 0.5) * 20;
+          ctx.lineTo(midX, midY);
+          ctx.lineTo(targetOp.x, targetOp.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    ctx.restore();
+  }
+
+  // --- F. CUÁNTICO: PARTÍCULAS PRISMÁTICAS Y DESTELLOS ARCOÍRIS ---
+  var quantumPrisms = [];
+  var PRISM_COUNT = isMobile ? 8 : 16;
+  for (var q = 0; q < PRISM_COUNT; q++) {
+    quantumPrisms.push({
+      id: q,
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: Math.random() * 7 + 4,
+      rot: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.04,
+      driftX: (Math.random() - 0.5) * 0.8,
+      driftY: (Math.random() - 0.5) * 0.8,
+      hueBase: Math.random() * 360
+    });
+  }
+
+  function renderQuantumDetails(ctx, timeTick) {
+    if (currentPlanet.id !== 'cuantico') return;
+
+    ctx.save();
+
+    for (var q = 0; q < quantumPrisms.length; q++) {
+      var p = quantumPrisms[q];
+      p.x += p.driftX;
+      p.y += p.driftY;
+      p.rot += p.rotSpeed;
+
+      if (p.x < -20) p.x = width + 20;
+      if (p.x > width + 20) p.x = -20;
+      if (p.y < -20) p.y = height + 20;
+      if (p.y > height + 20) p.y = -20;
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+
+      // Cristal prismático con gradiente iridiscente
+      var qHue = (p.hueBase + timeTick * 50) % 360;
+      ctx.fillStyle = 'hsla(' + qHue + ', 90%, 70%, 0.65)';
+      ctx.strokeStyle = 'hsla(' + ((qHue + 120) % 360) + ', 95%, 85%, 0.85)';
+      ctx.lineWidth = 1.2;
+
+      // Forma de rombo/prisma cuántico
+      ctx.beginPath();
+      ctx.moveTo(0, -p.size * 1.5);
+      ctx.lineTo(p.size, 0);
+      ctx.lineTo(0, p.size * 1.5);
+      ctx.lineTo(-p.size, 0);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    ctx.restore();
+  }
+
+  // ==========================================================================
+  // 10. LOOP PRINCIPAL DE ANIMACIÓN A 60 FPS
   // ==========================================================================
   var timeTick = 0;
+  var sparks = [];
 
   function loop() {
-    timeTick += 0.02;
-    scrollVelocity *= 0.90;
+    timeTick += 0.03;
 
     if (boxUpdateCooldown > 0) {
       boxUpdateCooldown--;
     } else {
-      // Actualización periódica liviana (cada 35 frames)
       refreshContentBoxes();
       boxUpdateCooldown = 35;
     }
 
-    // Suavizado de cursor en escritorio (siempre activo para que los astronautas sigan el mouse)
+    // Suavizado del mouse
     if (!isMobile) {
       mouseX += (targetMouseX - mouseX) * 0.28;
       mouseY += (targetMouseY - mouseY) * 0.28;
@@ -762,7 +1249,7 @@
 
     ctx.clearRect(0, 0, width, height);
 
-    // Movimiento sutil de monolitos de fondo
+    // Movimiento de monolitos de fondo
     var isCityActive = (currentScrollY > 180);
     var targetCityOpacity = isCityActive ? 0.20 : 0;
     cityOpacity += (targetCityOpacity - cityOpacity) * 0.08;
@@ -771,19 +1258,29 @@
       cityOffsetX += 1.0 + (scrollVelocity * 0.4);
     }
 
-    // 1. Estrellas de fondo (densidad aumentada en Espacio)
-    renderMartianWind(ctx);
-    renderWaterEnvironment(ctx);
+    // RENDERIZAR DETALLES ESPECÍFICOS DEL PLANETA ACTIVO
+    renderSpaceDetails(ctx, timeTick);
+    renderEarthDetails(ctx, timeTick);
+    renderDeimosDetails(ctx, timeTick);
+    renderWaterDetails(ctx, timeTick);
+    renderPlasmaDetails(ctx, timeTick);
+    renderQuantumDetails(ctx, timeTick);
+
     renderLaserMarks(ctx);
-    // 1. Estrellas de fondo
+
+    // Estrellas de fondo con Parallax
     for (var s = 0; s < STAR_COUNT; s++) {
       var st = stars[s];
       var tw = Math.sin(timeTick * 2 + s) * 0.15;
+      
+      var parallaxY = (st.baseY - (currentScrollY * (0.03 * st.layer))) % height;
+      if (parallaxY < 0) parallaxY += height;
+
       ctx.beginPath();
-      ctx.arc(st.x, st.y, st.radius, 0, Math.PI * 2);
+      ctx.arc(st.x, parallaxY, st.radius, 0, Math.PI * 2);
 
       var starColor = (currentPlanet.id === 'tierra') ? 'rgba(52, 211, 153, ' :
-                      (currentPlanet.id === 'marte') ? 'rgba(248, 113, 113, ' :
+                      (currentPlanet.id === 'deimos' || currentPlanet.id === 'marte') ? 'rgba(248, 113, 113, ' :
                       (currentPlanet.id === 'agua') ? 'rgba(125, 211, 252, ' :
                       (currentPlanet.id === 'plasma') ? 'rgba(134, 239, 172, ' :
                       (currentPlanet.id === 'cuantico') ? 'rgba(233, 213, 255, ' :
@@ -793,10 +1290,9 @@
       ctx.fill();
     }
 
-    // 2. Letras atmosféricas traseras
     renderAtmosphericBackgroundLetters(ctx);
 
-    // 3. Chispas de impacto con letras o tarjetas
+    // Chispas de impacto
     for (var spIdx = sparks.length - 1; spIdx >= 0; spIdx--) {
       var spk = sparks[spIdx];
       spk.x += spk.vx;
@@ -814,32 +1310,31 @@
       ctx.globalAlpha = 1.0;
     }
 
-    // 4. Parámetros del entorno
     var friction = currentPlanet.friction || 0.98;
 
-    // ======================================================================
-    // 5. OPERATIVOS MICRO: SIEMPRE SE ACERCAN AL MOUSE (ENJAMBRE Y ESCOLTA 2D)
-    // "que los astronautas siempre se acerquen al mouse"
-    // ======================================================================
+    // FÍSICA Y MOVIMIENTO DE LOS ASTRONAUTAS: SIEMPRE SE ACERCAN AL MOUSE
     var curMouseX = isMobile ? targetMouseX : mouseX;
     var curMouseY = isMobile ? targetMouseY : mouseY;
 
     for (var opIdx = 0; opIdx < OPERATIVE_COUNT; opIdx++) {
       var op = operatives[opIdx];
 
-      // 1. Vector directo hacia la posición del mouse (siempre activo en 2D)
       var mdx = curMouseX - op.x;
       var mdy = curMouseY - op.y;
       var mDist = Math.hypot(mdx, mdy);
 
-      // Mirar siempre de frente hacia el cursor
+      // Mirar de frente hacia el cursor
       if (Math.abs(mdx) > 3) {
         op.facingLeft = (mdx < 0);
       }
 
-      // Formación de escolta dinámica: cada astronauta tiene su propia distancia
-      // y ángulo orbital alrededor del mouse para no solaparse en un solo punto
-      var orbitRadius = 40 + (op.id % 5) * 22; // De 40px a 128px de radio
+      // En Cuántico: rotación cuántica continua desorientada
+      if (currentPlanet.id === 'cuantico') {
+        op.quantumAngle += 0.07;
+      }
+
+      // Formación de escolta dinámica alrededor del cursor
+      var orbitRadius = 40 + (op.id % 5) * 22;
       var orbitDirection = (op.id % 2 === 0) ? 1 : -1;
       var orbitAngle = (op.id / OPERATIVE_COUNT) * Math.PI * 2 + (timeTick * 0.75 * orbitDirection) + op.waveOffset;
 
@@ -851,7 +1346,6 @@
       var distToTarget = Math.hypot(toTargetX, toTargetY);
 
       if (mDist > orbitRadius + 35) {
-        // Lejos del mouse: Vuelo directo acelerado hacia el cursor
         var approachSpeed = isMobile ? 2.8 : 3.6;
         var dirX = mdx / (mDist || 1);
         var dirY = mdy / (mDist || 1);
@@ -859,66 +1353,53 @@
         op.targetVy = dirY * approachSpeed + Math.cos(timeTick * 2.6 + op.waveOffset) * 0.4;
         op.rotorSpeed = 0.95;
       } else {
-        // En cercanías del cursor: Órbita ágil y escolta constante alrededor del mouse
         var escortSpeed = isMobile ? 2.0 : 2.5;
         op.targetVx = (toTargetX / (distToTarget || 1)) * escortSpeed;
         op.targetVy = (toTargetY / (distToTarget || 1)) * escortSpeed;
         op.rotorSpeed = 0.65;
       }
 
-      // Propulsión activa hacia el objetivo
+      // Gravedad vertical del planeta
+      if (currentPlanet.gravityY) {
+        op.vy += currentPlanet.gravityY;
+      }
+
+      // Propulsión activa hacia el cursor
       op.vx += (op.targetVx - op.vx) * 0.085;
       op.vy += (op.targetVy - op.vy) * 0.085;
 
       op.rotorAngle += op.rotorSpeed;
 
-      // Inclinación aerodinámica natural
       var targetTilt = Math.max(-0.40, Math.min(0.40, op.vx * 0.18));
       op.tilt += (targetTilt - op.tilt) * 0.15;
 
-      // Flotación senoidal micro
       op.vy += Math.sin(timeTick * 2.8 + op.waveOffset) * 0.05;
 
-      // Oleaje en planeta Agua
       if (currentPlanet.fluidWave) {
         op.vx += Math.sin(timeTick * 2 + op.waveOffset) * 0.06;
         op.vy += Math.cos(timeTick * 1.6 + op.waveOffset) * 0.04;
       }
 
-      // Suave repulsión del centro exacto del cursor (para que nunca tapen el clic)
       if (mDist < 26 && mDist > 0.1) {
         op.vx -= (mdx / mDist) * 0.55;
         op.vy -= (mdy / mDist) * 0.55;
       }
 
-      // C. INTERACCIÓN ENTRE ELLOS: REBOTES ELÁSTICOS Y VÍNCULOS
+      // Rebote entre astronautas
       for (var otherIdx = opIdx + 1; otherIdx < OPERATIVE_COUNT; otherIdx++) {
         var other = operatives[otherIdx];
         var dBetweenX = other.x - op.x;
         var dBetweenY = other.y - op.y;
         var distBetween = Math.hypot(dBetweenX, dBetweenY);
 
-        // Rebote elástico juguetón entre astronautas (se esquivan en vuelo)
         if (distBetween < 22 && distBetween > 1) {
           var repulse = (22 - distBetween) * 0.14;
           op.vx -= (dBetweenX / distBetween) * repulse;
           op.vy -= (dBetweenY / distBetween) * repulse;
           other.vx += (dBetweenX / distBetween) * repulse;
           other.vy += (dBetweenY / distBetween) * repulse;
-
-          if (sparks.length < 25) {
-            sparks.push({
-              x: (op.x + other.x) / 2,
-              y: (op.y + other.y) / 2,
-              vx: (Math.random() - 0.5) * 2.5,
-              vy: (Math.random() - 0.5) * 2.5,
-              life: 0.65,
-              color: '#38BDF8'
-            });
-          }
         }
 
-        // Vínculo magnético entre compañeros de escuadrón
         if (!isMobile && distBetween >= 45 && distBetween <= 85 && Math.random() < 0.007 && !op.peerBeamActive && !other.peerBeamActive) {
           op.peerBeamActive = true;
           op.peerTargetOp = other;
@@ -936,7 +1417,7 @@
         }
       }
 
-      // D. PISTOLA MARCIANA MAGNÉTICA HACIA TARJETAS O TÍTULOS
+      // Pistola marciana magnética hacia tarjetas
       op.magneticCooldown--;
       if (contentBoxes.length > 0 && op.magneticCooldown <= 0 && !op.magneticBeamActive) {
         var closestBox = null;
@@ -964,25 +1445,13 @@
           op.magneticBeamTimer = isMobile ? 14 : 20;
           op.magneticCooldown = Math.random() * 100 + 50;
 
-          // Suave tirón magnético
           var bdx = hitX - op.x;
           var bdy = hitY - op.y;
           var bDist = Math.max(20, Math.hypot(bdx, bdy));
           op.vx += (bdx / bDist) * 1.1;
           op.vy += (bdy / bDist) * 0.9;
 
-          if (sparks.length < 25) {
-            sparks.push({
-              x: hitX,
-              y: hitY,
-              vx: (Math.random() - 0.5) * 2.5,
-              vy: -Math.random() * 2,
-              life: 0.7,
-              color: '#FFEA00'
-            });
-          }
-        } else {
-          op.magneticCooldown = 40;
+          addLaserMark(hitX, hitY);
         }
       }
 
@@ -993,12 +1462,11 @@
         }
       }
 
-      // E. CHOQUE ELÁSTICO CON LETRAS Y TARJETAS ("Y QUE CHOQUEN CON LAS LETRAS")
+      // Choque elástico con letras y tarjetas
       var pad = 6;
       for (var cbIdx = 0; cbIdx < contentBoxes.length; cbIdx++) {
         var cb = contentBoxes[cbIdx];
         if (op.x > cb.left - pad && op.x < cb.right + pad && op.y > cb.top - pad && op.y < cb.bottom + pad) {
-          // Calcular penetración
           var ovL = op.x - (cb.left - pad);
           var ovR = (cb.right + pad) - op.x;
           var ovT = op.y - (cb.top - pad);
@@ -1008,20 +1476,16 @@
           if (minOv === ovT) {
             op.y = cb.top - pad;
             op.vy = -Math.abs(op.vy) * 0.85 - 0.6;
-            op.targetVy = -1.2;
           } else if (minOv === ovB) {
             op.y = cb.bottom + pad;
             op.vy = Math.abs(op.vy) * 0.85 + 0.6;
-            op.targetVy = 1.2;
           } else if (minOv === ovL) {
             op.x = cb.left - pad;
             op.vx = -Math.abs(op.vx) * 0.85 - 0.6;
-            op.targetVx = -1.4;
             op.facingLeft = true;
           } else {
             op.x = cb.right + pad;
             op.vx = Math.abs(op.vx) * 0.85 + 0.6;
-            op.targetVx = 1.4;
             op.facingLeft = false;
           }
 
@@ -1032,8 +1496,8 @@
               vx: (Math.random() - 0.5) * 3,
               vy: (Math.random() - 0.5) * 3,
               life: 0.75,
-              color: (currentPlanet.id === 'marte') ? '#F87171' :
-                     (currentPlanet.id === 'tierra' || currentPlanet.id === 'plasma') ? '#4ADE80' :
+              color: (currentPlanet.id === 'deimos' || currentPlanet.id === 'marte') ? '#F87171' :
+                     (currentPlanet.id === 'tierra' || currentPlanet.id === 'plasma') ? '#22C55E' :
                      (currentPlanet.id === 'cuantico') ? '#C084FC' : '#FFEA00'
             });
           }
@@ -1041,45 +1505,31 @@
         }
       }
 
-      // F. INTEGRACIÓN DE VELOCIDAD
+      // Integración física
       op.vx *= friction;
       op.vy *= friction;
       op.x += op.vx;
       op.y += op.vy;
 
-      // G. LÍMITES DE PANTALLA: SUSTENTACIÓN Y VUELO LIBRE (NUNCA CAER AL FONDO)
-      // Techo
-      if (op.y < 60) {
-        op.y = 60;
-        op.vy = Math.abs(op.vy) * 0.8 + 0.5;
-        op.targetVy = Math.random() * 1.2 + 0.5;
+      // Límites de pantalla suaves
+      if (op.y < 35) {
+        op.y = 35;
+        op.vy = Math.abs(op.vy) * 0.7;
       }
-      // Suelo (Repulsión activa para que sigan volando sin quedarse atrapados en fila)
-      var floorLimit = height - (isMobile ? 85 : 70);
+      var floorLimit = height - (isMobile ? 65 : 45);
       if (op.y > floorLimit) {
         op.y = floorLimit;
-        op.vy = -Math.abs(op.vy) * 0.85 - 0.8;
-        op.targetVy = -(Math.random() * 1.5 + 0.8); // Impulso vertical hacia arriba
-        op.rotorSpeed = 0.75;
+        op.vy = -Math.abs(op.vy) * 0.7;
+      }
+      if (op.x < 15) {
+        op.x = 15;
+        op.vx = Math.abs(op.vx) * 0.7;
+      } else if (op.x > width - 15) {
+        op.x = width - 15;
+        op.vx = -Math.abs(op.vx) * 0.7;
       }
 
-      // Paredes laterales
-      if (op.x < 25) {
-        op.x = 25;
-        op.vx = Math.abs(op.vx) * 0.8 + 0.5;
-        op.targetVx = Math.random() * 1.5 + 0.5;
-        op.facingLeft = false;
-      } else if (op.x > width - 25) {
-        op.x = width - 25;
-        op.vx = -Math.abs(op.vx) * 0.8 - 0.5;
-        op.targetVx = -(Math.random() * 1.5 + 0.5);
-        op.facingLeft = true;
-      }
-
-      // Dibujar rayo marciano si está disparando
       drawMartianMagneticRay(ctx, op, timeTick);
-
-      // Dibujar astronauta
       drawMicroAstronaut(ctx, op);
     }
 
@@ -1089,104 +1539,54 @@
   requestAnimationFrame(loop);
 
   // ==========================================================================
-  // 10. SCROLL-RAIL LATERAL (SOLO EN ESCRITORIO)
+  // 11. INCLINACIÓN 3D INTERACTIVA EN TARJETAS
   // ==========================================================================
-  var railFill = document.getElementById('scroll-rail-fill');
-  var railItems = document.querySelectorAll('.rail-item');
-  var trackedSections = ['inicio', 'servicios', 'menu-inteligente', 'proyectos', 'contacto'];
+  if (!isMobile) {
+    var tiltCards = document.querySelectorAll('.service-card, .tile, .project-giant-item');
 
-  window.addEventListener('scroll', function() {
-    if (isMobile) return;
-    var winScroll = document.documentElement.scrollTop || document.body.scrollTop;
-    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    var scrolledPercent = docHeight > 0 ? (winScroll / docHeight) * 100 : 0;
+    tiltCards.forEach(function(card) {
+      card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
 
-    if (railFill) {
-      railFill.style.height = scrolledPercent + '%';
-    }
+        var centerX = rect.width / 2;
+        var centerY = rect.height / 2;
 
-    var currentSec = 'inicio';
-    trackedSections.forEach(function(secId) {
-      var el = document.getElementById(secId);
-      if (el) {
-        var rect = el.getBoundingClientRect();
-        if (rect.top <= window.innerHeight * 0.45) {
-          currentSec = secId;
-        }
-      }
+        var rotateX = ((y - centerY) / centerY) * -6;
+        var rotateY = ((x - centerX) / centerX) * 6;
+
+        card.style.transform = 'perspective(1000px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg) scale3d(1.025, 1.025, 1.025)';
+      });
+
+      card.addEventListener('mouseleave', function() {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
     });
-
-    railItems.forEach(function(item) {
-      if (item.getAttribute('data-section') === currentSec) {
-        item.classList.add('active');
-      } else {
-        item.classList.remove('active');
-      }
-    });
-  }, { passive: true });
-
-  // ==========================================================================
-  // 11. EFECTO DE MOVIMIENTO E INCLINACIÓN 3D DINÁMICA EN TARJETAS Y CONTENEDORES
-  // ==========================================================================
-  var tiltCards = document.querySelectorAll('.service-card, .tile, .price-card, .project-giant-item, .card, .stat-tile');
-  tiltCards.forEach(function(card) {
-    card.addEventListener('mouseenter', function() {
-      card.style.transition = 'transform 0.08s ease-out, box-shadow 0.2s ease, border-color 0.2s ease';
-    });
-
-    card.addEventListener('mousemove', function(e) {
-      var rect = card.getBoundingClientRect();
-      var x = (e.clientX - rect.left) / rect.width - 0.5;
-      var y = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = 'perspective(1000px) rotateX(' + (-y * 12) + 'deg) rotateY(' + (x * 12) + 'deg) translateY(-8px) scale3d(1.025, 1.025, 1.025)';
-      card.style.boxShadow = (-x * 20) + 'px ' + (-y * 20 + 20) + 'px 40px rgba(0, 0, 0, 0.65), 0 0 25px rgba(255, 255, 255, 0.06)';
-      
-      var ambient = card.querySelector('.card-ambient-bg');
-      if (ambient) {
-        ambient.style.transform = 'translate(' + (x * 24) + 'px, ' + (y * 24) + 'px) scale(1.12)';
-        ambient.style.opacity = '0.70';
-      }
-    });
-
-    card.addEventListener('mouseleave', function() {
-      card.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease';
-      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0) scale3d(1, 1, 1)';
-      card.style.boxShadow = '';
-      var ambient = card.querySelector('.card-ambient-bg');
-      if (ambient) {
-        ambient.style.transform = '';
-        ambient.style.opacity = '';
-      }
-    });
-  });
-
-  // Parallax cinético brutalista en scroll
-  var kLine2 = document.querySelector('.kinetic-line-2');
-  var kLine3 = document.querySelector('.kinetic-line-3');
-  window.addEventListener('scroll', function() {
-    var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-    if (kLine2) {
-      kLine2.style.transform = 'translateX(' + (-scrolled * 0.14) + 'px)';
-    }
-    if (kLine3) {
-      kLine3.style.transform = 'translateX(' + (scrolled * 0.14) + 'px)';
-    }
-  }, { passive: true });
-
+  }
 
   // ==========================================================================
   // 12. CABECERA STICKY AL BAJAR (SE MANTIENE CON TODOS LOS MENÚS)
   // ==========================================================================
   var mainNav = document.querySelector('nav.main-nav');
-  window.addEventListener('scroll', function() {
-    var scrollY = window.pageYOffset || document.documentElement.scrollTop;
-    if (mainNav) {
-      if (scrollY > 30) {
-        mainNav.classList.add('is-scrolled');
+  if (mainNav) {
+    var scrollThreshold = 40;
+
+    function handleNavScroll() {
+      var currentY = window.pageYOffset || document.documentElement.scrollTop;
+      if (currentY > scrollThreshold) {
+        if (!mainNav.classList.contains('is-scrolled')) {
+          mainNav.classList.add('is-scrolled');
+        }
       } else {
-        mainNav.classList.remove('is-scrolled');
+        if (mainNav.classList.contains('is-scrolled')) {
+          mainNav.classList.remove('is-scrolled');
+        }
       }
     }
-  }, { passive: true });
+
+    window.addEventListener('scroll', handleNavScroll, { passive: true });
+    handleNavScroll();
+  }
 
 })();
